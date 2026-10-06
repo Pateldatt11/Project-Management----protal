@@ -47,6 +47,21 @@ app.*.map.json
 # Firebase Admin SDK credentials must never be committed.
 **/firebase-admin*.json
 **/service-account*.json
+**/firebase-adminsdk*.json
+**/*credentials*.json
+**/*client_secret*.json
+
+# Local environment files and signing credentials must never be committed.
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
 **/secrets/
 lib.zip
 lib/*.zip
