@@ -11,8 +11,6 @@ import '../../../core/permissions/permission_service.dart';
 import '../../../core/utils/date_utils.dart';
 import '../../../core/widgets/section_card.dart';
 import '../../../core/widgets/status_badge.dart';
-import 'mobile_ui_control_screen.dart';
-import 'mobile_ui_designer_screen.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -62,12 +60,6 @@ class SettingsScreen extends ConsumerWidget {
             ],
             const _DemoDataControl(),
             const SizedBox(height: 18),
-            
-            // Render Mobile UI Control only for users with settings management rights
-            if (canManageSettings) ...[
-              const _MobileUiControlEntry(),
-              const SizedBox(height: 18),
-            ],
             
             const _PortalPostControl(),
           ],
@@ -214,63 +206,6 @@ class _DemoDataControl extends ConsumerWidget {
             const SizedBox(height: 10),
             const Text('Only Super Admin, Company Admin, and IT Admin can change this setting.', style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w800)),
           ],
-        ],
-      ),
-    );
-  }
-}
-
-class _MobileUiControlEntry extends ConsumerWidget {
-  const _MobileUiControlEntry();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(workspaceProvider);
-    final member = state.currentMember;
-    final canManage = PermissionService.canManageSettings(member);
-    final config = state.mobileUiConfig;
-    return SectionCard(
-      title: 'Mobile UI Control',
-      subtitle: 'Server-driven employee Android/iOS layout. Control bottom tabs, employee home cards, task fields, and project fields without an APK update.',
-      trailing: StatusBadge(label: config.enabled ? 'Live' : 'Default UI', color: config.enabled ? Colors.green : Colors.orange),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              StatusBadge(label: '${config.bottomTabs.length} mobile tabs', color: Colors.blue),
-              StatusBadge(label: '${config.homeCards.length} home cards', color: Colors.indigo),
-              StatusBadge(label: '${config.taskCardFields.length} task fields', color: Colors.deepPurple),
-              StatusBadge(label: '${config.projectCardFields.length} project fields', color: Colors.teal),
-              StatusBadge(label: config.compactMode ? 'Compact mode' : 'Comfortable mode', color: Colors.blueGrey),
-            ],
-          ),
-          const SizedBox(height: 14),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: [
-                OutlinedButton.icon(
-                  onPressed: canManage
-                      ? () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const MobileUiControlScreen()))
-                      : null,
-                  icon: const Icon(Icons.tune_rounded),
-                  label: const Text('Quick Control'),
-                ),
-                FilledButton.icon(
-                  onPressed: canManage
-                      ? () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const MobileUiDesignerScreen()))
-                      : null,
-                  icon: const Icon(Icons.preview_rounded),
-                  label: const Text('Open Mobile UI Designer'),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );

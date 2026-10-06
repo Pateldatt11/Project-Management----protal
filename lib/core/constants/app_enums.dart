@@ -20,7 +20,7 @@ enum UserRole {
 enum ProjectStatus { planning, active, onHold, review, completed, cancelled }
 enum TaskStatus { backlog, todo, inProgress, review, testing, completed }
 enum TaskPriority { low, medium, high, critical }
-enum MainSection { dashboard, projects, tasks, kanban, timeline, appraisals, meetings, teams, employees, reports, notifications, settings, profile }
+enum MainSection { dashboard, projects, tasks, kanban, timeline, appraisals, meetings, teams, employees, tickets, reports, notifications, campaigns, settings, profile }
 
 extension UserRoleX on UserRole {
   String get value => name;
@@ -245,8 +245,10 @@ extension MainSectionX on MainSection {
         MainSection.meetings => 'Meetings',
         MainSection.teams => 'Teams',
         MainSection.employees => 'Employees',
+        MainSection.tickets => 'Support Tickets',
         MainSection.reports => 'Reports',
         MainSection.notifications => 'Notifications',
+        MainSection.campaigns => 'Campaigns',
         MainSection.settings => 'Settings',
         MainSection.profile => 'Profile',
       };
@@ -261,8 +263,10 @@ extension MainSectionX on MainSection {
         MainSection.meetings => Icons.video_call_rounded,
         MainSection.teams => Icons.groups_rounded,
         MainSection.employees => Icons.badge_rounded,
+        MainSection.tickets => Icons.support_agent_rounded,
         MainSection.reports => Icons.insert_chart_rounded,
         MainSection.notifications => Icons.notifications_rounded,
+        MainSection.campaigns => Icons.campaign_rounded,
         MainSection.settings => Icons.settings_rounded,
         MainSection.profile => Icons.person_rounded,
       };

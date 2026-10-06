@@ -2,32 +2,34 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../app/workspace_state.dart';
-import '../../../core/config/app_config.dart';
-import '../../../core/constants/app_enums.dart';
-import '../../../core/navigation/navigation_preferences.dart';
-import '../../../core/timeline/timeline_preferences.dart';
-import '../../../core/permissions/permission_service.dart';
-import '../../../core/responsive/responsive.dart';
-import '../../../core/widgets/brew_haven_chat_sheet.dart';
-import '../../../core/widgets/subscription_gate.dart';
-import '../../../data/models/member.dart';
-import '../../../features/appraisals/presentation/appraisal_screen.dart';
-import '../../../features/auth/presentation/auth_gate.dart';
-import '../../../features/dashboard/presentation/dashboard_screen.dart';
-import '../../../features/employees/presentation/employees_screen.dart';
-import '../../../features/kanban/presentation/kanban_screen.dart';
-import '../../../features/meetings/presentation/meetings_screen.dart';
-import '../../../features/notifications/presentation/notifications_screen.dart';
-import '../../../features/profile/presentation/profile_screen.dart';
-import '../../../features/projects/presentation/projects_screen.dart';
-import '../../../features/reports/presentation/reports_screen.dart';
-import '../../../features/settings/presentation/settings_screen.dart';
-import '../../../features/tasks/presentation/tasks_screen.dart';
-import '../../../features/teams/presentation/teams_screen.dart';
-import '../../../features/timeline/presentation/realtime_timeline_screen.dart';
-import '../../../features/billing/presentation/billing_screen.dart';
-import '../../../features/billing/presentation/plan_selection_screen.dart';
+import 'package:project_management_dashboard/app/workspace_state.dart';
+import 'package:project_management_dashboard/core/config/app_config.dart';
+import 'package:project_management_dashboard/core/constants/app_enums.dart';
+import 'package:project_management_dashboard/core/navigation/navigation_preferences.dart';
+import 'package:project_management_dashboard/core/timeline/timeline_preferences.dart';
+import 'package:project_management_dashboard/core/permissions/permission_service.dart';
+import 'package:project_management_dashboard/core/responsive/responsive.dart';
+import 'package:project_management_dashboard/core/widgets/brew_haven_chat_sheet.dart';
+import 'package:project_management_dashboard/core/widgets/subscription_gate.dart';
+import 'package:project_management_dashboard/data/models/member.dart';
+import 'package:project_management_dashboard/features/appraisals/presentation/appraisal_screen.dart';
+import 'package:project_management_dashboard/features/auth/presentation/auth_gate.dart';
+import 'package:project_management_dashboard/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:project_management_dashboard/features/employees/presentation/employees_screen.dart';
+import 'package:project_management_dashboard/features/kanban/presentation/kanban_screen.dart';
+import 'package:project_management_dashboard/features/meetings/presentation/meetings_screen.dart';
+import 'package:project_management_dashboard/features/notifications/presentation/notifications_screen.dart';
+import 'package:project_management_dashboard/features/profile/presentation/profile_screen.dart';
+import 'package:project_management_dashboard/features/projects/presentation/projects_screen.dart';
+import 'package:project_management_dashboard/features/reports/presentation/reports_screen.dart';
+import 'package:project_management_dashboard/features/settings/presentation/settings_screen.dart';
+import 'package:project_management_dashboard/features/tasks/presentation/tasks_screen.dart';
+import 'package:project_management_dashboard/features/tickets/presentation/tickets_screen.dart';
+import 'package:project_management_dashboard/features/teams/presentation/teams_screen.dart';
+import 'package:project_management_dashboard/features/timeline/presentation/realtime_timeline_screen.dart';
+import 'package:project_management_dashboard/features/billing/presentation/billing_screen.dart';
+import 'package:project_management_dashboard/features/billing/presentation/plan_selection_screen.dart';
+import 'package:project_management_dashboard/features/campaigns/presentation/campaigns_screen.dart';
 
 class AppShell extends ConsumerStatefulWidget {
   const AppShell({super.key});
@@ -324,8 +326,10 @@ class _AppShellState extends ConsumerState<AppShell> {
       MainSection.meetings => const MeetingsScreen(),
       MainSection.teams => const TeamsScreen(),
       MainSection.employees => const EmployeesScreen(),
+      MainSection.tickets => const TicketsScreen(),
       MainSection.reports => const ReportsScreen(),
       MainSection.notifications => const NotificationsScreen(),
+      MainSection.campaigns => const CampaignsScreen(),
       MainSection.settings => const SettingsScreen(),
       MainSection.profile => const ProfileScreen(),
     };

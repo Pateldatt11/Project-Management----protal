@@ -5,10 +5,10 @@ import 'sdui_mobile_ui_config.dart';
 
 /// Firestore loader for the active mobile SDUI config.
 ///
-/// Release APK default merge:
-///   companies/{companyId}/uiConfigs/mobileEmployee
-/// + companies/{companyId}/uiConfigs/mobileEmployeeDesign
-/// + companies/{companyId}/uiConfigs/mobileEmployeeScreens
+/// Release APK default merge (shared by every customer):
+///   platformUiConfigs/mobileEmployee
+/// + platformUiConfigs/mobileEmployeeDesign
+/// + platformUiConfigs/mobileEmployeeScreens
 ///
 /// Test APK merge:
 ///   flutter build apk --release --dart-define=SDUI_CONFIG_DOC=mobileEmployeeNext

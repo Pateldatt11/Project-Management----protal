@@ -6,15 +6,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/config/app_config.dart';
-import '../core/config/cloudinary_config.dart';
 import '../core/constants/app_enums.dart';
 import '../core/permissions/permission_service.dart';
-import '../core/platform/android_file_picker_service.dart' show AndroidFilePickerService, PickedBusinessFile;
+import '../core/platform/android_file_picker_service.dart' show AndroidFilePickerService;
 import '../core/services/notification_service.dart';
 import '../core/services/onesignal_api_service.dart';
 import '../core/utils/id_generator.dart';
 import '../core/utils/json_value.dart';
-import '../data/cloudinary/cloudinary_upload_service.dart' show CloudinaryUploadService, CloudinaryUploadResult;
+import '../data/cloudinary/cloudinary_upload_service.dart' show CloudinaryUploadService;
 import '../data/demo/demo_data.dart';
 import '../data/firebase/firebase_paths.dart';
 import '../data/models/activity_log.dart';
@@ -708,10 +707,14 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
     String? companyIdOverride,
   }) async {
     if (!AppConfig.useFirebase || _repository == null) return;
-    final override = companyIdOverride?.trim();
-    if (override == null && _firebaseUid == uid && _firebaseCompanyId != null) return;
+    final requestedCompanyId = (companyIdOverride ?? '').trim();
+    if (_firebaseUid == uid &&
+        _firebaseCompanyId != null &&
+        (requestedCompanyId.isEmpty || _firebaseCompanyId == requestedCompanyId)) {
+      return;
+    }
 
-    var companyId = override?.isNotEmpty == true ? override! : AppConfig.fallbackCompanyId;
+    var companyId = AppConfig.fallbackCompanyId;
     final safeName = (displayName?.trim().isNotEmpty ?? false) ? displayName!.trim() : email.split('@').first;
     final db = FirebaseFirestore.instance;
 
@@ -721,17 +724,29 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
       Member firebaseMember;
       Company firebaseCompany;
       final userRef = db.doc(FirebasePaths.user(uid));
-      final userSnapshot = await userRef.get();
-      final userData = userSnapshot.data();
-      if (override?.isEmpty ?? true) {
-        companyId = await _resolveCompanyIdForLogin(db: db, uid: uid, userData: userData);
+      var userSnapshot = await userRef.get();
+      Map<String, dynamic>? userData = userSnapshot.data();
+
+      // Platform Super Admin records may exist in either users/{uid} or the
+      // legacy singular user/{uid} collection. Accept both consistently.
+      if (!userSnapshot.exists || userData == null) {
+        final singularUserSnapshot = await db.doc('user/$uid').get();
+        if (singularUserSnapshot.exists && singularUserSnapshot.data() != null) {
+          userSnapshot = singularUserSnapshot;
+          userData = singularUserSnapshot.data();
+        }
       }
-      _repository!.activeCompanyId = companyId;
+
       final isManualPlatformSuperAdmin = userSnapshot.exists &&
           userData != null &&
           _isSuperAdminRoleValue(userData['role']) &&
           _isActiveAccountStatus(userData['status']) &&
           _matchesAuthEmail(userData['email'], email);
+      final manualPlatformSuperAdminData = userData ?? const <String, dynamic>{};
+      companyId = requestedCompanyId.isNotEmpty && isManualPlatformSuperAdmin
+          ? requestedCompanyId
+          : await _resolveCompanyIdForLogin(db: db, uid: uid, userData: userData);
+      _repository!.activeCompanyId = companyId;
 
       final memberRef = db.doc('${FirebasePaths.members(companyId)}/$uid');
       final companyRef = db.doc(FirebasePaths.company(companyId));
@@ -807,14 +822,14 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
       } else if (isManualPlatformSuperAdmin) {
         firebaseMember = Member(
           uid: uid,
-          displayName: JsonValue.string(userData['displayName'], fallback: safeName),
+          displayName: JsonValue.string(manualPlatformSuperAdminData['displayName'], fallback: safeName),
           email: email,
           role: UserRole.superAdmin,
           status: 'active',
-          capacityHoursPerWeek: JsonValue.number(userData['capacityHoursPerWeek'], fallback: 40),
+          capacityHoursPerWeek: JsonValue.number(manualPlatformSuperAdminData['capacityHoursPerWeek'], fallback: 40),
           department: 'Platform Administration',
           jobTitle: 'Platform Super Admin',
-          location: JsonValue.string(userData['location'], fallback: 'India'),
+          location: JsonValue.string(manualPlatformSuperAdminData['location'], fallback: 'India'),
           available: true,
           isOnline: true,
           lastSeenAt: now,
@@ -842,7 +857,7 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
             role: UserRole.superAdmin,
             defaultCompanyId: companyId,
             status: 'active',
-          ), SetOptions(merge: true));
+          ).toJson(), SetOptions(merge: true));
           batch.set(db.doc('${FirebasePaths.userMemberships(uid)}/$companyId'), {
             'companyId': companyId,
             'companyName': firebaseCompany.name,
@@ -1103,40 +1118,9 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
         'updatedAt': now.toIso8601String(),
         'note': 'Disabled by default after Super Admin company setup so production shows only Firestore data.',
       }, SetOptions(merge: true));
-      final defaultMobileUiConfig = MobileUiConfig.defaults();
-      final defaultMobileUiDesign = MobileUiDesign.fromConfig(defaultMobileUiConfig);
-      final defaultMobileUiConfigMap = defaultMobileUiConfig.toMap(updatedBy: state.user.uid);
-      final defaultMobileUiDesignMap = defaultMobileUiDesign.toMap(updatedBy: state.user.uid);
-      batch.set(db.doc(FirebasePaths.mobileEmployeeUiConfig(companyId)), defaultMobileUiConfigMap, SetOptions(merge: true));
-      batch.set(db.doc(FirebasePaths.mobileEmployeeUiDesign(companyId)), defaultMobileUiDesignMap, SetOptions(merge: true));
-
-      batch.set(db.doc(FirebasePaths.mobileEmployeeUiConfigDoc(companyId, 'mobileEmployeeScreens')), <String, dynamic>{
-        'version': defaultMobileUiConfig.version,
-        'enabled': true,
-        'screenOverrides': <String, dynamic>{},
-        'updatedBy': state.user.uid,
-        'updatedAt': now.toIso8601String(),
-      }, SetOptions(merge: true));
-      batch.set(db.doc(FirebasePaths.mobileEmployeeUiConfigDoc(companyId, 'mobileEmployeeNext')), <String, dynamic>{
-        ...defaultMobileUiConfigMap,
-        'targetDocId': 'mobileEmployeeNext',
-        'source': 'companySetupTestCoreSeed',
-      }, SetOptions(merge: true));
-      batch.set(db.doc(FirebasePaths.mobileEmployeeUiConfigDoc(companyId, 'mobileEmployeeNextDesign')), <String, dynamic>{
-        ...defaultMobileUiDesignMap,
-        'targetDocId': 'mobileEmployeeNext',
-        'publishTarget': 'test',
-        'source': 'companySetupTestDesignSeed',
-      }, SetOptions(merge: true));
-      batch.set(db.doc(FirebasePaths.mobileEmployeeUiConfigDoc(companyId, 'mobileEmployeeNextScreens')), <String, dynamic>{
-        'version': defaultMobileUiConfig.version,
-        'enabled': true,
-        'targetDocId': 'mobileEmployeeNext',
-        'publishTarget': 'test',
-        'screenOverrides': <String, dynamic>{},
-        'updatedBy': state.user.uid,
-        'updatedAt': now.toIso8601String(),
-      }, SetOptions(merge: true));
+      // Mobile UI configuration is platform-global and is intentionally not
+      // seeded per company. Platform Super Admin publishes it once from the
+      // APK Emulator / Mobile UI Designer for every customer application.
       await batch.commit();
 
       _firebaseUid = state.user.uid;
@@ -1259,11 +1243,15 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
         state = state.copyWith(comments: _displayComments(items), clearError: true);
       }, onError: (error) => state = state.copyWith(lastError: 'Comments stream failed: $error')));
 
-      _firebaseSubscriptions.add(_repository!.watchAttachments(companyId).listen((items) {
-        _firestoreAttachments = items;
-        state = state.copyWith(attachments: _displayAttachments(items), clearError: true);
-      }, onError: (error) => state = state.copyWith(lastError: 'Attachments stream failed: $error')));
     }
+
+    // Attachments are lightweight Cloudinary metadata, not media bytes. Every
+    // role that can see tasks needs this stream so Files works after reload on
+    // both APK and web. The actual file remains stored in Cloudinary.
+    _firebaseSubscriptions.add(_repository!.watchAttachments(companyId).listen((items) {
+      _firestoreAttachments = items;
+      state = state.copyWith(attachments: _displayAttachments(items), clearError: true);
+    }, onError: (error) => state = state.copyWith(lastError: 'Attachments stream failed: $error')));
 
     _firebaseSubscriptions.add(FirebaseFirestore.instance.doc(FirebasePaths.portalPostSettings(companyId)).snapshots().listen((snapshot) {
       if (!snapshot.exists || snapshot.data() == null) return;
@@ -1362,8 +1350,8 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
   }
 
   Future<void> updateMobileUiConfig(MobileUiConfig config) async {
-    if (!PermissionService.canManageSettings(state.currentMember)) {
-      state = state.copyWith(lastError: 'Your role cannot change employee mobile UI settings.');
+    if (!PermissionService.canManageMobileUi(state.currentMember)) {
+      state = state.copyWith(lastError: 'Only the Platform Super Admin can change employee mobile UI settings.');
       return;
     }
     final nextVersion = config.version <= state.mobileUiConfig.version ? state.mobileUiConfig.version + 1 : config.version;
@@ -1371,7 +1359,7 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
     state = state.copyWith(mobileUiConfig: nextConfig, clearError: true);
     final activity = _activity(
       'Mobile UI updated',
-      'Employee mobile tabs, home cards, and card fields were updated from admin settings.',
+      'Global employee mobile UI was updated for all customer applications.',
       'uiConfig',
       'mobileEmployee',
     );
@@ -1390,8 +1378,8 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
   }
 
   Future<MobileUiDesign?> updateMobileUiDesign(MobileUiDesign design) async {
-    if (!PermissionService.canManageSettings(state.currentMember)) {
-      state = state.copyWith(lastError: 'Your role cannot publish employee mobile UI design.');
+    if (!PermissionService.canManageMobileUi(state.currentMember)) {
+      state = state.copyWith(lastError: 'Only the Platform Super Admin can publish employee mobile UI design.');
       return null;
     }
 
@@ -2169,12 +2157,17 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
     );
   }
 
-  Future<bool> addAttachmentFromDevicePicker(String taskId) async {
+  Future<bool> addAttachmentFromDevicePicker(
+    String taskId, {
+    void Function(int sentBytes, int totalBytes)? onProgress,
+  }) async {
     final task = _findTask(taskId);
     if (task == null) {
       state = state.copyWith(lastError: 'Task not found for file upload.');
       return false;
     }
+
+    state = state.copyWith(clearError: true);
 
     try {
       final picked = await AndroidFilePickerService.pickBusinessFile();
@@ -2184,6 +2177,7 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
         fileName: picked.name,
         fileType: picked.mimeType,
         bytes: picked.bytes,
+        onProgress: onProgress,
       );
     } on PlatformException catch (error) {
       state = state.copyWith(lastError: _filePickerErrorMessage(error));
@@ -2199,6 +2193,7 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
     required String fileName,
     required String fileType,
     required Uint8List bytes,
+    void Function(int sentBytes, int totalBytes)? onProgress,
   }) async {
     final task = _findTask(taskId);
     if (task == null) {
@@ -2218,7 +2213,9 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
     final safeName = _safeStorageFileName(fileName);
     final contentType = _normalizeBusinessMimeType(safeName, fileType);
     if (!AndroidFilePickerService.allowedMimeTypes.contains(contentType)) {
-      state = state.copyWith(lastError: 'Unsupported file type. Use PDF, image, Word, Excel, or text files.');
+      state = state.copyWith(
+        lastError: 'Unsupported file type. Use PDF, image, Word, Excel, or text files.',
+      );
       return false;
     }
 
@@ -2228,14 +2225,13 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
       attachmentId: attachmentId,
       safeName: safeName,
     );
-    var persistedStoragePath = storagePath;
-    var downloadUrl = '';
-    
+
     state = state.copyWith(
-      isSaving: true, 
-      uploadingTaskId: taskId, 
+      isSaving: true,
+      uploadingTaskId: taskId,
       clearError: true,
     );
+    onProgress?.call(0, bytes.lengthInBytes);
 
     try {
       final uploadResult = await _uploadTaskAttachmentAndGetUrl(
@@ -2243,35 +2239,35 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
         bytes: bytes,
         contentType: contentType,
         originalName: fileName.trim().isEmpty ? safeName : fileName.trim(),
+        onProgress: onProgress,
       );
-      downloadUrl = uploadResult.downloadUrl;
-      persistedStoragePath = uploadResult.storagePath;
 
-      _commitAttachment(
-        task: task,
-        attachment: FileAttachment(
-          attachmentId: attachmentId,
-          taskId: taskId,
-          projectId: task.projectId,
-          uploadedBy: state.user.uid,
-          fileName: fileName.trim().isEmpty ? safeName : fileName.trim(),
-          fileType: contentType,
-          fileSize: bytes.lengthInBytes,
-          publicId: persistedStoragePath,
-          secureUrl: downloadUrl,
-          createdAt: DateTime.now(),
-        ),
+      final attachment = FileAttachment(
+        attachmentId: attachmentId,
+        taskId: taskId,
+        projectId: task.projectId,
+        uploadedBy: state.user.uid,
+        fileName: fileName.trim().isEmpty ? safeName : fileName.trim(),
+        fileType: contentType,
+        fileSize: bytes.lengthInBytes,
+        publicId: uploadResult.storagePath,
+        secureUrl: uploadResult.downloadUrl,
+        createdAt: DateTime.now(),
       );
+
+      // Do not show success until the Cloudinary URL metadata is durable.
+      await _commitAttachment(task: task, attachment: attachment);
+
       state = state.copyWith(
-        isSaving: false, 
-        clearUploadingTaskId: true, 
+        isSaving: false,
+        clearUploadingTaskId: true,
         clearError: true,
       );
       return true;
     } catch (error) {
       state = state.copyWith(
-        isSaving: false, 
-        clearUploadingTaskId: true, 
+        isSaving: false,
+        clearUploadingTaskId: true,
         lastError: 'File upload failed: $error',
       );
       return false;
@@ -2285,12 +2281,21 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
     return null;
   }
 
-  void _commitAttachment({required ProjectTask task, required FileAttachment attachment}) {
+  Future<void> _commitAttachment({
+    required ProjectTask task,
+    required FileAttachment attachment,
+  }) async {
     ProjectTask? updatedTask;
     final updatedTasks = state.tasks.map((item) {
       if (item.taskId != task.taskId) return item;
-      final nextAttachments = [...item.attachments, attachment];
-      final nextAttachmentNames = [...item.attachmentNames, attachment.fileName];
+
+      final deduped = <String, FileAttachment>{
+        for (final existing in item.attachments) existing.attachmentId: existing,
+        attachment.attachmentId: attachment,
+      };
+      final nextAttachments = deduped.values.toList();
+      final nextAttachmentNames = nextAttachments.map((item) => item.fileName).toList();
+
       updatedTask = item.copyWith(
         attachments: nextAttachments,
         attachmentNames: nextAttachmentNames,
@@ -2300,21 +2305,64 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
       return updatedTask!;
     }).toList();
 
-    final activity = _activity('File attached', '${attachment.fileName} was attached to ${task.title}.', 'task', task.taskId);
-    final audit = _audit('task.attachment.created', 'task', task.taskId, after: attachment.toJson());
+    // Cloudinary stores the media. Firestore stores only the URL/file metadata
+    // required to make the attachment visible on every device after reload.
+    if (_firebaseActive) {
+      Object? lastMetadataError;
+      for (var attempt = 0; attempt < 3; attempt++) {
+        try {
+          await _repository!.saveAttachment(state.company.companyId, attachment);
+          lastMetadataError = null;
+          break;
+        } catch (error) {
+          lastMetadataError = error;
+          if (attempt < 2) {
+            await Future<void>.delayed(Duration(milliseconds: 250 * (attempt + 1)));
+          }
+        }
+      }
+      if (lastMetadataError != null) {
+        throw StateError('Cloudinary uploaded the file, but attachment metadata could not be saved: $lastMetadataError');
+      }
+
+      // Keep the task-level mirror/count in sync when rules permit it. The
+      // attachment subcollection above is the durable source of truth.
+      if (updatedTask != null) {
+        try {
+          await _repository!.saveTask(updatedTask!);
+        } catch (_) {
+          // Older rules may allow attachmentsCount but not the nested metadata.
+          // The always-on attachment stream still keeps Files consistent.
+        }
+      }
+    }
+
+    final activity = _activity(
+      'File attached',
+      '${attachment.fileName} was attached to ${task.title}.',
+      'task',
+      task.taskId,
+    );
+    final audit = _audit(
+      'task.attachment.created',
+      'task',
+      task.taskId,
+      after: attachment.toJson(),
+    );
+
+    final attachmentMap = <String, FileAttachment>{
+      for (final existing in state.attachments) existing.attachmentId: existing,
+      attachment.attachmentId: attachment,
+    };
 
     state = state.copyWith(
-      attachments: [attachment, ...state.attachments],
+      attachments: attachmentMap.values.toList(),
       tasks: updatedTasks,
       activity: [activity, ...state.activity],
       auditLogs: [audit, ...state.auditLogs],
       clearError: true,
     );
 
-    _persistAttachment(attachment);
-    if (updatedTask != null) {
-      _persistTask(updatedTask!);
-    }
     _persistActivity(activity);
     _persistAudit(audit);
   }
@@ -2340,11 +2388,14 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
     required Uint8List bytes,
     required String contentType,
     required String originalName,
+    void Function(int sentBytes, int totalBytes)? onProgress,
   }) async {
     try {
-      final cloudinaryResult = await CloudinaryUploadService().uploadImage(
+      final cloudinaryResult = await CloudinaryUploadService().uploadFile(
         bytes: bytes,
         fileName: originalName.trim().isEmpty ? 'attachment' : originalName.trim(),
+        contentType: contentType,
+        onProgress: onProgress,
       );
 
       return _AttachmentUploadResult(

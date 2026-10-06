@@ -50,8 +50,7 @@ class BrewHavenChatResponse {
 class BrewHavenChatService {
   BrewHavenChatService._();
 
-  static const String defaultApiUrl =
-      'https://api.groq.com/openai/v1/chat/completions';
+  static const String defaultApiUrl = '/api/chat';
 
   // Primary Model
   static const String primaryModel = 'openai/gpt-oss-120b';
@@ -65,10 +64,6 @@ class BrewHavenChatService {
   static String get apiUrl => const String.fromEnvironment(
         'BREW_HAVEN_CHAT_URL',
         defaultValue: defaultApiUrl,
-      );
-
-  static String get groqApiKey => const String.fromEnvironment(
-        'GROQ_API_KEY',
       );
 
   static Map<String, dynamic> buildGroqRequestBody({
@@ -113,7 +108,6 @@ Write in a professional, direct tone. Use short headings or bullets when they im
   // Internal helper to make the HTTP call for a specific model
   static Future<BrewHavenChatResponse> _executeRequest({
     required String resolvedUrl,
-    required String requestKey,
     required String model,
     required String message,
     List<BrewHavenChatMessage>? history,
@@ -128,11 +122,8 @@ Write in a professional, direct tone. Use short headings or bullets when they im
 
     final response = await http
         .post(
-          Uri.parse(resolvedUrl),
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $requestKey',
-          },
+          _resolveUri(resolvedUrl),
+          headers: {'Content-Type': 'application/json'},
           body: jsonEncode(requestBody),
         )
         .timeout(const Duration(seconds: 25));
@@ -180,21 +171,11 @@ Write in a professional, direct tone. Use short headings or bullets when they im
     final resolvedUrl = (overrideUrl ?? apiUrl).trim().isEmpty
         ? defaultApiUrl
         : (overrideUrl ?? apiUrl).trim();
-    final requestKey = groqApiKey.trim();
-
-    if (requestKey.isEmpty) {
-      return const BrewHavenChatResponse(
-        reply: 'API key is missing. Please configure your GROQ_API_KEY.',
-        error: 'Missing API key',
-        source: 'client-validation',
-      );
-    }
 
     // 1. Attempt primary model first
     try {
       return await _executeRequest(
         resolvedUrl: resolvedUrl,
-        requestKey: requestKey,
         model: primaryModel,
         message: message,
         history: history,
@@ -210,7 +191,6 @@ Write in a professional, direct tone. Use short headings or bullets when they im
       try {
         return await _executeRequest(
           resolvedUrl: resolvedUrl,
-          requestKey: requestKey,
           model: backupModel,
           message: message,
           history: history,
@@ -229,5 +209,8 @@ Write in a professional, direct tone. Use short headings or bullets when they im
     );
   }
 
-  static Object? buildRequestBody({required String message, required List<BrewHavenChatMessage> history}) {}
+  static Uri _resolveUri(String url) {
+    final parsed = Uri.parse(url);
+    return parsed.hasScheme ? parsed : Uri.base.resolve(url);
+  }
 }

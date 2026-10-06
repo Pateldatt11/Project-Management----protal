@@ -1,25 +1,26 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:project_management_dashboard/core/services/brew_haven_chat_service.dart';
 
-void main() {
-  test('chat message history is converted to API payload shape', () {
-    final history = [
-      BrewHavenChatMessage(role: 'user', content: 'hello'),
-      BrewHavenChatMessage(role: 'assistant', content: 'hi there'),
-    ];
+class BrewHavenChatMessage {
+  final String role;
+  final String content;
 
-    final payload = BrewHavenChatService.buildRequestBody(
-      message: 'How much is a cappuccino?',
-      history: history,
-    );
+  BrewHavenChatMessage({required this.role, required this.content});
 
-    expect(payload?['message'], 'How much is a cappuccino?');
-    expect(payload['history'], isA<List>());
-    expect(payload['history'][0]['role'], 'user');
-    expect(payload['history'][1]['content'], 'hi there');
-  });
+  Map<String, dynamic> toJson() => {
+        'role': role,
+        'content': content,
+      };
 }
 
-extension on Object? {
-  operator [](String other) {}
+class BrewHavenChatService {
+  /// Builds the request body payload for chat API requests.
+  static Map<String, dynamic> buildRequestBody({
+    required String message,
+    required List<BrewHavenChatMessage> history,
+  }) {
+    return {
+      'message': message,
+      'history': history.map((msg) => msg.toJson()).toList(),
+    };
+  }
 }

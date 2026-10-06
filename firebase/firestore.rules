@@ -10,6 +10,10 @@ service cloud.firestore {
       return /databases/$(database)/documents/users/$(uid);
     }
 
+    function userSingularPath(uid) {
+      return /databases/$(database)/documents/user/$(uid);
+    }
+
     function isSuperAdmin() {
       return signedIn() && (
         request.auth.token.isSuperAdmin == true
@@ -26,6 +30,21 @@ service cloud.firestore {
           && (
             get(userPath(request.auth.uid)).data.status == null
             || get(userPath(request.auth.uid)).data.status in ['active', 'enabled']
+          )
+        )
+        || (
+          exists(userSingularPath(request.auth.uid))
+          && get(userSingularPath(request.auth.uid)).data.role in [
+            'superAdmin',
+            'Super Admin',
+            'super_admin',
+            'superadmin',
+            'platformSuperAdmin',
+            'Platform Super Admin'
+          ]
+          && (
+            get(userSingularPath(request.auth.uid)).data.status == null
+            || get(userSingularPath(request.auth.uid)).data.status in ['active', 'enabled']
           )
         )
       );
@@ -259,6 +278,94 @@ service cloud.firestore {
       return hasRole(companyId, ['superAdmin', 'admin', 'itAdmin']) || isSuperAdmin();
     }
 
+    function canManageCampaigns(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin']) || isSuperAdmin();
+    }
+
+    // Shared support / operations ticket access:
+    // - every active company member can create and track their own IT Support ticket;
+    // - Tester, Team Lead, Company Admin, IT Admin/DevOps and Platform Super Admin
+    //   can also raise broader operational ticket types;
+    // - Project Manager, TL, QA/Tester, IT/DevOps and admin roles can review the queue;
+    // - only IT/DevOps and admin roles can assign/change ticket status.
+    function canViewSupportQueue(companyId) {
+      return hasRole(companyId, [
+        'superAdmin',
+        'admin',
+        'itAdmin',
+        'devOps',
+        'projectManager',
+        'teamLead',
+        'qaTester'
+      ]) || isSuperAdmin();
+    }
+
+    function canRaiseExpandedTicketTypes(companyId) {
+      return hasRole(companyId, [
+        'superAdmin',
+        'admin',
+        'itAdmin',
+        'devOps',
+        'teamLead',
+        'qaTester'
+      ]) || isSuperAdmin();
+    }
+
+    function canManageSupportTickets(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'itAdmin', 'devOps']) || isSuperAdmin();
+    }
+
+    function ticketPath(companyId, ticketId) {
+      return /databases/$(database)/documents/companies/$(companyId)/tickets/$(ticketId);
+    }
+
+    function canReadTicketById(companyId, ticketId) {
+      return signedIn()
+        && exists(ticketPath(companyId, ticketId))
+        && (isCompanyMember(companyId) || isSuperAdmin())
+        && (
+          get(ticketPath(companyId, ticketId)).data.createdBy == request.auth.uid
+          || canViewSupportQueue(companyId)
+        );
+    }
+
+    function ticketCategoryAndTeamIsValid() {
+      return (
+          request.resource.data.category == 'IT Support'
+          && request.resource.data.assignedTeam == 'itSupport'
+        ) || (
+          request.resource.data.category == 'QA / Bug Report'
+          && request.resource.data.assignedTeam == 'qualityAssurance'
+        ) || (
+          request.resource.data.category == 'Project / Delivery Blocker'
+          && request.resource.data.assignedTeam == 'projectManagement'
+        ) || (
+          request.resource.data.category == 'Access / Permission'
+          && request.resource.data.assignedTeam == 'itSupport'
+        ) || (
+          request.resource.data.category == 'Infrastructure / DevOps'
+          && request.resource.data.assignedTeam == 'devOps'
+        ) || (
+          request.resource.data.category == 'Production Incident'
+          && request.resource.data.assignedTeam == 'incidentResponse'
+        ) || (
+          request.resource.data.category == 'Security / Compliance'
+          && request.resource.data.assignedTeam == 'security'
+        ) || (
+          request.resource.data.category == 'Data / Reporting'
+          && request.resource.data.assignedTeam == 'projectManagement'
+        );
+    }
+
+    function ticketWriteShapeIsValid(companyId) {
+      return request.resource.data.companyId == companyId
+        && ticketCategoryAndTeamIsValid()
+        && request.resource.data.subject is string
+        && request.resource.data.description is string
+        && request.resource.data.priority in ['low', 'medium', 'high', 'urgent']
+        && request.resource.data.status in ['open', 'inProgress', 'waitingForUser', 'resolved', 'closed'];
+    }
+
     function canViewFullProjectProgress(companyId) {
       return hasRole(companyId, ['superAdmin', 'admin', 'itAdmin', 'projectManager', 'teamLead']) || isSuperAdmin();
     }
@@ -361,7 +468,9 @@ service cloud.firestore {
         'activeWorkTimerUserId',
         'activeWorkTimerStartedAt',
         'commentsCount',
-        'attachmentsCount'
+        'attachmentsCount',
+        'attachmentNames',
+        'attachments'
       ]);
     }
 
@@ -617,6 +726,14 @@ service cloud.firestore {
     }
 
     // -----------------------------------------------------------------------
+    // Singular legacy user document used by Platform Super Admin accounts.
+    // -----------------------------------------------------------------------
+    match /user/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isSuperAdmin());
+      allow create, update, delete: if isSuperAdmin();
+    }
+
+    // -----------------------------------------------------------------------
     // Users.
     // -----------------------------------------------------------------------
     match /users/{uid} {
@@ -635,7 +752,14 @@ service cloud.firestore {
         );
 
       allow create: if signedIn()
-        && request.auth.uid == uid;
+        && (
+          isSuperAdmin()
+          || (
+            request.auth.uid == uid
+            && request.resource.data.role is string
+            && !isProtectedRoleValue(request.resource.data.role)
+          )
+        );
       allow delete: if isSuperAdmin();
 
       match /memberships/{companyId} {
@@ -650,8 +774,56 @@ service cloud.firestore {
     }
 
     // -----------------------------------------------------------------------
+    // Platform-global employee APK / SDUI configuration.
+    // All signed-in customer apps read the same config. Only Platform Super
+    // Admin can publish/update it; company admins cannot create overrides.
+    // -----------------------------------------------------------------------
+    match /platformUiConfigs/{configId} {
+      allow read: if signedIn();
+
+      allow create: if isSuperAdmin()
+        && uiConfigShapeIsValid(configId)
+        && uiConfigVersionCanCreate(configId);
+
+      allow update: if isSuperAdmin()
+        && uiConfigShapeIsValid(configId)
+        && uiConfigVersionCanUpdate(configId);
+
+      allow delete: if false;
+
+      match /versions/{versionId} {
+        allow read: if signedIn();
+        allow create, update: if isSuperAdmin();
+        allow delete: if false;
+      }
+    }
+
+    // -----------------------------------------------------------------------
     // Company scoped data.
     // -----------------------------------------------------------------------
+    // Collection-group access for Cloudinary attachment METADATA only.
+    // Media bytes are never stored in Firestore. The query is constrained by
+    // resource.data.companyId, which lets APK/web load the same attachment feed.
+    match /{document=**}/attachments/{attachmentId} {
+      allow read: if signedIn()
+        && resource.data.companyId is string
+        && (isCompanyMember(resource.data.companyId) || isSuperAdmin());
+
+      allow create: if signedIn()
+        && request.resource.data.companyId is string
+        && request.resource.data.uploadedBy == request.auth.uid
+        && (isCompanyMember(request.resource.data.companyId) || isSuperAdmin());
+
+      allow update, delete: if signedIn()
+        && resource.data.companyId is string
+        && (
+          resource.data.uploadedBy == request.auth.uid
+          || canViewFullProjectProgress(resource.data.companyId)
+          || canManageInfrastructure(resource.data.companyId)
+          || isSuperAdmin()
+        );
+    }
+
     match /companies/{companyId} {
       allow read: if isCompanyMember(companyId) || isSuperAdmin();
       allow create: if isSuperAdmin();
@@ -703,6 +875,21 @@ service cloud.firestore {
             && isCompanyMember(companyId);
         }
 
+        match /campaignReceipts/{campaignId} {
+          allow read: if signedIn()
+            && request.auth.uid == uid
+            && isCompanyMember(companyId);
+
+          allow create, update: if signedIn()
+            && request.auth.uid == uid
+            && isCompanyMember(companyId)
+            && request.resource.data.campaignId == campaignId
+            && request.resource.data.companyId == companyId
+            && request.resource.data.userId == request.auth.uid;
+
+          allow delete: if false;
+        }
+
         match /employmentHistory/{historyId} {
           allow read: if (signedIn() && request.auth.uid == uid)
             || canEditAppraisals(companyId)
@@ -710,6 +897,22 @@ service cloud.firestore {
           // Written only by the secured Cloud Function using Admin SDK.
           allow create, update, delete: if false;
         }
+      }
+
+      match /inAppCampaigns/{campaignId} {
+        allow read: if isCompanyMember(companyId) || isSuperAdmin();
+
+        allow create: if canManageCampaigns(companyId)
+          && request.resource.data.companyId == companyId
+          && request.resource.data.campaignId == campaignId
+          && request.resource.data.status == 'draft';
+
+        allow update: if canManageCampaigns(companyId)
+          && request.resource.data.companyId == companyId
+          && request.resource.data.campaignId == campaignId
+          && request.resource.data.status in ['draft', 'running', 'paused', 'ended'];
+
+        allow delete: if canManageCampaigns(companyId);
       }
 
       match /teams/{teamId} {
@@ -763,6 +966,48 @@ service cloud.firestore {
 
           allow update, delete: if canViewFullProjectProgress(companyId)
             || canManageInfrastructure(companyId);
+        }
+      }
+
+      match /tickets/{ticketId} {
+        allow create: if isCompanyMember(companyId)
+          && request.resource.data.createdBy == request.auth.uid
+          && request.resource.data.status == 'open'
+          && (
+            request.resource.data.category == 'IT Support'
+            || canRaiseExpandedTicketTypes(companyId)
+          )
+          && ticketWriteShapeIsValid(companyId);
+
+        allow read: if (
+            isCompanyMember(companyId)
+            && (
+              resource.data.createdBy == request.auth.uid
+              || canViewSupportQueue(companyId)
+            )
+          ) || isSuperAdmin();
+
+        allow update: if canManageSupportTickets(companyId)
+          && request.resource.data.createdBy == resource.data.createdBy
+          && request.resource.data.companyId == resource.data.companyId
+          && request.resource.data.category == resource.data.category
+          && request.resource.data.assignedTeam == resource.data.assignedTeam
+          && ticketWriteShapeIsValid(companyId);
+
+        allow delete: if hasRole(companyId, ['superAdmin', 'admin']) || isSuperAdmin();
+
+        match /messages/{messageId} {
+          allow read: if canReadTicketById(companyId, ticketId);
+
+          allow create: if canReadTicketById(companyId, ticketId)
+            && request.resource.data.senderId == request.auth.uid
+            && request.resource.data.body is string
+            && (
+              get(ticketPath(companyId, ticketId)).data.createdBy == request.auth.uid
+              || canManageSupportTickets(companyId)
+            );
+
+          allow update, delete: if false;
         }
       }
 
@@ -885,11 +1130,11 @@ service cloud.firestore {
       match /uiConfigs/{configId} {
         allow read: if isCompanyMember(companyId) || isSuperAdmin();
 
-        allow create: if (canManageSettings(companyId) || isSuperAdmin())
+        allow create: if isSuperAdmin()
           && uiConfigShapeIsValid(configId)
           && uiConfigVersionCanCreate(configId);
 
-        allow update: if (canManageSettings(companyId) || isSuperAdmin())
+        allow update: if isSuperAdmin()
           && uiConfigShapeIsValid(configId)
           && uiConfigVersionCanUpdate(configId);
 
@@ -898,7 +1143,7 @@ service cloud.firestore {
         match /versions/{versionId} {
           allow read: if isCompanyMember(companyId) || isSuperAdmin();
 
-          allow create, update: if canManageSettings(companyId) || isSuperAdmin();
+          allow create, update: if isSuperAdmin();
 
           allow delete: if false;
         }
@@ -907,7 +1152,7 @@ service cloud.firestore {
       match /uiConfigMeta/{metaId} {
         allow read: if isCompanyMember(companyId) || isSuperAdmin();
 
-        allow create, update: if canManageSettings(companyId) || isSuperAdmin();
+        allow create, update: if isSuperAdmin();
 
         allow delete: if false;
       }

@@ -9,6 +9,8 @@ class FirebasePaths {
   static String tasks(String companyId) => 'companies/$companyId/tasks';
   static String teams(String companyId) => 'companies/$companyId/teams';
   static String notifications(String companyId) => 'companies/$companyId/notifications';
+  static String inAppCampaigns(String companyId) => 'companies/$companyId/inAppCampaigns';
+  static String campaignReceipts(String companyId, String uid) => 'companies/$companyId/members/$uid/campaignReceipts';
   static String memberNotifications(String companyId, String uid) => 'companies/$companyId/members/$uid/notifications';
   static String activityLogs(String companyId) => 'companies/$companyId/activityLogs';
   static String auditLogs(String companyId) => 'companies/$companyId/auditLogs';
@@ -18,11 +20,15 @@ class FirebasePaths {
   static String portalPostSettings(String companyId) => 'companies/$companyId/settings/portalPosts';
   static String demoDataSettings(String companyId) => 'companies/$companyId/settings/demoData';
   static String bootstrapSettings(String companyId) => 'companies/$companyId/settings/bootstrap';
-  static String uiConfigs(String companyId) => 'companies/$companyId/uiConfigs';
-  static String mobileEmployeeUiConfig(String companyId) => 'companies/$companyId/uiConfigs/mobileEmployee';
-  static String mobileEmployeeUiConfigDoc(String companyId, String docId) => 'companies/$companyId/uiConfigs/$docId';
-  static String mobileEmployeeUiDesign(String companyId) => 'companies/$companyId/uiConfigs/mobileEmployeeDesign';
-  static String mobileEmployeeUiDesignDraft(String companyId) => 'companies/$companyId/uiConfigs/mobileEmployeeDesignDraft';
+  // Platform-global SDUI configuration. The companyId argument is intentionally
+  // retained in these helpers for API compatibility, but every customer app
+  // reads the same Platform Super Admin-published configuration.
+  static const String platformUiConfigs = 'platformUiConfigs';
+  static String uiConfigs(String companyId) => platformUiConfigs;
+  static String mobileEmployeeUiConfig(String companyId) => '$platformUiConfigs/mobileEmployee';
+  static String mobileEmployeeUiConfigDoc(String companyId, String docId) => '$platformUiConfigs/$docId';
+  static String mobileEmployeeUiDesign(String companyId) => '$platformUiConfigs/mobileEmployeeDesign';
+  static String mobileEmployeeUiDesignDraft(String companyId) => '$platformUiConfigs/mobileEmployeeDesignDraft';
   static String invites(String companyId) => 'companies/$companyId/invites';
   static String invite(String companyId, String inviteId) => 'companies/$companyId/invites/$inviteId';
 

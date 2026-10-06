@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app/app_theme.dart';
-import '../features/auth/presentation/auth_gate.dart';
+import '../features/home/presentation/public_web_home_screen.dart';
 
 /// Fixed web/admin product surface.
 ///
@@ -20,7 +20,7 @@ class AdminWebApp extends ConsumerWidget {
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.light,
       builder: (context, child) => child ?? const SizedBox.shrink(),
-      home: const AuthGate(),
+      home: const PublicWebHomeScreen(adminPortal: true),
     );
   }
 }

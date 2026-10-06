@@ -17,6 +17,7 @@ import '../features/profile/presentation/profile_screen.dart';
 import '../features/projects/presentation/projects_screen.dart';
 import '../features/tasks/presentation/tasks_screen.dart';
 import '../features/tasks/presentation/task_timeline_screen.dart';
+import '../features/tickets/presentation/tickets_screen.dart';
 import '../features/timeline/presentation/realtime_timeline_screen.dart';
 import '../core/widgets/brew_haven_chat_sheet.dart';
 import '../app/workspace_state.dart';
@@ -88,6 +89,7 @@ class EmployeeMobileShell extends ConsumerWidget {
         'timeline',
         'taskTimeline',
         'files',
+        'tickets',
         'calendar',
         'teamMembers',
         'taskDetail',
@@ -189,7 +191,9 @@ class EmployeeMobileShell extends ConsumerWidget {
                   Expanded(
                     child: safeSelected == 'taskTimeline'
                         ? const TaskTimelineScreen()
-                        : MobileJsonUiRenderer(
+                        : safeSelected == 'tickets'
+                            ? const TicketsScreen()
+                            : MobileJsonUiRenderer(
                             key:
                                 ValueKey<String>('employee-sdui-$safeSelected'),
                             json: _jsonForTabFromSdui(
@@ -233,6 +237,13 @@ class EmployeeMobileShell extends ConsumerWidget {
                   child: _EmployeeWebLogoutPill(
                       onTap: () => _employeeWebLogout(ref)),
                 ),
+              Positioned(
+                right: 18,
+                bottom: 178,
+                child: _ItTicketLauncher(
+                  onTap: () => _openTickets(context),
+                ),
+              ),
               const Positioned(
                 right: 18,
                 bottom: 112,
@@ -311,7 +322,9 @@ class EmployeeMobileShell extends ConsumerWidget {
                     Expanded(
                       child: safeSelected == 'taskTimeline'
                           ? const TaskTimelineScreen()
-                          : MobileJsonUiRenderer(
+                          : safeSelected == 'tickets'
+                              ? const TicketsScreen()
+                              : MobileJsonUiRenderer(
                               key: ValueKey<String>(
                                   'employee-sdui-legacy-$safeSelected'),
                               json: _jsonForTab(design, safeSelected),
@@ -339,6 +352,14 @@ class EmployeeMobileShell extends ConsumerWidget {
                     .read(employeeTabProvider.notifier)
                     .state = _canonicalEmployeeRoute(tab),
               ),
+        floatingActionButton: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _ItTicketLauncher(onTap: () => _openTickets(context)),
+            const SizedBox(height: 10),
+            const BrewHavenChatLauncher(),
+          ],
+        ),
       );
     }
 
@@ -425,8 +446,21 @@ class EmployeeMobileShell extends ConsumerWidget {
                       icon: Icon(_iconForTab(tab)), label: _labelForTab(tab)))
                   .toList(),
             ),
-      floatingActionButton: const BrewHavenChatLauncher(),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _ItTicketLauncher(onTap: () => _openTickets(context)),
+          const SizedBox(height: 10),
+          const BrewHavenChatLauncher(),
+        ],
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+
+  static Future<void> _openTickets(BuildContext context) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => const TicketsScreen(showBackButton: true)),
     );
   }
 
@@ -579,6 +613,9 @@ class EmployeeMobileShell extends ConsumerWidget {
         return;
       case 'openFiles':
         ref.read(employeeTabProvider.notifier).state = 'files';
+        return;
+      case 'openTickets':
+        _openTickets(context);
         return;
       case 'openCalendar':
         ref.read(employeeTabProvider.notifier).state = 'calendar';
@@ -874,6 +911,8 @@ class EmployeeMobileShell extends ConsumerWidget {
       'filesdocuments' ||
       'openfiles' =>
         'openFiles',
+      'ticket' || 'tickets' || 'itticket' || 'itsupport' || 'raiseticket' || 'opentickets' =>
+        'openTickets',
       'calendar' || 'calendarview' || 'opencalendar' => 'openCalendar',
       'teammembers' || 'members' || 'openteammembers' => 'openTeamMembers',
       'taskdetail' || 'taskdetails' || 'opentaskdetail' => 'openTaskDetail',
@@ -1050,6 +1089,7 @@ class EmployeeMobileShell extends ConsumerWidget {
       'taskmap' || 'taskmapsiteview' || 'siteview' => 'taskMap',
       'timeline' || 'timelinemilestones' || 'milestones' => 'timeline',
       'files' || 'file' || 'filesdocuments' || 'documents' => 'files',
+      'ticket' || 'tickets' || 'itticket' || 'itsupport' || 'supporttickets' => 'tickets',
       'calendar' || 'calendarview' || 'calendardeadlines' => 'calendar',
       'teammembers' || 'teamprojectmembers' || 'members' => 'teamMembers',
       'taskdetail' || 'taskdetails' => 'taskDetail',
@@ -1073,6 +1113,7 @@ class EmployeeMobileShell extends ConsumerWidget {
       'timeline',
       'taskTimeline',
       'files',
+      'tickets',
       'calendar',
       'teamMembers',
       'taskDetail',
@@ -1095,6 +1136,7 @@ class EmployeeMobileShell extends ConsumerWidget {
       'timeline' => 'Timeline',
       'taskTimeline' => 'Task Timeline',
       'files' => 'Files',
+      'tickets' => 'Support Tickets',
       'calendar' => 'Calendar',
       'teamMembers' => 'Team Members',
       'taskDetail' => 'Task Detail',
@@ -1118,6 +1160,7 @@ class EmployeeMobileShell extends ConsumerWidget {
       'timeline' => Icons.schedule_rounded,
       'taskTimeline' => Icons.view_timeline_rounded,
       'files' => Icons.folder_open_rounded,
+      'tickets' => Icons.support_agent_rounded,
       'calendar' => Icons.calendar_month_rounded,
       'teamMembers' => Icons.groups_rounded,
       'taskDetail' => Icons.assignment_rounded,
@@ -1487,6 +1530,7 @@ class EmployeeMobileShell extends ConsumerWidget {
       'timeline' => const RealtimeTimelineScreen(),
       'taskTimeline' => const TaskTimelineScreen(),
       'files' => const TasksScreen(),
+      'tickets' => const TicketsScreen(),
       'calendar' => const TasksScreen(),
       'teamMembers' => const ProjectsScreen(),
       'taskDetail' => const TasksScreen(),
@@ -2468,6 +2512,27 @@ class _ServerDrivenRail extends StatelessWidget {
               label: Text(EmployeeMobileShell._labelForTab(tab))))
           .toList(),
       onDestinationSelected: (index) => onChanged(tabs[index]),
+    );
+  }
+}
+
+class _ItTicketLauncher extends StatelessWidget {
+  const _ItTicketLauncher({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: 'Open support tickets',
+      child: FloatingActionButton.extended(
+        heroTag: null,
+        onPressed: onTap,
+        backgroundColor: const Color(0xFF1E4BB8),
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.support_agent_rounded),
+        label: const Text('Tickets', style: TextStyle(fontWeight: FontWeight.w900)),
+      ),
     );
   }
 }

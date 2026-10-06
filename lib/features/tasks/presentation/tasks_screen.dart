@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_management_dashboard/core/widgets/notification_live_preview.dart';
@@ -140,7 +140,6 @@ class TasksScreen extends ConsumerWidget {
           final totalEstimatedHours = tasks.fold<num>(0, (sum, task) => sum + task.estimatedHours);
           final totalLoggedHours = tasks.fold<num>(0, (sum, task) => sum + task.loggedHours);
           
-          // Collect all attachments for this project
           final projectAttachments = state.attachments.where((a) => a.projectId == project.projectId).toList();
           final fileCount = projectAttachments.isNotEmpty
               ? projectAttachments.length
@@ -1331,7 +1330,6 @@ class _ProjectWorkDetailsPanel extends StatelessWidget {
             ],
           ),
 
-          // Project Files & Documents Section
           if (projectAttachments.isNotEmpty) ...[
             const SizedBox(height: 16),
             const Divider(height: 1, color: AppTheme.border),
@@ -1547,13 +1545,8 @@ class _TaskDetailTileState extends ConsumerState<_TaskDetailTile> {
   bool _isUploading = false;
   bool _isCompleted = false;
   double _uploadProgress = 0.0;
-  Timer? _progressTimer;
-
-  @override
-  void dispose() {
-    _progressTimer?.cancel();
-    super.dispose();
-  }
+  int _uploadedBytes = 0;
+  int _totalUploadBytes = 0;
 
   Future<void> _openAttachmentUrl(BuildContext context, String url) async {
     final cleanUrl = url.trim();
@@ -1582,47 +1575,44 @@ class _TaskDetailTileState extends ConsumerState<_TaskDetailTile> {
       _isUploading = true;
       _isCompleted = false;
       _uploadProgress = 0.0;
+      _uploadedBytes = 0;
+      _totalUploadBytes = 0;
     });
 
-    bool uploadFinished = false;
-    _progressTimer?.cancel();
-    _progressTimer = Timer.periodic(const Duration(milliseconds: 45), (timer) {
-      if (!mounted || uploadFinished) {
-        timer.cancel();
-        return;
-      }
-      if (_uploadProgress < 0.90) {
+    final ok = await ref.read(workspaceProvider.notifier).addAttachmentFromDevicePicker(
+      widget.task.taskId,
+      onProgress: (sentBytes, totalBytes) {
+        if (!mounted) return;
         setState(() {
-          _uploadProgress += 0.04;
+          _uploadedBytes = sentBytes;
+          _totalUploadBytes = totalBytes;
+          _uploadProgress = totalBytes <= 0
+              ? 0.0
+              : (sentBytes / totalBytes).clamp(0.0, 1.0);
         });
-      }
-    });
-
-    final results = await Future.wait([
-      ref.read(workspaceProvider.notifier).addAttachmentFromDevicePicker(widget.task.taskId),
-      Future.delayed(const Duration(milliseconds: 900)),
-    ]);
-
-    uploadFinished = true;
-    _progressTimer?.cancel();
-
-    final bool ok = results[0] as bool;
+      },
+    );
 
     if (!mounted) return;
 
     if (ok) {
       setState(() {
         _uploadProgress = 1.0;
+        _uploadedBytes = _totalUploadBytes;
         _isCompleted = true;
       });
 
-      await Future.delayed(const Duration(milliseconds: 1200));
+      // Keep the success state visible briefly; the upload itself is already
+      // complete and its Cloudinary metadata has been persisted at this point.
+      await Future<void>.delayed(const Duration(milliseconds: 700));
 
       if (mounted) {
         setState(() {
           _isUploading = false;
           _isCompleted = false;
           _uploadProgress = 0.0;
+          _uploadedBytes = 0;
+          _totalUploadBytes = 0;
         });
       }
     } else {
@@ -1631,6 +1621,8 @@ class _TaskDetailTileState extends ConsumerState<_TaskDetailTile> {
         _isUploading = false;
         _isCompleted = false;
         _uploadProgress = 0.0;
+        _uploadedBytes = 0;
+        _totalUploadBytes = 0;
       });
       if (error != null) {
         messenger.showSnackBar(
@@ -1654,9 +1646,9 @@ class _TaskDetailTileState extends ConsumerState<_TaskDetailTile> {
     final departments = widget.assignees.isEmpty ? '-' : widget.assignees.map((member) => member.effectiveDepartment).toSet().join(', ');
     final roles = widget.assignees.isEmpty ? '-' : widget.assignees.map((member) => member.role.shortLabel).toSet().join(', ');
 
-    // Deduplicate attachments across task directly and workspace global state
     final taskDirectAttachments = task.attachments;
     final workspaceScopedAttachments = workspace.attachments.where((a) => a.taskId == task.taskId).toList();
+    
     final attachmentMap = <String, FileAttachment>{};
     for (final att in workspaceScopedAttachments) {
       attachmentMap[att.attachmentId] = att;
@@ -1798,7 +1790,8 @@ class _TaskDetailTileState extends ConsumerState<_TaskDetailTile> {
               runSpacing: 8,
               children: combinedAttachments.isNotEmpty
                   ? combinedAttachments.map((file) {
-                      final isImage = file.isImage;
+                      final isImage = file.fileType.startsWith('image/') ||
+                          ['jpg', 'jpeg', 'png', 'webp', 'gif'].any((ext) => file.fileName.toLowerCase().endsWith(ext));
                       final sizeText = file.fileSize > 0
                           ? ' • ${(file.fileSize / 1024).toStringAsFixed(0)} KB'
                           : '';
@@ -1829,6 +1822,8 @@ class _TaskDetailTileState extends ConsumerState<_TaskDetailTile> {
               child: _TaskDriveWhatsAppUploadCard(
                 progress: _uploadProgress,
                 isCompleted: _isCompleted,
+                uploadedBytes: _uploadedBytes,
+                totalBytes: _totalUploadBytes,
               ),
             ),
 
@@ -1858,11 +1853,24 @@ class _TaskDetailTileState extends ConsumerState<_TaskDetailTile> {
 class _TaskDriveWhatsAppUploadCard extends StatelessWidget {
   final double progress;
   final bool isCompleted;
+  final int uploadedBytes;
+  final int totalBytes;
 
   const _TaskDriveWhatsAppUploadCard({
     required this.progress,
     required this.isCompleted,
+    required this.uploadedBytes,
+    required this.totalBytes,
   });
+
+  static String _formatBytes(int bytes) {
+    if (bytes <= 0) return '0 B';
+    if (bytes < 1024) return '$bytes B';
+    if (bytes < 1024 * 1024) {
+      return '${(bytes / 1024).toStringAsFixed(0)} KB';
+    }
+    return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1973,7 +1981,9 @@ class _TaskDriveWhatsAppUploadCard extends StatelessWidget {
                 Text(
                   isCompleted
                       ? 'Ready in task attachments'
-                      : 'Uploading • ${(progress * 4.2).toStringAsFixed(1)} MB / 4.2 MB',
+                      : totalBytes > 0
+                          ? 'Uploading • ${_formatBytes(uploadedBytes)} / ${_formatBytes(totalBytes)}'
+                          : 'Preparing upload...',
                   style: TextStyle(
                     fontSize: 11,
                     color: isCompleted ? Colors.green.shade700 : AppTheme.muted,

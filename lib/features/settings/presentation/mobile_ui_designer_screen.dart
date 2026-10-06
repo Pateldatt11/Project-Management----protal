@@ -343,12 +343,34 @@ class _MobileUiDesignerScreenState extends ConsumerState<MobileUiDesignerScreen>
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(workspaceProvider);
-    final canManage = PermissionService.canManageSettings(state.currentMember);
+    final canManage = PermissionService.canManageMobileUi(state.currentMember);
+
+    if (!canManage) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('APK Emulator & Mobile UI Designer')),
+        body: const Center(
+          child: Padding(
+            padding: EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.admin_panel_settings_rounded, size: 58, color: Colors.redAccent),
+                SizedBox(height: 14),
+                Text('Platform Super Admin access required', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+                SizedBox(height: 8),
+                Text('The APK emulator and employee mobile UI publishing tools have been moved out of Company Admin access.', textAlign: TextAlign.center),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     final previewJson = _design.toPrettyJson(updatedBy: state.user.uid);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mobile UI Designer'),
+        title: const Text('APK Emulator & Mobile UI Designer'),
         actions: [
           TextButton.icon(
             onPressed: canManage && !_saving ? _showImportJsonDialog : null,
@@ -615,7 +637,7 @@ class _MobileUiDesignerScreenState extends ConsumerState<MobileUiDesignerScreen>
                       const SizedBox(height: 8),
                       Text(
                         importDocTarget == _PreviewDocTarget.release
-                            ? 'Imported JSON will be staged for Release. Publishing writes mobileEmployee for current users.'
+                            ? 'Imported JSON will be staged for Release. Publishing writes the global mobileEmployee UI for every customer.'
                             : 'Imported JSON will be staged for Test. Publishing writes mobileEmployeeNext only; current users stay on mobileEmployee.',
                         style: const TextStyle(color: AppTheme.muted, fontWeight: FontWeight.w800),
                       ),
@@ -1570,7 +1592,7 @@ class _DesignerControls extends StatelessWidget {
               Text(
                 publishTarget == _PreviewDocTarget.test
                     ? 'Test publish updates only mobileEmployeeNext. Build/install the test APK with --dart-define=SDUI_CONFIG_DOC=mobileEmployeeNext to see it.'
-                    : 'Release publish updates mobileEmployee. Current employee APKs will sync this production UI.',
+                    : 'Release publish updates the global mobileEmployee UI. Every customer APK will sync this production UI.',
                 style: const TextStyle(color: AppTheme.muted, fontWeight: FontWeight.w800),
               ),
               const SizedBox(height: 14),

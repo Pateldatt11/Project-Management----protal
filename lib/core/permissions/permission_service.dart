@@ -28,11 +28,6 @@ class PermissionService {
         UserRole.admin,
       ].contains(member.role);
 
-  static bool canManageCampaigns(Member member) => [
-        UserRole.superAdmin,
-        UserRole.admin,
-      ].contains(member.role);
-
   static bool canManageInfrastructure(Member member) => [
         UserRole.superAdmin,
         UserRole.admin,
@@ -189,6 +184,18 @@ class PermissionService {
         UserRole.itAdmin,
       ].contains(member.role);
 
+  /// Company in-app campaigns are company content, not platform APK design.
+  /// Only Company Admin and Platform Super Admin can create/run them.
+  static bool canManageCampaigns(Member member) => [
+        UserRole.superAdmin,
+        UserRole.admin,
+      ].contains(member.role);
+
+  /// Platform-level employee APK / SDUI controls are intentionally restricted
+  /// to the Platform Super Admin. Company Admin and IT Admin must not be able
+  /// to open or publish the APK emulator/designer.
+  static bool canManageMobileUi(Member member) => member.role == UserRole.superAdmin;
+
   static bool canAccessSection(Member member, MainSection section) {
     return switch (section) {
       MainSection.dashboard => true,
@@ -213,8 +220,13 @@ class PermissionService {
           UserRole.teamLead,
           UserRole.hrManager,
         ].contains(member.role),
+      // Everyone except Client Viewer can open Tickets and raise/track their own IT request.
+      // Tester, Team Lead, Admin and IT/DevOps roles can also raise broader internal ticket types.
+      // The shared queue is visible to Team Lead, Project Manager, QA/Tester, IT/DevOps and admin roles.
+      MainSection.tickets => member.role != UserRole.clientViewer,
       MainSection.reports => canViewReports(member),
       MainSection.notifications => true,
+      MainSection.campaigns => canManageCampaigns(member),
       MainSection.settings => canManageSettings(member),
       MainSection.profile => true,
     };

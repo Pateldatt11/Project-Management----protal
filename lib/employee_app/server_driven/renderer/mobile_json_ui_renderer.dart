@@ -8915,7 +8915,26 @@ class _FilesDataJsonScreen extends StatelessWidget {
     final visibleProjectIds =
         state.visibleProjects.map((project) => project.projectId).toSet();
 
-    final files = state.attachments.where((file) {
+    // Merge the dedicated attachment feed with the task-level mirror. This
+    // keeps Files populated during stream startup and on older task records,
+    // while de-duplicating the same Cloudinary attachment by ID.
+    final fileMap = <String, dynamic>{};
+    for (final file in state.attachments) {
+      final key = file.attachmentId.trim().isNotEmpty
+          ? file.attachmentId
+          : '${file.taskId}|${file.publicId}|${file.fileName}';
+      fileMap[key] = file;
+    }
+    for (final task in state.visibleTasks) {
+      for (final file in task.attachments) {
+        final key = file.attachmentId.trim().isNotEmpty
+            ? file.attachmentId
+            : '${file.taskId}|${file.publicId}|${file.fileName}';
+        fileMap[key] = file;
+      }
+    }
+
+    final files = fileMap.values.where((file) {
       return visibleTaskIds.contains(file.taskId) ||
           visibleProjectIds.contains(file.projectId);
     }).toList();
@@ -8955,10 +8974,7 @@ class _FilesDataJsonScreen extends StatelessWidget {
       (a, b) => _fileCreatedAt(b).compareTo(_fileCreatedAt(a)),
     );
 
-    final taskFileCount = state.visibleTasks.fold<int>(
-      0,
-      (sum, task) => sum + task.attachmentsCount,
-    );
+    final taskFileCount = files.where((file) => visibleTaskIds.contains(file.taskId)).length;
 
     final children = <Widget>[
       if (!embedded)
@@ -12521,6 +12537,17 @@ class _EditableTaskCard extends ConsumerStatefulWidget {
 
 class _EditableTaskCardState extends ConsumerState<_EditableTaskCard> {
   late TaskStatus? _status;
+  bool _isUploadingFile = false;
+  double _fileUploadProgress = 0.0;
+  int _fileUploadedBytes = 0;
+  int _fileTotalBytes = 0;
+
+  static String _fileUploadSizeText(int bytes) {
+    if (bytes <= 0) return '0 B';
+    if (bytes < 1024) return '$bytes B';
+    if (bytes < 1024 * 1024) return '${(bytes / 1024).toStringAsFixed(0)} KB';
+    return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
+  }
 
   @override
   void initState() {
@@ -12584,9 +12611,15 @@ class _EditableTaskCardState extends ConsumerState<_EditableTaskCard> {
     if (chips.isNotEmpty) children.add(Padding(padding: const EdgeInsets.only(top: 10), child: Wrap(spacing: 7, runSpacing: 7, children: chips)));
 
     final detailChips = <Widget>[];
+    final streamedAttachmentCount = liveState.attachments.where((file) => file.taskId == item.taskId).length;
+    final effectiveAttachmentCount = [
+      item.attachmentsCount,
+      item.attachments.length,
+      streamedAttachmentCount,
+    ].reduce((a, b) => a > b ? a : b);
     if (widget.fields.contains('assigneeCount')) detailChips.add(_InfoTag(label: '${item.assignedToIds.length} assigned', icon: Icons.people_alt_rounded, theme: widget.theme));
     if (widget.fields.contains('commentsCount')) detailChips.add(_InfoTag(label: '${item.commentsCount} comments', icon: Icons.comment_rounded, theme: widget.theme));
-    if (widget.fields.contains('attachmentsCount') || widget.fields.contains('filesCount')) detailChips.add(_InfoTag(label: '${item.attachmentsCount} files', icon: Icons.attach_file_rounded, theme: widget.theme));
+    if (widget.fields.contains('attachmentsCount') || widget.fields.contains('filesCount')) detailChips.add(_InfoTag(label: '$effectiveAttachmentCount files', icon: Icons.attach_file_rounded, theme: widget.theme));
     if (detailChips.isNotEmpty) children.add(Padding(padding: const EdgeInsets.only(top: 8), child: Wrap(spacing: 7, runSpacing: 7, children: detailChips)));
 
     if (widget.fields.contains('progress')) {
@@ -12612,10 +12645,59 @@ class _EditableTaskCardState extends ConsumerState<_EditableTaskCard> {
       actionButtons.add(OutlinedButton.icon(onPressed: () => widget.previewMode ? _showTaskDetails(item, status, projectName, focus: 'comment') : _addComment(item), icon: const Icon(Icons.comment_rounded, size: 16), label: const Text('Comment')));
     }
     if (widget.actions.contains('uploadFile') || widget.actions.contains('file') || widget.actions.contains('attachFile')) {
-      actionButtons.add(OutlinedButton.icon(onPressed: () => widget.previewMode ? _showTaskDetails(item, status, projectName, focus: 'file') : _addFileMetadata(item), icon: const Icon(Icons.attach_file_rounded, size: 16), label: const Text('File')));
+      actionButtons.add(
+        OutlinedButton.icon(
+          onPressed: _isUploadingFile
+              ? null
+              : () => widget.previewMode
+                  ? _showTaskDetails(item, status, projectName, focus: 'file')
+                  : _addFileMetadata(item),
+          icon: _isUploadingFile
+              ? const SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : const Icon(Icons.attach_file_rounded, size: 16),
+          label: Text(_isUploadingFile ? 'Uploading' : 'File'),
+        ),
+      );
     }
     if (actionButtons.isNotEmpty) {
       children.add(Padding(padding: const EdgeInsets.only(top: 12), child: Wrap(spacing: 8, runSpacing: 8, children: actionButtons)));
+    }
+    if (_isUploadingFile) {
+      final percent = (_fileUploadProgress.clamp(0.0, 1.0) * 100).round();
+      children.add(
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(999),
+                child: LinearProgressIndicator(
+                  value: _fileUploadProgress.clamp(0.0, 1.0),
+                  minHeight: 7,
+                  color: widget.theme.accent,
+                  backgroundColor: widget.theme.accent.withOpacity(.12),
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                _fileTotalBytes > 0
+                    ? 'Cloudinary upload $percent% • ${_fileUploadSizeText(_fileUploadedBytes)} / ${_fileUploadSizeText(_fileTotalBytes)}'
+                    : 'Preparing Cloudinary upload...',
+                style: TextStyle(
+                  color: widget.theme.textSecondary,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 11,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
     }
 
     return Material(
@@ -12678,12 +12760,38 @@ class _EditableTaskCardState extends ConsumerState<_EditableTaskCard> {
 
   Future<void> _addFileMetadata(ProjectTask task) async {
     final messenger = ScaffoldMessenger.of(context);
-    final ok = await ref.read(workspaceProvider.notifier).addAttachmentFromDevicePicker(task.taskId);
+    setState(() {
+      _isUploadingFile = true;
+      _fileUploadProgress = 0.0;
+      _fileUploadedBytes = 0;
+      _fileTotalBytes = 0;
+    });
+
+    final ok = await ref.read(workspaceProvider.notifier).addAttachmentFromDevicePicker(
+      task.taskId,
+      onProgress: (sentBytes, totalBytes) {
+        if (!mounted) return;
+        setState(() {
+          _fileUploadedBytes = sentBytes;
+          _fileTotalBytes = totalBytes;
+          _fileUploadProgress = totalBytes <= 0
+              ? 0.0
+              : (sentBytes / totalBytes).clamp(0.0, 1.0);
+        });
+      },
+    );
+
     if (!mounted) return;
     final error = ref.read(workspaceProvider).lastError;
+    setState(() {
+      _isUploadingFile = false;
+      _fileUploadProgress = 0.0;
+      _fileUploadedBytes = 0;
+      _fileTotalBytes = 0;
+    });
     messenger.showSnackBar(
       SnackBar(
-        content: Text(ok ? 'File uploaded and attached to task.' : (error ?? 'File selection cancelled.')),
+        content: Text(ok ? 'File uploaded to Cloudinary and attached to task.' : (error ?? 'File selection cancelled.')),
         behavior: SnackBarBehavior.floating,
       ),
     );

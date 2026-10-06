@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'employee_mobile_theme.dart';
 import '../features/auth/presentation/auth_gate.dart';
+import '../features/campaigns/presentation/in_app_campaign_layer.dart';
 import '../core/platform/android_alert_notification_service.dart';
 
 /// Employee mobile product surface.
@@ -19,7 +20,7 @@ class EmployeeMobileApp extends ConsumerWidget {
       theme: EmployeeMobileTheme.light,
       themeMode: ThemeMode.light,
       builder: (context, child) => AndroidNotificationAlertWatcher(child: child ?? const SizedBox.shrink()),
-      home: const AuthGate(),
+      home: const CompanyInAppCampaignLayer(child: AuthGate()),
     );
   }
 }

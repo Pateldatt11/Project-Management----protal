@@ -89,7 +89,28 @@ class _MobileUiControlScreenState extends ConsumerState<MobileUiControlScreen> {
         setState(() => _formState = _UiControlFormState.fromConfig(ref.read(workspaceProvider).mobileUiConfig));
       });
     }
-    final canManage = PermissionService.canManageSettings(state.currentMember);
+    final canManage = PermissionService.canManageMobileUi(state.currentMember);
+
+    if (!canManage) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Mobile UI Control')),
+        body: const Center(
+          child: Padding(
+            padding: EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.lock_rounded, size: 52, color: Colors.redAccent),
+                SizedBox(height: 14),
+                Text('Platform Super Admin only', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+                SizedBox(height: 8),
+                Text('Company Admin and IT Admin cannot access or change the employee APK UI configuration.', textAlign: TextAlign.center),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
     
     return Scaffold(
       appBar: AppBar(
@@ -309,7 +330,7 @@ class _MobileUiControlScreenState extends ConsumerState<MobileUiControlScreen> {
             const SizedBox(height: 18),
             SectionCard(
               title: 'Preview summary',
-              subtitle: 'This is what will be saved to companies/${state.company.companyId}/uiConfigs/mobileEmployee.',
+              subtitle: 'This publishes to platformUiConfigs/mobileEmployee and applies to every customer app.',
               trailing: FilledButton.icon(
                 onPressed: canManage && !_isSaving ? _save : null,
                 icon: _isSaving

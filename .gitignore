@@ -32,8 +32,6 @@ migrate_working_dir/
 .pub/
 /build/
 /coverage/
-/firebase/
-
 
 # Symbolication related
 app.*.symbols
@@ -49,30 +47,4 @@ app.*.map.json
 # Firebase Admin SDK credentials must never be committed.
 **/firebase-admin*.json
 **/service-account*.json
-**/firebase-adminsdk*.json
-**/*credentials*.json
-**/*client_secret*.json
-
-# Local environment files and signing credentials must never be committed.
-.env
-.env.*
-!.env.example
-!.env.*.example
-/dart_defines.json
-/dart_defines.local.json
-!/dart_defines.example.json
-*.pem
-*.key
-*.p12
-*.pfx
-*.jks
-*.keystore
 **/secrets/
-lib.zip
-lib/*.zip
-lib/features/*.zip
-*.bak*
-pmd_work
-pmd_v224_work/
-pmd_*.png
-android/build/

@@ -5,13 +5,7 @@ import 'package:http/http.dart' as http;
 class OneSignalApiService {
   const OneSignalApiService._();
 
-  static const String _oneSignalApiUrl = 'https://onesignal.com/api/v1/notifications';
-
-  // OneSignal REST API Key & App ID
-  static const String _restApiKey = String.fromEnvironment(
-    'ONESIGNAL_REST_API_KEY',
-  );
-  static const String _appId = String.fromEnvironment('ONESIGNAL_APP_ID');
+  static const String _notificationApiUrl = '/api/send-notification';
 
   /// Send targeted push notification to specific user UIDs (external_id)
   /// Includes action buttons ('Reply' & 'View Task') and UI accent branding
@@ -33,7 +27,6 @@ class OneSignalApiService {
 
     try {
       final payload = {
-        'app_id': _appId,
         'include_aliases': {
           'external_id': cleanUids,
         },
@@ -51,16 +44,14 @@ class OneSignalApiService {
       };
 
       final response = await http.post(
-        Uri.parse(_oneSignalApiUrl),
+        _resolveUri(_notificationApiUrl),
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
-          // OneSignal REST API key authorization
-          'Authorization': 'Key $_restApiKey',
         },
         body: jsonEncode(payload),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
         debugPrint('[OneSignal REST] Push sent successfully: ${response.body}');
         return true;
       } else {
@@ -71,5 +62,10 @@ class OneSignalApiService {
       debugPrint('[OneSignal REST] Exception sending push: $e');
       return false;
     }
+  }
+
+  static Uri _resolveUri(String url) {
+    final parsed = Uri.parse(url);
+    return parsed.hasScheme ? parsed : Uri.base.resolve(url);
   }
 }

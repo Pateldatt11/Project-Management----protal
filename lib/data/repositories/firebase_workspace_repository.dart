@@ -33,7 +33,7 @@ class FirebaseWorkspaceRepository implements WorkspaceRepository {
   final MobileUiConfigCache _mobileUiConfigCache;
   final String defaultCompanyId;
 
-  /// APK SDUI stability policy: never keep a live Firestore listener attached
+  /// Platform-global APK SDUI stability policy: never keep a live Firestore listener attached
   /// to the renderer. The employee APK checks for a newer server UI at most
   /// twice per hour, stages it in SQLite, and applies it only on the next cold
   /// start. This prevents mid-session shell/body rebuilds while the user works.
@@ -77,7 +77,7 @@ class FirebaseWorkspaceRepository implements WorkspaceRepository {
         : 'mobileEmployeeScreens';
   }
 
-  static String _mobileUiCacheKey(String companyId) => '$companyId::$_activeMobileUiCoreDocId';
+  static String _mobileUiCacheKey(String companyId) => 'platformUiConfigs::$_activeMobileUiCoreDocId';
 
   static Map<String, dynamic> _cloneRuntimeMap(Map<String, dynamic> source) {
     return source.map((key, value) {
@@ -941,8 +941,8 @@ class FirebaseWorkspaceRepository implements WorkspaceRepository {
 
     final publishedConfigSnapshot = await configRef.get();
     final publishedConfig = MobileUiConfig.fromMap(publishedConfigSnapshot.data());
-    await _mobileUiConfigCache.writeDesign(companyId: companyId, design: publishedDesign);
-    await _mobileUiConfigCache.write(companyId: companyId, config: publishedConfig);
+    await _mobileUiConfigCache.writeDesign(companyId: _mobileUiCacheKey(companyId), design: publishedDesign);
+    await _mobileUiConfigCache.write(companyId: _mobileUiCacheKey(companyId), config: publishedConfig);
     return publishedDesign;
   }
 
@@ -960,13 +960,13 @@ class FirebaseWorkspaceRepository implements WorkspaceRepository {
       transaction.set(configRef, nextConfig.toMap(updatedBy: editorUid), SetOptions(merge: true));
       return nextConfig;
     });
-    await _mobileUiConfigCache.write(companyId: companyId, config: savedConfig);
+    await _mobileUiConfigCache.write(companyId: _mobileUiCacheKey(companyId), config: savedConfig);
   }
 
   @override
   Future<void> saveMobileUiDesign(String companyId, MobileUiDesign design, {String? updatedBy}) async {
     final nextDesign = design.copyWith(updatedBy: updatedBy ?? design.updatedBy, updatedAt: DateTime.now());
-    await _mobileUiConfigCache.writeDesign(companyId: companyId, design: nextDesign);
+    await _mobileUiConfigCache.writeDesign(companyId: _mobileUiCacheKey(companyId), design: nextDesign);
     await _firestore.setData(
       path: FirebasePaths.mobileEmployeeUiDesign(companyId),
       data: nextDesign.toMap(updatedBy: updatedBy),

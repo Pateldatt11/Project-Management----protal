@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:math' as math;
 import 'super_admin_wizard_screen.dart';
+import 'platform_apk_emulator_screen.dart';
 
 class SuperAdminDashboardScreen extends StatefulWidget {
   const SuperAdminDashboardScreen({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class SuperAdminDashboardScreen extends StatefulWidget {
 class _SuperAdminDashboardScreenState extends State<SuperAdminDashboardScreen> {
   final TextEditingController _searchController = TextEditingController();
   final ValueNotifier<String> _searchNotifier = ValueNotifier<String>('');
-  int _selectedIndex = 0; // 0: Dashboard, 1: Workspaces, 2: Analytics, 3: Plans, 4: Workflow, 5: Settings, 6: Billing
+  int _selectedIndex = 0; // 0: Dashboard, 1: Workspaces, 2: Analytics, 3: Plans, 4: Workflow, 5: Settings, 6: Billing, 7: APK Emulator
 
   @override
   void dispose() {
@@ -80,6 +81,7 @@ class _SuperAdminDashboardScreenState extends State<SuperAdminDashboardScreen> {
                       _buildNavItem(icon: Icons.analytics_rounded, label: "Analytics", index: 2),
                       _buildNavItem(icon: Icons.price_change_rounded, label: "Plans & Pricing", index: 3),
                       _buildNavItem(icon: Icons.account_tree_rounded, label: "Workflow Panels", index: 4),
+                      _buildNavItem(icon: Icons.phone_android_rounded, label: "APK Emulator", index: 7),
                       _buildNavItem(icon: Icons.receipt_long_rounded, label: "Billing & Transactions", index: 6), // Razorpay Billing Records Tab
                       _buildNavItem(icon: Icons.settings_rounded, label: "Settings", index: 5),
                     ],
@@ -203,6 +205,7 @@ class _SuperAdminDashboardScreenState extends State<SuperAdminDashboardScreen> {
       case 4: return "Platform Workflow & Engine Panels";
       case 5: return "Super Admin Settings";
       case 6: return "Razorpay Billing & Transaction Records";
+      case 7: return "Platform APK Emulator & Mobile UI Designer";
       default: return "Control Panel";
     }
   }
@@ -223,6 +226,8 @@ class _SuperAdminDashboardScreenState extends State<SuperAdminDashboardScreen> {
         return _buildSettingsView();
       case 6:
         return _buildBillingTransactionsView(); // Renders Razorpay transaction ledger
+      case 7:
+        return const PlatformApkEmulatorScreen();
       default:
         return _buildDashboardView(docs);
     }

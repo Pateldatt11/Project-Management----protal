@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/platform/android_alert_notification_service.dart';
 import '../core/services/notification_service.dart';
 import '../features/auth/presentation/auth_gate.dart';
+import '../features/home/presentation/public_web_home_screen.dart';
 import '../features/tasks/presentation/tasks_screen.dart';
 import 'app_theme.dart';
 
@@ -22,7 +24,7 @@ class ProjectManagementDashboardApp extends ConsumerWidget {
       builder: (context, child) => AndroidNotificationAlertWatcher(
         child: child ?? const SizedBox.shrink(),
       ),
-      home: const AuthGate(),
+      home: kIsWeb ? const PublicWebHomeScreen() : const AuthGate(),
       onGenerateRoute: (settings) {
         final args = settings.arguments as Map<String, dynamic>?;
 
