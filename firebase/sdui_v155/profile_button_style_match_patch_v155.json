@@ -1,0 +1,100 @@
+{
+  "version": 155,
+  "profileActions": {
+    "showLogout": true,
+    "setOfflineBeforeLogout": true,
+    "logoutPosition": "profileActionButton",
+    "logoutStyle": "filledIcon",
+    "style": "v145MatchedPillActionGrid",
+    "settingsSectionEnabled": true,
+    "settingsExpandable": true,
+    "logoutAsButton": true,
+    "showLogoutPreview": false,
+    "settingsLogoutRow": false,
+    "showEditProfileButton": true,
+    "showCopyLogButton": true,
+    "showCrashlyticsTestButton": true,
+    "buttonGridStyle": "twoColumnPillGrid",
+    "buttonHeight": 46,
+    "buttonRadius": 999,
+    "showActionIcons": true,
+    "actionColors": {
+      "editProfile": {
+        "background": "#3267D6",
+        "foreground": "#FFFFFF",
+        "filled": true,
+        "icon": "edit"
+      },
+      "copyLog": {
+        "background": "#F8FBF6",
+        "foreground": "#55764D",
+        "border": "#CBD7C7",
+        "filled": false,
+        "icon": "receipt_long"
+      },
+      "crashlyticsTest": {
+        "background": "#FFF7F7",
+        "foreground": "#C2413D",
+        "border": "#F2C5C5",
+        "filled": false,
+        "icon": "bug_report"
+      },
+      "logout": {
+        "background": "#55764D",
+        "foreground": "#FFFFFF",
+        "filled": true,
+        "icon": "logout"
+      }
+    }
+  },
+  "profileCardConfig": {
+    "variant": "premiumWorkspaceProfile",
+    "showAvatar": true,
+    "showOnlineStatus": true,
+    "showCompanyName": true,
+    "showRole": true,
+    "showDepartment": true,
+    "fieldStyle": "settingsRows",
+    "logoutPlacement": "profileActionButton",
+    "logoutStyle": "filledIcon",
+    "showStatsGrid": true,
+    "showWorkProfile": true,
+    "showAssignedScope": true,
+    "privacyMode": "projectScoped",
+    "actionsLayout": "v145MatchedPillGrid",
+    "statusToggles": "softRows",
+    "settingsExpandable": true,
+    "profileButtonStyle": "filledAndOutlinePillGrid",
+    "showProfileButtonIcons": true,
+    "buttonGridColumns": 2,
+    "buttonGridGap": 10
+  },
+  "screenOverrides": {
+    "profile": {
+      "screen": "profile",
+      "type": "profileSummary",
+      "title": "Profile",
+      "subtitle": "Private employee workspace profile",
+      "variant": "premiumWorkspaceProfile",
+      "hideTitle": false,
+      "settingsSectionEnabled": true,
+      "logoutPlacement": "profileActionButton",
+      "logoutStyle": "filledIcon",
+      "notificationSettingsPlacement": "settingsExpandable",
+      "hideStandaloneNotificationSettings": true,
+      "profileButtonStyle": "v145MatchedPillGrid",
+      "profileActionButtons": {
+        "layout": "twoColumnWrap",
+        "height": 46,
+        "radius": 999,
+        "showIcons": true,
+        "editProfileColor": "#3267D6",
+        "copyLogColor": "#55764D",
+        "crashlyticsColor": "#C2413D",
+        "logoutColor": "#55764D"
+      },
+      "showLogoutPreview": false
+    }
+  },
+  "rendererVersion": "employee_sdui_v155_profile_button_style_match"
+}

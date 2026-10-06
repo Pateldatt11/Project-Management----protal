@@ -1,0 +1,100 @@
+{
+  "version": 170,
+  "rendererVersion": "employee_sdui_v170_search_summary_filter_order",
+  "screenOverrides": {
+    "projects": {
+      "searchPlacement": "firstBeforeSummary",
+      "summaryPlacement": "afterSearchBeforeFilters",
+      "filterPlacement": "afterSummaryBeforeContent",
+      "sectionOrder": [
+        "search",
+        "summary",
+        "filters",
+        "content"
+      ],
+      "contentOrder": [
+        "search",
+        "summary",
+        "filters",
+        "feed"
+      ],
+      "pageSearchFirst": true,
+      "summaryBeforeFilters": true,
+      "jsonControlsSearchOrder": true,
+      "jsonControlsSummaryOrder": true,
+      "sections": [
+        {
+          "id": "projectFeed",
+          "searchPlacement": "firstBeforeSummary",
+          "summaryPlacement": "afterSearchBeforeFilters",
+          "filterPlacement": "afterSummaryBeforeContent",
+          "sectionOrder": [
+            "search",
+            "summary",
+            "filters",
+            "content"
+          ],
+          "contentOrder": [
+            "search",
+            "summary",
+            "filters",
+            "feed"
+          ],
+          "pageSearchFirst": true,
+          "summaryBeforeFilters": true,
+          "jsonControlsSearchOrder": true,
+          "jsonControlsSummaryOrder": true
+        }
+      ]
+    },
+    "tasks": {
+      "searchPlacement": "firstBeforeSummary",
+      "summaryPlacement": "afterSearchBeforeFilters",
+      "filterPlacement": "afterSummaryBeforeContent",
+      "sectionOrder": [
+        "search",
+        "summary",
+        "filters",
+        "content"
+      ],
+      "contentOrder": [
+        "search",
+        "summary",
+        "filters",
+        "feed"
+      ],
+      "pageSearchFirst": true,
+      "summaryBeforeFilters": true,
+      "jsonControlsSearchOrder": true,
+      "jsonControlsSummaryOrder": true,
+      "sections": [
+        {
+          "id": "taskFeed",
+          "searchPlacement": "firstBeforeSummary",
+          "summaryPlacement": "afterSearchBeforeFilters",
+          "filterPlacement": "afterSummaryBeforeContent",
+          "sectionOrder": [
+            "search",
+            "summary",
+            "filters",
+            "content"
+          ],
+          "contentOrder": [
+            "search",
+            "summary",
+            "filters",
+            "feed"
+          ],
+          "pageSearchFirst": true,
+          "summaryBeforeFilters": true,
+          "jsonControlsSearchOrder": true,
+          "jsonControlsSummaryOrder": true
+        }
+      ]
+    }
+  },
+  "featureFlags": {
+    "jsonControlledSummaryBeforeFilters": true,
+    "projectTaskSearchSummaryFilterContentOrder": true
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "version": 118,
+  "rendererVersion": "employee_sdui_v147_adaptive_project_summary_filters",
+  "minRendererVersion": "employee_sdui_v147_adaptive_project_summary_filters",
+  "projectPageResponsiveConfig": {
+    "enabled": true,
+    "summaryCards": {
+      "smallColumns": 2,
+      "mediumColumns": 3,
+      "largeColumns": 4,
+      "overflowSafe": true
+    },
+    "statusFilters": {
+      "smallColumns": 2,
+      "mediumColumns": 3,
+      "largeColumns": 4,
+      "autoShortLabels": true,
+      "ellipsis": true
+    }
+  }
+}

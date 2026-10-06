@@ -1,0 +1,296 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v164_project_task_stats_responsive_fix",
+  "screenOverrides": {
+    "home": {
+      "type": "sectionList",
+      "title": "Dashboard",
+      "subtitle": "At-a-glance project overview",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EEF2EA",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "textMuted": "#8B9288",
+        "border": "#D8DED4",
+        "accent": "#5F7F55",
+        "accentDark": "#405446",
+        "success": "#5F7F55",
+        "warning": "#8F9168",
+        "danger": "#C85F55",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "padding": {
+        "left": 16,
+        "top": 8,
+        "right": 16,
+        "bottom": 16
+      },
+      "contentBehavior": "pureFloatingOverlay",
+      "sections": [
+        {
+          "id": "search",
+          "type": "searchHeader",
+          "placeholder": "Search projects, tasks, or members..."
+        },
+        {
+          "id": "filters",
+          "type": "filterChips",
+          "items": [
+            "All",
+            "In Progress",
+            "Completed",
+            "Overdue"
+          ],
+          "active": "All"
+        },
+        {
+          "id": "workSummary",
+          "type": "deadlineHero",
+          "variant": "darkEditorialHero",
+          "title": "Today’s work",
+          "dataSource": "tasks.todaySummary",
+          "activeBinding": true,
+          "countSource": "tasks.todayOpenCount",
+          "subtitleWhenEmpty": "No open task deadlines."
+        },
+        {
+          "id": "metrics",
+          "type": "grid",
+          "columns": 2,
+          "items": [
+            {
+              "type": "metricTile",
+              "title": "Active projects",
+              "valueSource": "projects.activeCount",
+              "icon": "folder",
+              "activeBinding": true
+            },
+            {
+              "type": "metricTile",
+              "title": "Open tasks",
+              "valueSource": "tasks.openCount",
+              "icon": "task_alt",
+              "activeBinding": true
+            },
+            {
+              "type": "metricTile",
+              "title": "Overdue",
+              "valueSource": "tasks.overdueCount",
+              "icon": "warning",
+              "activeBinding": true
+            },
+            {
+              "type": "metricTile",
+              "title": "Team online",
+              "valueSource": "presence.onlineCount",
+              "icon": "group",
+              "activeBinding": true
+            }
+          ]
+        },
+        {
+          "id": "activeProjects",
+          "type": "projectList",
+          "title": "Active Projects",
+          "limit": 4,
+          "variant": "softProgressCard",
+          "dataSource": "projects.active",
+          "summaryLayout": "horizontalScroll",
+          "projectSummaryLayout": "horizontalScroll"
+        },
+        {
+          "id": "today",
+          "type": "taskList",
+          "title": "Today Tasks",
+          "limit": 3,
+          "variant": "editorialStatusCard",
+          "dataSource": "tasks.today"
+        }
+      ],
+      "searchEnabled": true,
+      "filterChips": [
+        "All",
+        "In Progress",
+        "Completed",
+        "Overdue"
+      ],
+      "edgeToEdgeBehavior": "androidFigureOneRight",
+      "contentDrawsBehindSystemBars": true,
+      "topProtectionMode": "scrollAwareInitialOnly",
+      "bottomProtectionMode": "gestureAwareOverlay",
+      "screen": "home",
+      "screenKey": "home"
+    },
+    "projects": {
+      "type": "sectionList",
+      "title": "Projects",
+      "subtitle": "Browse and track projects",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EEF2EA",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "textMuted": "#8B9288",
+        "border": "#D8DED4",
+        "accent": "#5F7F55",
+        "accentDark": "#405446",
+        "success": "#5F7F55",
+        "warning": "#8F9168",
+        "danger": "#C85F55",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "padding": {
+        "left": 16,
+        "top": 8,
+        "right": 16,
+        "bottom": 16
+      },
+      "contentBehavior": "pureFloatingOverlay",
+      "sections": [
+        {
+          "id": "search",
+          "type": "searchHeader",
+          "placeholder": "Search projects..."
+        },
+        {
+          "id": "filters",
+          "type": "filterChips",
+          "items": [
+            "All",
+            "In Progress",
+            "Completed",
+            "On Hold"
+          ],
+          "active": "All"
+        },
+        {
+          "id": "projectFeed",
+          "type": "projectPage",
+          "title": "Project Feed",
+          "variant": "wireframeProjectFeedCard",
+          "dataSource": "projects",
+          "showSummary": true,
+          "summaryLayout": "grid",
+          "projectSummaryLayout": "grid"
+        }
+      ],
+      "searchEnabled": true,
+      "filterChips": [
+        "All",
+        "In Progress",
+        "Completed",
+        "On Hold"
+      ],
+      "edgeToEdgeBehavior": "androidFigureOneRight",
+      "contentDrawsBehindSystemBars": true,
+      "topProtectionMode": "scrollAwareInitialOnly",
+      "bottomProtectionMode": "gestureAwareOverlay",
+      "summaryLayout": "grid",
+      "screen": "projects",
+      "screenKey": "projects",
+      "showSummary": true,
+      "projectSummaryLayout": "grid"
+    },
+    "tasks": {
+      "type": "sectionList",
+      "title": "Tasks",
+      "subtitle": "Tasks by priority and status",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EEF2EA",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "textMuted": "#8B9288",
+        "border": "#D8DED4",
+        "accent": "#5F7F55",
+        "accentDark": "#405446",
+        "success": "#5F7F55",
+        "warning": "#8F9168",
+        "danger": "#C85F55",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "padding": {
+        "left": 16,
+        "top": 8,
+        "right": 16,
+        "bottom": 16
+      },
+      "contentBehavior": "pureFloatingOverlay",
+      "sections": [
+        {
+          "id": "search",
+          "type": "searchHeader",
+          "placeholder": "Search tasks..."
+        },
+        {
+          "id": "tabs",
+          "type": "filterChips",
+          "items": [
+            "All",
+            "New",
+            "My Tasks",
+            "Completed"
+          ],
+          "active": "All"
+        },
+        {
+          "id": "taskFeed",
+          "type": "taskPage",
+          "title": "Task List",
+          "variant": "editorialStatusCard",
+          "dataSource": "tasks",
+          "showAllFilterSubTabs": true,
+          "allFilterSubTabPlacement": "underFilters",
+          "allFilterSubTabStyle": "pillSegmented",
+          "defaultAllFilterSubTab": "newOpenTasks",
+          "allFilterSubTabs": [
+            {
+              "key": "newOpenTasks",
+              "label": "New tas...",
+              "filter": "status != completed"
+            },
+            {
+              "key": "allTasks",
+              "label": "All tasks",
+              "filter": "all"
+            }
+          ],
+          "note": "When the primary task filter is All, the renderer shows this pill tab row under the filter chips.",
+          "showSummary": true,
+          "showTaskSummary": true,
+          "statsLayout": "grid"
+        }
+      ],
+      "searchEnabled": true,
+      "filterChips": [
+        "All",
+        "New",
+        "My Tasks",
+        "Completed"
+      ],
+      "edgeToEdgeBehavior": "androidFigureOneRight",
+      "contentDrawsBehindSystemBars": true,
+      "topProtectionMode": "scrollAwareInitialOnly",
+      "bottomProtectionMode": "gestureAwareOverlay",
+      "screen": "tasks",
+      "screenKey": "tasks",
+      "showSummary": true,
+      "showTaskSummary": true,
+      "statsLayout": "grid"
+    }
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

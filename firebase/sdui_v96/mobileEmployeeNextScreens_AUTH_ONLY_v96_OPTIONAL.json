@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "version": 96,
+  "configType": "mobileEmployeeWireframeAuthScreensOnly",
+  "screenOverrides": {
+    "onboarding": "Use firebase/sdui_v96/mobileEmployeeNextDesign_NAV_AUTH_ONLY_v96_PUSH_THIS.json screenOverrides.onboarding",
+    "login": "Use firebase/sdui_v96/mobileEmployeeNextDesign_NAV_AUTH_ONLY_v96_PUSH_THIS.json screenOverrides.login",
+    "signup": "Use firebase/sdui_v96/mobileEmployeeNextDesign_NAV_AUTH_ONLY_v96_PUSH_THIS.json screenOverrides.signup"
+  },
+  "note": "This optional file is only a pointer. Main push file is mobileEmployeeNextDesign_NAV_AUTH_ONLY_v96_PUSH_THIS.json."
+}

@@ -1,0 +1,56 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v197_watchable_hardcoded_task_timeline",
+  "featureFlags": {
+    "hardcodedTaskTimelineScreen": true,
+    "taskTimelineNoDummyFallback": true,
+    "taskTimelineUsesWorkspaceState": true,
+    "taskTimelineWatchMode": true,
+    "taskTimelineInteractiveGantt": true,
+    "taskTimelineProjectFilterWorking": true,
+    "taskTimelineSearchFilterWorking": true
+  },
+  "screenConfigs": {
+    "taskTimeline": {
+      "enabled": true,
+      "route": "taskTimeline",
+      "screen": "taskTimeline",
+      "renderMode": "hardcodedFeatureScreen",
+      "dataSource": "WorkspaceState.visibleTasks",
+      "fallbackDataSource": "scoped WorkspaceState.tasks",
+      "dummyDataDisabled": true,
+      "hardcodedNativeScreen": true,
+      "liveDataOnly": true,
+      "interactiveWatchMode": true,
+      "selectTaskToWatch": true,
+      "tapGanttBarToSelect": true,
+      "longPressTaskToOpenInsight": true
+    }
+  },
+  "screenOverrides": {
+    "taskTimeline": {
+      "screen": "taskTimeline",
+      "route": "taskTimeline",
+      "title": "Task Timeline",
+      "renderMode": "hardcodedFeatureScreen",
+      "hardcodedNativeScreen": true,
+      "liveDataOnly": true,
+      "dummyDataDisabled": true,
+      "enabled": true,
+      "interactiveWatchMode": true,
+      "selectTaskToWatch": true,
+      "tapGanttBarToSelect": true,
+      "longPressTaskToOpenInsight": true,
+      "dataSource": "WorkspaceState.visibleTasks",
+      "fallbackDataSource": "scoped WorkspaceState.tasks"
+    }
+  },
+  "adminPreviewConfig": {
+    "previewLogsEnabled": true,
+    "clearLogsOnPreviewStart": true,
+    "clearLogsOnRouteChange": true,
+    "persistPreviewLogs": false,
+    "taskTimelineWatchLogs": true
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

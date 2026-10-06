@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1051281746131",
+    "firebase_url": "https://project-management-dashb-aa77a-default-rtdb.firebaseio.com",
+    "project_id": "project-management-dashb-aa77a",
+    "storage_bucket": "project-management-dashb-aa77a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051281746131:android:c2bcb45beddb46d2460c26",
+        "android_client_info": {
+          "package_name": "com.example.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051281746131-mbnplifepli16i7ijj2uljj2enh1icul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2IOr5Q6QakF8bv4a3F1p3lnke7JRac4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051281746131-mbnplifepli16i7ijj2uljj2enh1icul.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1051281746131-67p5vfhgntoa2otor6rt9b9t0la8iqo2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.test"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

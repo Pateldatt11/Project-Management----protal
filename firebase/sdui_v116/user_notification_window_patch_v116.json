@@ -1,0 +1,23 @@
+{
+  "notificationAlertConfig": {
+    "displayWindowMode": "currentMonth",
+    "displayWindowDays": 31,
+    "displayWindowHours": 24,
+    "hideExpiredNotifications": true,
+    "allowUserDisplayWindowSelection": true
+  },
+  "profileActions": {
+    "showNotificationWindowPreference": true
+  },
+  "supportedWidgets": [
+    "notificationAlert",
+    "notificationSoundSelector",
+    "notificationDisplayWindow"
+  ],
+  "notes": [
+    "Company/admin config sets the default notification window.",
+    "Each user can override the display window from Profile/Settings.",
+    "User preference is stored at users/{uid}.notificationPreferences.",
+    "Notification document expiresAt/visibleUntil still has highest priority and hides expired notifications even when the user selects all."
+  ]
+}

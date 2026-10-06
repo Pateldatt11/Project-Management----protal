@@ -1,0 +1,29 @@
+{
+  "version": 266,
+  "patchId": "task_board_carousel_gesture_lock_patch_v266",
+  "title": "Task Board carousel directional gesture lock",
+  "description": "Keeps the Task Board page scroll from activating during a horizontal phase carousel swipe. Layout/padding/title remain unchanged.",
+  "rendererFlags": {
+    "taskBoardCarouselDirectionalGestureLock": true,
+    "carouselDirectionalGestureLock": true,
+    "phaseStackDirectionalGestureLock": true,
+    "taskBoardCarouselGestureLockSlopPx": 6,
+    "taskBoardCarouselGestureUnlockDelayMs": 180,
+    "taskBoardParentScrollIsolation": true,
+    "carouselSwipeDoesNotMoveParentPage": true,
+    "taskBoardCarouselFirstSwipeFix": true,
+    "phaseStackStrictNoVerticalMotion": true,
+    "pageViewNoVerticalMotion": true,
+    "carouselNoVerticalMotion": true,
+    "taskBoardCarouselNoVerticalMotion": true,
+    "carouselZoneVisibleLine": false,
+    "showCarouselZoneBoundary": false,
+    "carouselOnlyBoundaryVisible": false
+  },
+  "qaExpectedBehavior": [
+    "Vertical page scroll works normally outside the carousel.",
+    "Horizontal swipe inside the phase carousel locks parent ListView scroll only after horizontal intent is detected.",
+    "No title movement, no card translateY, no page padding change.",
+    "On pointer up/cancel, parent vertical scroll is released after the snap delay."
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "version": 100,
+  "configId": "mobileEmployee_cleanWireframe_v100_merged_search_hamburger_working",
+  "topNav": {
+    "hamburgerMenu": true,
+    "hamburgerMode": "mergedLeadingIcon",
+    "mergeHamburgerWithSearch": true,
+    "hamburgerPosition": "insideSearch",
+    "searchInteractive": true,
+    "searchBehavior": "filterCurrentScreenAndSubmitUniversal",
+    "searchSource": "runtimeSearchQuery",
+    "placeholder": "Search...",
+    "searchPlaceholder": "Search...",
+    "searchOwnsPageFiltering": true,
+    "actions": [
+      "hamburgerMenu",
+      "backWhenNested",
+      "smartSearch",
+      "routeTitle",
+      "inbox",
+      "avatar"
+    ]
+  },
+  "sideMenuConfig": {
+    "enabled": true,
+    "trigger": "topNavHamburger",
+    "presentation": "floatingSideSheet",
+    "source": "screenRegistry",
+    "topNavIntegration": "mergedLeadingIcon",
+    "showMainTabs": true,
+    "showNestedScreens": true,
+    "mainScreens": [
+      "home",
+      "projects",
+      "board",
+      "profile"
+    ],
+    "moreScreens": [
+      "tasks",
+      "meetings",
+      "notifications",
+      "taskMap",
+      "timeline",
+      "files",
+      "calendar",
+      "teamMembers"
+    ],
+    "nestedScreens": [
+      "taskMap",
+      "timeline",
+      "files",
+      "calendar",
+      "teamMembers",
+      "taskDetail",
+      "projectDetail",
+      "meetingDetail"
+    ]
+  },
+  "rendererCompatibility": {
+    "requiresMergedHamburgerSearch": true,
+    "requiresInteractiveTopSearch": true
+  },
+  "supportedWidgets": [
+    "mergedHamburgerSearch",
+    "interactiveTopSearch",
+    "runtimeSearchQuery"
+  ]
+}

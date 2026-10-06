@@ -1,0 +1,20 @@
+{
+  "version": 217,
+  "patchName": "global_tap_unlock_phase_stack_patch_v217",
+  "notes": [
+    "Fixes the v216 bug where users had to tap every phase again after swiping.",
+    "One tap on any center or side phase card now unlocks lower details globally for the whole carousel session.",
+    "After unlock, horizontal swipes automatically refresh the lower project/task preview for the active phase.",
+    "Completed phase still shows details by default before any tap.",
+    "Empty phases still show: No task was in this phase."
+  ],
+  "board": {
+    "phaseStackTapToRevealDetails": true,
+    "phaseStackGlobalTapUnlockDetails": true,
+    "phaseStackOneTapGlobalUnlock": true,
+    "phaseStackCompletedDetailsDefault": true,
+    "phaseStackCardTapOpensSheet": false,
+    "phaseStackPlaceholderText": "Please tap on any card to get the details."
+  },
+  "emptyPhaseDialogText": "No task was in this phase."
+}

@@ -1,0 +1,22 @@
+{
+  "version": 162,
+  "requiresApkRendererVersion": "employee_sdui_v162_home_metric_strip_project_grid",
+  "screenOverrides": {
+    "home": {
+      "sections": [
+        {
+          "id": "activeProjects",
+          "type": "projectList",
+          "title": "Active Projects",
+          "summaryLayout": "horizontalScroll",
+          "projectSummaryLayout": "homeHorizontalScroll",
+          "note": "Embedded Home project summary uses old horizontal scrolling strip. Full Projects page keeps grid/wrap metrics."
+        }
+      ]
+    },
+    "projects": {
+      "summaryLayout": "responsiveGrid",
+      "note": "Project page keeps the current responsive two/three-column metrics layout."
+    }
+  }
+}

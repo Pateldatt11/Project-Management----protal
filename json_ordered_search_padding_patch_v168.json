@@ -1,0 +1,84 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v168_json_ordered_search_and_padding",
+  "layoutConfig": {
+    "initialContentPaddingTop": 82,
+    "initialContentProtectionExtra": 0
+  },
+  "topNav": {
+    "initialContentProtectionPadding": 82,
+    "initialContentProtectionExtra": 0,
+    "searchPlacement": "firstBeforePageStats"
+  },
+  "floatingTopNav": {
+    "initialContentProtectionPadding": 82,
+    "initialContentProtectionExtra": 0,
+    "searchPlacement": "firstBeforePageStats"
+  },
+  "scrollAwareTopPadding": {
+    "fallbackInitialPaddingTop": 82,
+    "initialContentProtectionExtra": 0
+  },
+  "edgeToEdgeConfig": {
+    "topProtection": {
+      "initialTopPadding": 82,
+      "initialContentProtectionExtra": 0
+    }
+  },
+  "responsiveNav": {
+    "overlapProtection": {
+      "initialTopPadding": 82,
+      "initialContentProtectionExtra": 0
+    }
+  },
+  "screenOverrides": {
+    "projects": {
+      "searchPlacement": "firstBeforeStats",
+      "summaryPlacement": "afterFilters",
+      "sectionOrder": [
+        "search",
+        "filters",
+        "summary",
+        "content"
+      ],
+      "contentOrder": [
+        "search",
+        "filters",
+        "stats",
+        "feed"
+      ],
+      "pageSearchFirst": true,
+      "jsonControlsSearchOrder": true
+    },
+    "tasks": {
+      "searchPlacement": "firstBeforeStats",
+      "summaryPlacement": "afterFilters",
+      "sectionOrder": [
+        "search",
+        "filters",
+        "summary",
+        "content"
+      ],
+      "contentOrder": [
+        "search",
+        "filters",
+        "stats",
+        "feed"
+      ],
+      "pageSearchFirst": true,
+      "jsonControlsSearchOrder": true
+    }
+  },
+  "rendererCompatibility": {
+    "minVersion": "employee_sdui_v168_json_ordered_search_and_padding",
+    "recommendedVersion": "employee_sdui_v168_json_ordered_search_and_padding",
+    "pageSearchOrder": "jsonControlledSearchBeforeStats",
+    "topPaddingSource": "explicitFirestoreJsonOnlyWhenConfigured"
+  },
+  "featureFlags": {
+    "jsonControlledPageSearchOrder": true,
+    "projectTaskSearchBeforeStats": true,
+    "explicitTopPaddingFirestoreWins": true
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

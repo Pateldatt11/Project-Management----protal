@@ -1,0 +1,134 @@
+{
+  "version": 108,
+  "configId": "mobileEmployee_cleanWireframe_v108_nested_data_modules",
+  "rendererVersion": "employee_sdui_v134_nested_data_modules",
+  "rendererCompatibility": {
+    "minRendererVersion": "employee_sdui_v134_nested_data_modules",
+    "apkRendererVersion": "employee_sdui_v134_nested_data_modules",
+    "requiresNestedDataModules": true,
+    "requiresTaskMapDataRender": true,
+    "requiresTimelineDataRender": true,
+    "requiresCalendarDataRender": true,
+    "requiresTeamMembersDataRender": true,
+    "requiresFilesDataRender": true,
+    "requiresEmbeddedNestedSections": true,
+    "requiresNoNestedListViewOverflow": true,
+    "nestedScreenRoutesSupported": [
+      "taskMap",
+      "timeline",
+      "files",
+      "calendar",
+      "teamMembers",
+      "taskDetail",
+      "projectDetail",
+      "meetingDetail"
+    ]
+  },
+  "nestedDataModules": {
+    "enabled": true,
+    "source": "WorkspaceState live Firestore data",
+    "routes": {
+      "taskMap": {
+        "reads": [
+          "visibleTasks",
+          "visibleProjects"
+        ],
+        "emptyState": "No task map data"
+      },
+      "timeline": {
+        "reads": [
+          "visibleProjects",
+          "visibleTasks"
+        ],
+        "emptyState": "No timeline data"
+      },
+      "calendar": {
+        "reads": [
+          "visibleTasks.dueDate",
+          "myNotifications.meetingInvites"
+        ],
+        "emptyState": "No calendar items"
+      },
+      "teamMembers": {
+        "reads": [
+          "members",
+          "visibleProjects.teamIds",
+          "visibleTasks.assignedToIds",
+          "currentMember"
+        ],
+        "emptyState": "No team members"
+      },
+      "files": {
+        "reads": [
+          "attachments",
+          "visibleTasks",
+          "visibleProjects"
+        ],
+        "emptyState": "No file metadata yet"
+      }
+    },
+    "embeddedSectionMode": "ColumnNoNestedListView",
+    "screenMode": "ListViewRoot"
+  },
+  "screenRegistry": {
+    "nestedScreens": [
+      "onboarding",
+      "taskMap",
+      "timeline",
+      "taskDetail",
+      "teamMembers",
+      "files",
+      "calendar",
+      "meetingDetail",
+      "projectDetail"
+    ],
+    "activeTabs": [
+      "home",
+      "projects",
+      "tasks",
+      "board",
+      "meetings",
+      "notifications",
+      "profile",
+      "taskMap",
+      "timeline",
+      "files",
+      "calendar",
+      "teamMembers"
+    ]
+  },
+  "sideMenuConfig": {
+    "moreScreens": [
+      "board",
+      "meetings",
+      "notifications",
+      "taskMap",
+      "timeline",
+      "files",
+      "calendar",
+      "teamMembers"
+    ],
+    "showNestedScreens": true,
+    "showIcons": true,
+    "nestedDataModulesEnabled": true
+  },
+  "dataBindings": {
+    "taskMap": "tasks where assignedTo/currentProject with optional task.location/site fields",
+    "timeline": "visibleProjects.dueDate/progress + visibleTasks.dueDate/status",
+    "calendar": "visibleTasks.dueDate + meeting notifications",
+    "teamMembers": "companies/{companyId}/members filtered by visible projects/tasks/current member",
+    "files": "attachments filtered by visible project/task ids"
+  },
+  "supportedWidgets": [
+    "calendarDeadlines",
+    "taskMapSiteView",
+    "teamProjectMembers",
+    "membersList",
+    "nestedDataModule",
+    "embeddedNestedSection",
+    "liveTaskMapRows",
+    "liveTimelineRows",
+    "liveCalendarRows",
+    "liveTeamMemberRows"
+  ]
+}

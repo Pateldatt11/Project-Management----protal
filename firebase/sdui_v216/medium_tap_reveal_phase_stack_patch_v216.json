@@ -1,0 +1,30 @@
+{
+  "version": 216,
+  "patchName": "medium_tap_reveal_phase_stack_patch_v216",
+  "notes": [
+    "Cards use a middle responsive size on compact phones: not full-height and not overly short.",
+    "Non-completed phase cards no longer show project/task details by default; they show a helper placeholder until the active card is tapped.",
+    "Completed phase shows project detail rows by default.",
+    "Completed card keeps the no-tick abstract artwork.",
+    "Card tap reveals lower project details; View all/project rows still open the project/task sheet."
+  ],
+  "board": {
+    "phaseStackCardTapOpensSheet": false,
+    "phaseStackTapToRevealDetails": true,
+    "phaseStackCompletedDetailsDefault": true,
+    "phaseStackPlaceholderText": "Please tap on any card to get the details.",
+    "compactPhaseStackCarouselHeight": 410,
+    "compactPhaseStackCardWidth": 246,
+    "compactPhaseStackCardHeight": 388,
+    "compactPhaseStackWidthFraction": 0.76,
+    "phaseStackCardHeightRatio": 1.58,
+    "phaseStackCarouselHeight": 516,
+    "phaseStackCardWidth": 272,
+    "phaseStackCardHeight": 486,
+    "phaseStackLowerContentEnabled": true,
+    "responsivePhaseStackCards": true,
+    "compactPhoneFriendlyCards": true,
+    "compactResponsivePhaseDeck": true
+  },
+  "emptyPhaseDialogText": "No task was in this phase."
+}

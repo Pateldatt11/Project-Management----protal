@@ -1,0 +1,52 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v190_live_task_timeline_notification_legacy",
+  "notificationShortcutAnimation": {
+    "enabled": false,
+    "type": "none",
+    "mode": "legacyDirectTap",
+    "hardcodedInRenderer": false,
+    "deferOpenMs": 0,
+    "note": "Restores older notification shortcut behavior."
+  },
+  "topNav": {
+    "notificationShortcutAnimation": {
+      "enabled": false,
+      "type": "none",
+      "mode": "legacyDirectTap",
+      "hardcodedInRenderer": false,
+      "deferOpenMs": 0
+    }
+  },
+  "screenOverrides": {
+    "taskTimeline": {
+      "screen": "taskTimeline",
+      "type": "taskProgressTimeline",
+      "variant": "deliveryAppUIKitTimeline",
+      "deliveryUIKitTimeline": true,
+      "useDeliveryUIKitTimeline": true,
+      "liveDataMode": true,
+      "useVisibleTasks": true,
+      "useVisibleProjectsFallback": true,
+      "forceReferenceTimeline": false,
+      "forceReferenceDeliveryUIKit": false,
+      "exactReferenceTimeline": false,
+      "referenceFallbackWhenEmpty": true,
+      "showReferenceFallbackWhenEmpty": true,
+      "showTaskProgressCard": true,
+      "showTaskTimelineBars": true,
+      "showAgendaList": false,
+      "showDateStrip": false,
+      "progressTitle": "Task Progress",
+      "progressNote": "You have a good progress",
+      "timelineBarsTitle": "Task Timeline",
+      "timelineBarsSubtitle": "Live task schedule from your visible projects",
+      "timelineTaskLimit": 6
+    }
+  },
+  "featureFlags": {
+    "notificationShortcutAppOpeningAnimation": false,
+    "liveTaskTimelineData": true
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

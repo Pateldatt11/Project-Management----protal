@@ -1,0 +1,39 @@
+{
+  "version": 211,
+  "patchId": "exact_phase_stack_carousel_patch_v211",
+  "rendererVersion": "employee_sdui_v211_exact_phase_stack_carousel",
+  "changes": [
+    "All 8 phase cards are arranged inside the carousel stack, not only center/side cards.",
+    "Circular queue keeps modulo navigation in both swipe directions.",
+    "Phase cards show project-first flow: phase card -> project list -> tasks in selected phase/project.",
+    "Removed footer hints and side status/progress UI from cards.",
+    "Retuned per-phase artwork to match the supplied card render."
+  ],
+  "board": {
+    "stackedVisibleSideDepth": 4,
+    "cinematicVisibleSideDepth": 4,
+    "visibleSideDepth": 4,
+    "stackedCardSpacingX": 34,
+    "cinematicCardSpacingX": 34,
+    "stackedCardSpacingY": 10,
+    "deckCardSpacingY": 10,
+    "stackedCardRotateZ": 0.026,
+    "deckCardRotateZ": 0.026,
+    "stackedCardScaleStep": 0.042,
+    "cinematicCardScaleStep": 0.042,
+    "stackedCardMinScale": 0.84,
+    "cinematicCardMinScale": 0.84,
+    "stackedCardMaxOverlay": 0.34,
+    "cinematicMaxDepthOverlay": 0.34,
+    "phaseStackCarouselHeight": 508,
+    "stackedCarouselHeight": 508,
+    "cinematicStackHeight": 508,
+    "verticalStackedCarouselHeight": 508,
+    "allCardsStackedDeck": true,
+    "allEightCardsVisibleInStack": true,
+    "referencePhaseCardParity": true,
+    "hidePhaseCardFooterHint": true,
+    "noSideStatusPanel": true
+  },
+  "emptyPhaseDialogText": "No task was in this phase."
+}

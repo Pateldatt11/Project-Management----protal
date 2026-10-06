@@ -1,0 +1,13 @@
+[Unit]
+Description=Run ProjectOS notification backend watchdog every minute
+
+[Timer]
+OnBootSec=90s
+OnUnitActiveSec=60s
+AccuracySec=10s
+Persistent=true
+RandomizedDelaySec=5s
+Unit=projectos-notification-watchdog.service
+
+[Install]
+WantedBy=timers.target

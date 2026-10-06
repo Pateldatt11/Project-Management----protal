@@ -1,0 +1,58 @@
+{
+  "pageSearchConfig": {
+    "enabled": true,
+    "scope": "currentPageContentOnly",
+    "topNavSearchUntouched": true,
+    "filterMode": "hideNonMatchingCardsAndSections",
+    "pages": [
+      "home",
+      "tasks",
+      "projects",
+      "board",
+      "notifications",
+      "meetings"
+    ]
+  },
+  "screenConfigs": {
+    "home": {
+      "search": true,
+      "pageSearchScope": "currentPageContentOnly",
+      "searchHint": "Search this home page"
+    },
+    "tasks": {
+      "search": true,
+      "pageSearchScope": "currentPageContentOnly",
+      "searchHint": "Search assigned tasks"
+    },
+    "projects": {
+      "search": true,
+      "pageSearchScope": "currentPageContentOnly",
+      "searchHint": "Search active project name or details"
+    },
+    "board": {
+      "search": true,
+      "pageSearchScope": "currentPageContentOnly",
+      "searchHint": "Search board tasks or status"
+    },
+    "notifications": {
+      "search": true,
+      "pageSearchScope": "currentPageContentOnly",
+      "searchHint": "Search inbox notifications"
+    },
+    "meetings": {
+      "search": true,
+      "pageSearchScope": "currentPageContentOnly",
+      "searchHint": "Search meetings"
+    }
+  },
+  "customJsonSearchHeader": {
+    "enabled": true,
+    "componentTypes": [
+      "searchHeader",
+      "searchBar"
+    ],
+    "behavior": "filters sibling cards/sections only"
+  },
+  "version": 265,
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

@@ -1,0 +1,217 @@
+{
+  "version": 160,
+  "target": "mobileEmployee",
+  "rendererCompatibility": {
+    "minRendererVersion": "employee_sdui_v151_calendar_thin_squircle_labels",
+    "fallbackRendererVersion": 1,
+    "fallbackMode": "legacyConfigKeys",
+    "preserveOldKeys": true,
+    "requiresFloatingNavSupport": true,
+    "requiresAnimationSupport": true,
+    "requiresScreenBodyOnly": true,
+    "hardcodedBodyRenderer": false,
+    "apkPreviewParityMode": "sharedFirestoreWireframeJson",
+    "requiresTemplateRenderer": true,
+    "dataRecoveryMode": "companyIdResolvedAndLegacyRootFallback",
+    "preserveExistingFirestoreData": true,
+    "previewParityMode": "sharedSduiJson",
+    "requiresScreenOverridesFromConfig": true,
+    "requiresContentPassUnderBottomNav": true,
+    "requiresCircularActiveBottomNav": true,
+    "futureUiChangeMode": "jsonOnlyFirestoreConfig",
+    "requiresEdgeToEdgeSystemBars": true,
+    "requiresTransparentSystemBars": true,
+    "requiresAndroidFigureOneRightEdgeToEdge": true,
+    "requiresScrollAwareInsets": true,
+    "requiresScrollAwareTopPadding": true,
+    "requiresGestureNavigationTransparency": true,
+    "requiresThreeButtonNavigationContrastScrim": true,
+    "requiresCriticalUiSafeAreaMode": true,
+    "apkRendererVersion": "employee_sdui_v154_profile_actions_clean_calendar",
+    "requiresHamburgerSideMenu": true,
+    "requiresSideMenuFromScreenRegistry": true,
+    "requiresMergedHamburgerSearch": true,
+    "requiresInteractiveTopSearch": true,
+    "requiresTopSearchPageScopedFiltering": true,
+    "requiresUniversalSearchSubmit": true,
+    "requiresSideMenuIcons": true,
+    "requiresGlobalUniversalTopSearch": true,
+    "requiresPageSearchActivePageOnly": true,
+    "requiresFloatingUniversalSearchResults": true,
+    "topNavSearchDoesNotFilterCurrentPage": true,
+    "requiresTopNavInitialProtectionFix": true,
+    "requiresBottomTasksTab": true,
+    "taskBoardMovedToHamburger": true,
+    "requiresTaskAllSecondaryTabs": true,
+    "requiresOpenAllTaskTabsUnderAllFilter": true,
+    "requiresNestedDataModules": true,
+    "requiresTaskMapDataRender": true,
+    "requiresTimelineDataRender": true,
+    "requiresCalendarDataRender": true,
+    "requiresTeamMembersDataRender": true,
+    "requiresFilesDataRender": true,
+    "requiresEmbeddedNestedSections": true,
+    "requiresNoNestedListViewOverflow": true,
+    "nestedScreenRoutesSupported": [
+      "taskMap",
+      "timeline",
+      "files",
+      "calendar",
+      "teamMembers",
+      "taskDetail",
+      "projectDetail",
+      "meetingDetail"
+    ],
+    "requiresActiveHomeMetrics": true,
+    "requiresTodayWorkSummary": true,
+    "requiresMetricValueSourceBinding": true,
+    "requiresRenderMatchedNestedModules": true,
+    "calendarSelectedDateLayout": "calendar -> filter tabs -> deadlines -> assigned tasks -> meetings",
+    "requiresCalendarLabeledDateCells": true,
+    "requiresCalendarDeadlineFirstSections": true,
+    "calendarLabelMode": "hidden",
+    "adminDesignerParity": "same_mobile_json_ui_renderer",
+    "minimumApkRendererVersion": "employee_sdui_v160_profile_settings_nested_alert_safe",
+    "profileRendererMode": "dedicatedProfileBeforeGenericSections"
+  },
+  "screenOverrides": {
+    "profile": {
+      "screen": "profile",
+      "type": "profileSummary",
+      "title": "Profile",
+      "subtitle": "Private employee workspace profile",
+      "variant": "premiumWorkspaceProfile",
+      "hideTitle": false,
+      "settingsSectionEnabled": true,
+      "settingsExpandable": true,
+      "settingsTitle": "Settings",
+      "settingsPlacement": "afterProfileActionsBeforeProfileInfo",
+      "notificationSettingsPlacement": "insideSettingsAccordion",
+      "hideStandaloneNotificationSettings": true,
+      "hideLogoutPreview": true,
+      "logoutPlacement": "profileActionButton",
+      "logoutStyle": "filledIcon",
+      "actionButtonColorMode": "sameAppAccent",
+      "layoutOrder": [
+        "profileHeader",
+        "onlineStatus",
+        "availability",
+        "profileActionButtons",
+        "settingsAccordion",
+        "assignedScope",
+        "role",
+        "company"
+      ],
+      "sections": [
+        {
+          "type": "profileHeroCard",
+          "id": "profileHeader",
+          "title": "Profile header"
+        },
+        {
+          "type": "onlineStatusCard",
+          "id": "onlineStatus",
+          "title": "Online status"
+        },
+        {
+          "type": "profileToggleRow",
+          "id": "availability",
+          "title": "Availability"
+        },
+        {
+          "type": "profileActionList",
+          "id": "profileActionButtons",
+          "layout": "twoColumn",
+          "buttonColorMode": "sameAppAccent",
+          "showLogoutPreview": false,
+          "items": [
+            {
+              "type": "profileAction",
+              "action": "editProfile",
+              "label": "Edit profile",
+              "icon": "edit",
+              "style": "accentSoftFilled"
+            },
+            {
+              "type": "profileAction",
+              "action": "copyLog",
+              "label": "Copy log",
+              "icon": "receipt_long",
+              "style": "accentSoftOutlined"
+            },
+            {
+              "type": "profileAction",
+              "action": "crashlyticsTest",
+              "label": "Crashlytics Test",
+              "icon": "bug_report",
+              "style": "accentSoftOutlined"
+            },
+            {
+              "type": "profileAction",
+              "action": "logout",
+              "label": "Logout",
+              "icon": "logout",
+              "style": "accentSoftFilled"
+            }
+          ]
+        },
+        {
+          "type": "settingsList",
+          "id": "settingsAccordion",
+          "title": "Settings",
+          "collapsed": true,
+          "expandedDefault": false,
+          "expandBehavior": "tapToExpandCollapse",
+          "hideLogoutPreview": true,
+          "items": [
+            {
+              "type": "notificationAlert",
+              "id": "notificationAlertSettings",
+              "title": "Notification alert settings",
+              "showEnableNotifications": true,
+              "showSoundSelector": true,
+              "showAssistantVoiceToggle": true,
+              "showDisplayWindowSelector": true,
+              "showSaveWindowButton": true,
+              "showTestButton": true,
+              "showLogoutPreview": false
+            }
+          ]
+        },
+        {
+          "type": "profileInfoSection",
+          "id": "assignedScope",
+          "title": "Assigned scope",
+          "fields": [
+            "projects",
+            "tasks",
+            "teams",
+            "access"
+          ]
+        },
+        {
+          "type": "profileInfoSection",
+          "id": "role",
+          "title": "Role",
+          "fields": [
+            "role",
+            "department",
+            "jobTitle"
+          ]
+        },
+        {
+          "type": "profileInfoSection",
+          "id": "company",
+          "title": "Company",
+          "fields": [
+            "companyName",
+            "location",
+            "joinedAt"
+          ]
+        }
+      ],
+      "version": 160,
+      "rendererMode": "dedicatedProfileBeforeGenericSections"
+    }
+  }
+}

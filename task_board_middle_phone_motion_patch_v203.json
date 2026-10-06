@@ -1,0 +1,48 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v203_task_board_middle_phone_motion",
+  "minRendererVersion": "employee_sdui_v203_task_board_middle_phone_motion",
+  "featureFlags": {
+    "taskBoardMiddlePhoneMotion": true
+  },
+  "screenConfigs": {
+    "board": {
+      "cardMotionEnabled": true,
+      "middlePhoneContentMotion": true,
+      "animatedMainCards": true,
+      "mainCardMotionEnabled": true,
+      "tapCardOpensDetail": true,
+      "openTaskDetailOnTap": true,
+      "taskCardDetailSheetEnabled": true,
+      "cardMotionStyle": "middlePhoneScaleSlideReveal",
+      "cardTapTransition": "selectThenBottomSheetDetail",
+      "detailSheetInitialSize": 0.88,
+      "detailSheetMaxSize": 0.96,
+      "entryDurationMs": 360,
+      "staggerMs": 42,
+      "selectedScale": 1.018,
+      "previewParity": true
+    }
+  },
+  "screenOverrides": {
+    "board": {
+      "cardMotionEnabled": true,
+      "middlePhoneContentMotion": true,
+      "animatedMainCards": true,
+      "mainCardMotionEnabled": true,
+      "tapCardOpensDetail": true,
+      "openTaskDetailOnTap": true,
+      "taskCardDetailSheetEnabled": true,
+      "cardMotionStyle": "middlePhoneScaleSlideReveal",
+      "cardTapTransition": "selectThenBottomSheetDetail",
+      "detailSheetInitialSize": 0.88,
+      "detailSheetMaxSize": 0.96,
+      "entryDurationMs": 360,
+      "staggerMs": 42,
+      "selectedScale": 1.018,
+      "previewParity": true
+    }
+  },
+  "releaseNote": "Task Board main cards use middle-phone content animation and tap opens full task details in APK + admin preview.",
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

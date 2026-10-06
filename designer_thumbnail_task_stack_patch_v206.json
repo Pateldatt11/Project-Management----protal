@@ -1,0 +1,59 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v206_designer_thumbnail_task_stack",
+  "screenConfigs": {
+    "board": {
+      "taskBoardCardMotionMode": "dribbbleDesignerThumbnailHorizontalStack",
+      "designerTaskThumbnailStack": true,
+      "taskBoardDesignerThumbnails": true,
+      "todoBacklogDesignerCards": true,
+      "dribbbleMotionThumbnailCards": true,
+      "taskBoardDataThumbnailCards": true,
+      "tapAnyCardOpensDetail": true,
+      "openTaskDetailOnTap": true,
+      "taskCardDetailSheetEnabled": true,
+      "cinematicStackTitle": "Designer task thumbnails",
+      "cinematicStackSubtitle": "Swipe horizontally. Tap any Backlog, Todo or lane card to open full task data.",
+      "cinematicStackBackground": "#050505",
+      "cinematicCardSpacingX": 80,
+      "cinematicCardScaleStep": 0.05,
+      "cinematicCardMinScale": 0.85,
+      "cinematicRotateYDivisor": 10,
+      "cinematicDragDamping": 0.85,
+      "cinematicDragThreshold": 80,
+      "cinematicSnapDurationMs": 600,
+      "cinematicSnapCurve": "Cubic(0.34,1.56,0.64,1)",
+      "designerThumbnailPaletteMode": "statusDrivenBacklogTodoProgressReviewTestingDone",
+      "designerThumbnailLayout": "splitEditorialLeftDataRightAbstractThumbnail",
+      "designerThumbnailTapMode": "tapAnyCardOpenFullTaskDetail"
+    }
+  },
+  "screenOverrides": {
+    "board": {
+      "taskBoardCardMotionMode": "dribbbleDesignerThumbnailHorizontalStack",
+      "designerTaskThumbnailStack": true,
+      "taskBoardDesignerThumbnails": true,
+      "todoBacklogDesignerCards": true,
+      "dribbbleMotionThumbnailCards": true,
+      "taskBoardDataThumbnailCards": true,
+      "tapAnyCardOpensDetail": true,
+      "openTaskDetailOnTap": true,
+      "taskCardDetailSheetEnabled": true,
+      "cinematicStackTitle": "Designer task thumbnails",
+      "cinematicStackSubtitle": "Swipe horizontally. Tap any Backlog, Todo or lane card to open full task data.",
+      "cinematicStackBackground": "#050505",
+      "cinematicCardSpacingX": 80,
+      "cinematicCardScaleStep": 0.05,
+      "cinematicCardMinScale": 0.85,
+      "cinematicRotateYDivisor": 10,
+      "cinematicDragDamping": 0.85,
+      "cinematicDragThreshold": 80,
+      "cinematicSnapDurationMs": 600,
+      "cinematicSnapCurve": "Cubic(0.34,1.56,0.64,1)",
+      "designerThumbnailPaletteMode": "statusDrivenBacklogTodoProgressReviewTestingDone",
+      "designerThumbnailLayout": "splitEditorialLeftDataRightAbstractThumbnail",
+      "designerThumbnailTapMode": "tapAnyCardOpenFullTaskDetail"
+    }
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

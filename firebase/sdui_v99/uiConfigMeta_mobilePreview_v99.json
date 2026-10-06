@@ -1,0 +1,24 @@
+{
+  "version": 99,
+  "enabled": true,
+  "defaultPreviewTarget": "test",
+  "release": {
+    "coreDocId": "mobileEmployee",
+    "designDocId": "mobileEmployeeDesign",
+    "screensDocId": "mobileEmployeeScreens"
+  },
+  "test": {
+    "coreDocId": "mobileEmployeeNext",
+    "designDocId": "mobileEmployeeNextDesign",
+    "screensDocId": "mobileEmployeeNextScreens"
+  },
+  "mergeOrder": [
+    "core",
+    "design",
+    "screens"
+  ],
+  "apkMergeRequired": true,
+  "cacheKeyPolicy": "companyId::coreDocId",
+  "updatedAt": "2026-06-24T00:00:00.000Z",
+  "updatedBy": "admin"
+}

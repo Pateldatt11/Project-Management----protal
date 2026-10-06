@@ -1,0 +1,64 @@
+{
+  "version": 265,
+  "pageScopedSearch": true,
+  "pageScopedFilters": true,
+  "filterMode": "currentPageContentOnly",
+  "combineSearchAndFilters": "and",
+  "propagateFiltersToNestedCards": true,
+  "topNavSearchMode": "universalUntouched",
+  "supportedRuntimeFilters": {
+    "projects": [
+      "All",
+      "In Progress",
+      "Completed",
+      "On Hold",
+      "Review",
+      "Delayed",
+      "Planning",
+      "Cancelled",
+      "Low",
+      "Medium",
+      "High",
+      "Critical"
+    ],
+    "tasks": [
+      "All",
+      "New",
+      "Completed",
+      "Today",
+      "Overdue",
+      "Backlog",
+      "Todo",
+      "In Progress",
+      "Review",
+      "Testing",
+      "Low",
+      "Medium",
+      "High",
+      "Critical"
+    ],
+    "board": [
+      "All",
+      "Backlog",
+      "Todo",
+      "In Progress",
+      "Review",
+      "Testing",
+      "Completed"
+    ],
+    "notifications": [
+      "All",
+      "Unread",
+      "Read",
+      "Meeting"
+    ],
+    "meetings": [
+      "All",
+      "Google Meet",
+      "WhatsApp",
+      "Unread",
+      "Read"
+    ]
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

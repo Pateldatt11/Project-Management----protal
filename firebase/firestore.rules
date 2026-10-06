@@ -1,0 +1,932 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function userPath(uid) {
+      return /databases/$(database)/documents/users/$(uid);
+    }
+
+    function isSuperAdmin() {
+      return signedIn() && (
+        request.auth.token.isSuperAdmin == true
+        || (
+          exists(userPath(request.auth.uid))
+          && get(userPath(request.auth.uid)).data.role in [
+            'superAdmin',
+            'Super Admin',
+            'super_admin',
+            'superadmin',
+            'platformSuperAdmin',
+            'Platform Super Admin'
+          ]
+          && (
+            get(userPath(request.auth.uid)).data.status == null
+            || get(userPath(request.auth.uid)).data.status in ['active', 'enabled']
+          )
+        )
+      );
+    }
+
+    function memberPath(companyId, uid) {
+      return /databases/$(database)/documents/companies/$(companyId)/members/$(uid);
+    }
+
+    function bootstrapPath(companyId) {
+      return /databases/$(database)/documents/companies/$(companyId)/settings/bootstrap;
+    }
+
+    function invitePath(companyId, inviteId) {
+      return /databases/$(database)/documents/companies/$(companyId)/invites/$(inviteId);
+    }
+
+    function memberDoc(companyId) {
+      return get(memberPath(companyId, request.auth.uid));
+    }
+
+    function role(companyId) {
+      return memberDoc(companyId).data.role;
+    }
+
+    function portalPostSettingsPath(companyId) {
+      return /databases/$(database)/documents/companies/$(companyId)/settings/portalPosts;
+    }
+
+    function isCorePortalPost(roleValue) {
+      return roleValue in ['superAdmin', 'admin', 'itAdmin'];
+    }
+
+    function isPortalPostActive(companyId, roleValue) {
+      return isCorePortalPost(roleValue)
+        || !exists(portalPostSettingsPath(companyId))
+        || roleValue in get(portalPostSettingsPath(companyId)).data.enabledRoleValues;
+    }
+
+    function portalPostSettingsIsValid() {
+      return request.resource.data.enabledRoleValues is list
+        && request.resource.data.enabledRoleValues.hasAll([
+          'superAdmin',
+          'admin',
+          'itAdmin'
+        ]);
+    }
+
+    function isCompanyMember(companyId) {
+      return signedIn()
+        && exists(memberPath(companyId, request.auth.uid))
+        && memberDoc(companyId).data.status == 'active';
+    }
+
+    function hasRole(companyId, roles) {
+      return isCompanyMember(companyId)
+        && role(companyId) in roles
+        && isPortalPostActive(companyId, role(companyId));
+    }
+
+    function canManageCompany(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin']) || isSuperAdmin();
+    }
+
+    function canManageInfrastructure(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'itAdmin', 'devOps']) || isSuperAdmin();
+    }
+
+    function canManageProjects(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'projectManager']) || isSuperAdmin();
+    }
+
+    function canEditProject(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'projectManager', 'teamLead']) || isSuperAdmin();
+    }
+
+    function canCreateTasks(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'projectManager', 'teamLead']) || isSuperAdmin();
+    }
+
+    function canManageTaskForces(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'projectManager', 'teamLead', 'hrManager']) || isSuperAdmin();
+    }
+
+    function canAssignTasks(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'projectManager', 'teamLead']) || isSuperAdmin();
+    }
+
+    function canMoveOwnTasks(companyId) {
+      return hasRole(companyId, ['developer', 'qaTester', 'designer', 'devOps', 'employee']) || isSuperAdmin();
+    }
+
+    function canManagePeople(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'hrManager']) || isSuperAdmin();
+    }
+
+    function canEditTimeline(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'projectManager', 'teamLead']) || isSuperAdmin();
+    }
+
+    function canEditAppraisals(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'projectManager', 'teamLead', 'hrManager']) || isSuperAdmin();
+    }
+
+    function canRecommendCareerActions(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'projectManager', 'teamLead', 'hrManager']) || isSuperAdmin();
+    }
+
+    function canReviewCareerActions(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'hrManager']) || isSuperAdmin();
+    }
+
+    function managedRoleValues() {
+      return [
+        'admin',
+        'itAdmin',
+        'hrManager',
+        'projectManager',
+        'teamLead',
+        'developer',
+        'qaTester',
+        'designer',
+        'devOps',
+        'employee',
+        'clientViewer'
+      ];
+    }
+
+    function protectedRoleValues() {
+      return [
+        'superAdmin',
+        'Super Admin',
+        'super_admin',
+        'superadmin',
+        'platformSuperAdmin',
+        'Platform Super Admin'
+      ];
+    }
+
+    function isProtectedRoleValue(roleValue) {
+      return roleValue in protectedRoleValues();
+    }
+
+    // Legacy user-doc compatibility:
+    // Some older user docs were created before a single root `companyId` field
+    // became consistent. Keep admins able to read/update role metadata when the
+    // user doc stores the company in any known legacy/current field. This does
+    // not expose cross-company data because each branch still requires
+    // canManagePeople(companyId).
+    function canManagePeopleForKnownRootUserCompany() {
+      return (resource.data.companyId is string && canManagePeople(resource.data.companyId))
+        || (resource.data.selectedCompanyId is string && canManagePeople(resource.data.selectedCompanyId))
+        || (resource.data.activeCompanyId is string && canManagePeople(resource.data.activeCompanyId))
+        || (resource.data.currentCompanyId is string && canManagePeople(resource.data.currentCompanyId))
+        || (resource.data.defaultCompanyId is string && canManagePeople(resource.data.defaultCompanyId));
+    }
+
+    function canReadRootUserForPeopleAdmin() {
+      return signedIn()
+        && canManagePeopleForKnownRootUserCompany();
+    }
+
+    function isOwnSafeRootUserUpdate(uid) {
+      return signedIn()
+        && request.auth.uid == uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'displayName',
+          'name',
+          'email',
+          'phone',
+          'photoURL',
+          'photoUrl',
+          'avatarUrl',
+          'city',
+          'department',
+          'jobTitle',
+          'location',
+          'available',
+          'isOnline',
+          'lastSeenAt',
+          'updatedAt',
+          'selectedCompanyId',
+          'activeCompanyId',
+          'currentCompanyId',
+          'defaultCompanyId',
+          'language',
+          'locale',
+          'notificationSettings',
+          'deviceInfo'
+        ]);
+    }
+
+    function canPeopleAdminUpdateRootUserRole(uid) {
+      return signedIn()
+        && uid != request.auth.uid
+        && canManagePeopleForKnownRootUserCompany()
+        // Role update must not mutate company/linkage fields, so legacy docs
+        // stay attached to the same company scope they already use.
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'role',
+          'roleLabel',
+          'updatedAt',
+          'updatedBy'
+        ])
+        && request.resource.data.role in managedRoleValues()
+        && !isProtectedRoleValue(resource.data.role)
+        && !isProtectedRoleValue(request.resource.data.role);
+    }
+
+    function canViewReports(companyId) {
+      return hasRole(companyId, [
+        'superAdmin',
+        'admin',
+        'itAdmin',
+        'projectManager',
+        'teamLead',
+        'hrManager',
+        'clientViewer'
+      ]) || isSuperAdmin();
+    }
+
+    function canGenerateReports(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'projectManager', 'hrManager']) || isSuperAdmin();
+    }
+
+    function canViewAudit(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'itAdmin']) || isSuperAdmin();
+    }
+
+    function canManageSettings(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'itAdmin']) || isSuperAdmin();
+    }
+
+    function canViewFullProjectProgress(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'itAdmin', 'projectManager', 'teamLead']) || isSuperAdmin();
+    }
+
+    function isInvitedSelfBootstrap(companyId, uid) {
+      return signedIn()
+        && uid == request.auth.uid
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.inviteId is string
+        && exists(invitePath(companyId, request.resource.data.inviteId))
+        && get(invitePath(companyId, request.resource.data.inviteId)).data.email == request.auth.token.email
+        && get(invitePath(companyId, request.resource.data.inviteId)).data.role == request.resource.data.role
+        && get(invitePath(companyId, request.resource.data.inviteId)).data.status in ['active', 'claimed']
+        && request.resource.data.status == 'active';
+    }
+
+    function canClaimOwnInvite(companyId, inviteId) {
+      return signedIn()
+        && resource.data.email == request.auth.token.email
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.claimedBy == request.auth.uid
+        && request.resource.data.status == 'claimed'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'claimedBy',
+          'claimedAt',
+          'status'
+        ]);
+    }
+
+    function isOwnInviteLookup() {
+      return signedIn()
+        && resource.data.email is string
+        && resource.data.email == request.auth.token.email;
+    }
+
+    function isOwnSafeMemberUpdate(uid) {
+      return signedIn()
+        && request.auth.uid == uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'displayName',
+          'email',
+          'department',
+          'jobTitle',
+          'location',
+          'available',
+          'isOnline',
+          'lastSeenAt',
+          'updatedAt'
+        ]);
+    }
+
+    function isSafeAppraisalUpdate() {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'appraisalScore',
+          'previousAppraisalScore',
+          'appraisalNotes',
+          'appraisalStatus',
+          'appraisalTemplateId',
+          'appraisalCompetencyScores',
+          'appraisalSelfReview',
+          'appraisalManagerReview',
+          'appraisalPeerReview',
+          'appraisalPeriod',
+          'appraisalUpdatedAt',
+          'appraisalUpdatedBy'
+        ])
+        && request.resource.data.appraisalScore is int
+        && request.resource.data.appraisalScore >= 0
+        && request.resource.data.appraisalScore <= 100
+        && request.resource.data.appraisalStatus is string
+        && request.resource.data.appraisalTemplateId is string
+        && request.resource.data.appraisalCompetencyScores is map
+        && request.resource.data.appraisalUpdatedBy == request.auth.uid;
+    }
+
+    function canReadTaskDoc(companyId) {
+      // Keep broad task read for APK reliability.
+      // APK WorkspaceState filters visible tasks after reading.
+      return isCompanyMember(companyId) || isSuperAdmin();
+    }
+
+    function canReadTaskById(companyId, taskId) {
+      return isCompanyMember(companyId) || isSuperAdmin();
+    }
+
+    function isAssignedToExistingTask() {
+      return resource.data.assignedToIds is list
+        && request.auth.uid in resource.data.assignedToIds;
+    }
+
+    function isOwnSafeTaskProgressUpdate() {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+        'status',
+        'kanbanRank',
+        'completedAt',
+        'updatedAt',
+        'loggedHours',
+        'activeWorkTimerUserId',
+        'activeWorkTimerStartedAt',
+        'commentsCount',
+        'attachmentsCount'
+      ]);
+    }
+
+    function employmentActionCreateIsValid(companyId) {
+      return request.resource.data.companyId == companyId
+        && request.resource.data.employeeId is string
+        && exists(memberPath(companyId, request.resource.data.employeeId))
+        && request.resource.data.recommendedBy == request.auth.uid
+        && request.resource.data.status == 'recommended'
+        && request.resource.data.actionType in [
+          'promotion',
+          'demotion',
+          'roleChange',
+          'departmentTransfer',
+          'gradeChange',
+          'salaryBandChange',
+          'probationExtension',
+          'performanceImprovementPlan',
+          'contractRenewal',
+          'exitRecommendation'
+        ];
+    }
+
+    function isValidCompanyMember(companyId, uid) {
+      return uid is string
+        && exists(memberPath(companyId, uid))
+        && get(memberPath(companyId, uid)).data.status == 'active';
+    }
+
+    function canCreatePrivateNotification(companyId) {
+      return (canAssignTasks(companyId) || canManageInfrastructure(companyId))
+        && request.resource.data.recipientId is string
+        && isValidCompanyMember(companyId, request.resource.data.recipientId)
+        && request.resource.data.type in [
+          'taskAssigned',
+          'taskUpdated',
+          'taskCompleted',
+          'deadlineReminder',
+          'projectUpdated',
+          'teamMention',
+          'securityAlert',
+          'meetingInvite',
+          'callInvite'
+        ];
+    }
+
+    function taskWriteShapeIsValid(companyId) {
+      return request.resource.data.companyId == companyId
+        && request.resource.data.title is string
+        && request.resource.data.status in [
+          'backlog',
+          'todo',
+          'inProgress',
+          'review',
+          'testing',
+          'completed'
+        ]
+        && request.resource.data.priority in [
+          'low',
+          'medium',
+          'high',
+          'critical'
+        ]
+        && request.resource.data.assignedToIds is list;
+    }
+
+    function uiConfigHasVersion() {
+      return request.resource.data.version is int
+        && request.resource.data.version > 0;
+    }
+
+    function mobileEmployeeConfigShapeIsValid() {
+      return uiConfigHasVersion()
+        && request.resource.data.enabled is bool
+        && (!('bottomTabs' in request.resource.data.keys()) || request.resource.data.bottomTabs is list)
+        && (!('homeCards' in request.resource.data.keys()) || request.resource.data.homeCards is list)
+        && (!('taskCardFields' in request.resource.data.keys()) || request.resource.data.taskCardFields is list)
+        && (!('projectCardFields' in request.resource.data.keys()) || request.resource.data.projectCardFields is list)
+        && (!('compactMode' in request.resource.data.keys()) || request.resource.data.compactMode is bool)
+
+        // Existing config maps.
+        && (!('topNav' in request.resource.data.keys()) || request.resource.data.topNav is map)
+        && (!('bottomNav' in request.resource.data.keys()) || request.resource.data.bottomNav is map)
+        && (!('floatingTopNav' in request.resource.data.keys()) || request.resource.data.floatingTopNav is map)
+        && (!('floatingBottomNav' in request.resource.data.keys()) || request.resource.data.floatingBottomNav is map)
+        && (!('layoutConfig' in request.resource.data.keys()) || request.resource.data.layoutConfig is map)
+        && (!('navigationConfig' in request.resource.data.keys()) || request.resource.data.navigationConfig is map)
+        && (!('responsiveNav' in request.resource.data.keys()) || request.resource.data.responsiveNav is map)
+        && (!('edgeToEdgeConfig' in request.resource.data.keys()) || request.resource.data.edgeToEdgeConfig is map)
+        && (!('scrollAwareTopPadding' in request.resource.data.keys()) || request.resource.data.scrollAwareTopPadding is map)
+
+        // Screen / renderer / SDUI.
+        && (!('screenConfigs' in request.resource.data.keys()) || request.resource.data.screenConfigs is map)
+        && (!('screenOverrides' in request.resource.data.keys()) || request.resource.data.screenOverrides is map)
+        && (!('screenRegistry' in request.resource.data.keys()) || request.resource.data.screenRegistry is map)
+        && (!('navigationGraph' in request.resource.data.keys()) || request.resource.data.navigationGraph is map)
+        && (!('rendererCompatibility' in request.resource.data.keys()) || request.resource.data.rendererCompatibility is map)
+        && (!('rendererSafety' in request.resource.data.keys()) || request.resource.data.rendererSafety is map)
+        && (!('supportedWidgets' in request.resource.data.keys()) || request.resource.data.supportedWidgets is list)
+        && (!('uiTemplates' in request.resource.data.keys()) || request.resource.data.uiTemplates is map)
+        && (!('wireframeSystem' in request.resource.data.keys()) || request.resource.data.wireframeSystem is map)
+        && (!('scratchBuild' in request.resource.data.keys()) || request.resource.data.scratchBuild is map)
+
+        // Theme / animation.
+        && (!('brand' in request.resource.data.keys()) || request.resource.data.brand is map)
+        && (!('designSystem' in request.resource.data.keys()) || request.resource.data.designSystem is map)
+        && (!('animationConfig' in request.resource.data.keys()) || request.resource.data.animationConfig is map)
+
+        // Page configs.
+        && (!('homeLayout' in request.resource.data.keys()) || request.resource.data.homeLayout is map)
+        && (!('homeCardConfig' in request.resource.data.keys()) || request.resource.data.homeCardConfig is map)
+        && (!('projectCard' in request.resource.data.keys()) || request.resource.data.projectCard is map)
+        && (!('projectCardVariant' in request.resource.data.keys()) || request.resource.data.projectCardVariant is string)
+        && (!('projectListConfig' in request.resource.data.keys()) || request.resource.data.projectListConfig is map)
+        && (!('projectPage' in request.resource.data.keys()) || request.resource.data.projectPage is map)
+        && (!('projectPageResponsiveConfig' in request.resource.data.keys()) || request.resource.data.projectPageResponsiveConfig is map)
+        && (!('taskCard' in request.resource.data.keys()) || request.resource.data.taskCard is map)
+        && (!('taskCardVariant' in request.resource.data.keys()) || request.resource.data.taskCardVariant is string)
+        && (!('taskListConfig' in request.resource.data.keys()) || request.resource.data.taskListConfig is map)
+        && (!('profileFields' in request.resource.data.keys()) || request.resource.data.profileFields is list)
+        && (!('profileActions' in request.resource.data.keys()) || request.resource.data.profileActions is map)
+        && (!('profileCardConfig' in request.resource.data.keys()) || request.resource.data.profileCardConfig is map)
+        && (!('calendarInteractionConfig' in request.resource.data.keys()) || request.resource.data.calendarInteractionConfig is map)
+        && (!('nestedDataModules' in request.resource.data.keys()) || request.resource.data.nestedDataModules is map)
+
+        // Notifications / meetings.
+        && (!('inboxConfig' in request.resource.data.keys()) || request.resource.data.inboxConfig is map)
+        && (!('notificationAlertConfig' in request.resource.data.keys()) || request.resource.data.notificationAlertConfig is map)
+        && (!('notificationSoundOptions' in request.resource.data.keys()) || request.resource.data.notificationSoundOptions is map)
+        && (!('meetingAccessConfig' in request.resource.data.keys()) || request.resource.data.meetingAccessConfig is map)
+        && (!('adminPages' in request.resource.data.keys()) || request.resource.data.adminPages is map)
+
+        // Search / side menu.
+        && (!('sideMenuConfig' in request.resource.data.keys()) || request.resource.data.sideMenuConfig is map)
+        && (!('universalSearchConfig' in request.resource.data.keys()) || request.resource.data.universalSearchConfig is map)
+        && (!('pageSearch' in request.resource.data.keys()) || request.resource.data.pageSearch is map)
+        && (!('quickActionDock' in request.resource.data.keys()) || request.resource.data.quickActionDock is map)
+
+        // Auth / safety / rules config.
+        && (!('authUiPolicy' in request.resource.data.keys()) || request.resource.data.authUiPolicy is map)
+        && (!('featureFlags' in request.resource.data.keys()) || request.resource.data.featureFlags is map)
+        && (!('onboardingConfig' in request.resource.data.keys()) || request.resource.data.onboardingConfig is map)
+        && (!('firebaseRulesConfig' in request.resource.data.keys()) || request.resource.data.firebaseRulesConfig is map)
+        && (!('dataBindings' in request.resource.data.keys()) || request.resource.data.dataBindings is map)
+
+        // Release metadata.
+        && (!('notes' in request.resource.data.keys()) || request.resource.data.notes is list)
+        && (!('releaseNotes' in request.resource.data.keys()) || request.resource.data.releaseNotes is map)
+        && (!('rendererVersion' in request.resource.data.keys()) || request.resource.data.rendererVersion is string)
+        && (!('minRendererVersion' in request.resource.data.keys()) || request.resource.data.minRendererVersion is string);
+    }
+
+    function mobileEmployeeDesignShapeIsValid() {
+      return uiConfigHasVersion()
+        && request.resource.data.enabled is bool
+        && (!('templateName' in request.resource.data.keys()) || request.resource.data.templateName is string)
+        && (!('theme' in request.resource.data.keys()) || request.resource.data.theme is map)
+        && (!('bottomNav' in request.resource.data.keys()) || request.resource.data.bottomNav is map)
+        && (!('sections' in request.resource.data.keys()) || request.resource.data.sections is list)
+        && (!('taskCard' in request.resource.data.keys()) || request.resource.data.taskCard is map)
+        && (!('projectCard' in request.resource.data.keys()) || request.resource.data.projectCard is map)
+        && (!('topNav' in request.resource.data.keys()) || request.resource.data.topNav is map)
+        && (!('taskListConfig' in request.resource.data.keys()) || request.resource.data.taskListConfig is map)
+        && (!('profileActions' in request.resource.data.keys()) || request.resource.data.profileActions is map)
+        && (!('designSystem' in request.resource.data.keys()) || request.resource.data.designSystem is map)
+        && (!('animationConfig' in request.resource.data.keys()) || request.resource.data.animationConfig is map)
+        && (!('layoutConfig' in request.resource.data.keys()) || request.resource.data.layoutConfig is map)
+        && (!('navigationConfig' in request.resource.data.keys()) || request.resource.data.navigationConfig is map)
+        && (!('floatingTopNav' in request.resource.data.keys()) || request.resource.data.floatingTopNav is map)
+        && (!('floatingBottomNav' in request.resource.data.keys()) || request.resource.data.floatingBottomNav is map)
+        && (!('quickActionDock' in request.resource.data.keys()) || request.resource.data.quickActionDock is map)
+        && (!('homeLayout' in request.resource.data.keys()) || request.resource.data.homeLayout is map)
+        && (!('homeCardConfig' in request.resource.data.keys()) || request.resource.data.homeCardConfig is map)
+        && (!('screenConfigs' in request.resource.data.keys()) || request.resource.data.screenConfigs is map)
+        && (!('screenOverrides' in request.resource.data.keys()) || request.resource.data.screenOverrides is map)
+        && (!('profileCardConfig' in request.resource.data.keys()) || request.resource.data.profileCardConfig is map)
+        && (!('projectListConfig' in request.resource.data.keys()) || request.resource.data.projectListConfig is map)
+        && (!('dataBindings' in request.resource.data.keys()) || request.resource.data.dataBindings is map)
+        && (!('rendererCompatibility' in request.resource.data.keys()) || request.resource.data.rendererCompatibility is map)
+        && (!('rendererSafety' in request.resource.data.keys()) || request.resource.data.rendererSafety is map)
+        && (!('inboxConfig' in request.resource.data.keys()) || request.resource.data.inboxConfig is map)
+        && (!('profileFields' in request.resource.data.keys()) || request.resource.data.profileFields is list)
+        && (!('supportedWidgets' in request.resource.data.keys()) || request.resource.data.supportedWidgets is list)
+        && (!('notificationAlertConfig' in request.resource.data.keys()) || request.resource.data.notificationAlertConfig is map)
+        && (!('notificationSoundOptions' in request.resource.data.keys()) || request.resource.data.notificationSoundOptions is map)
+        && (!('projectPage' in request.resource.data.keys()) || request.resource.data.projectPage is map)
+        && (!('authUiPolicy' in request.resource.data.keys()) || request.resource.data.authUiPolicy is map)
+        && (!('featureFlags' in request.resource.data.keys()) || request.resource.data.featureFlags is map);
+    }
+
+    function uiConfigShapeIsValid(configId) {
+      return configId == 'mobileEmployee'
+        ? mobileEmployeeConfigShapeIsValid()
+        : (
+          (configId == 'mobileEmployeeDesign' || configId == 'mobileEmployeeDesignDraft')
+          ? mobileEmployeeDesignShapeIsValid()
+          : true
+        );
+    }
+
+    function uiConfigVersionCanCreate(configId) {
+      return uiConfigHasVersion();
+    }
+
+    function uiConfigVersionCanUpdate(configId) {
+      return uiConfigHasVersion()
+        && (
+          configId == 'mobileEmployeeDesignDraft'
+          ? request.resource.data.version >= resource.data.version
+          : request.resource.data.version > resource.data.version
+        );
+    }
+
+    // -----------------------------------------------------------------------
+    // Security / brute-force collection.
+    // Client must never read or write this.
+    // Cloud Functions with Admin SDK bypass Firestore rules.
+    // -----------------------------------------------------------------------
+    match /security/{document=**} {
+      allow read, write: if false;
+    }
+
+    // -----------------------------------------------------------------------
+    // Legacy root collections.
+    // Keep these until all old data is migrated.
+    // -----------------------------------------------------------------------
+    match /projects/{projectId} {
+      allow read: if signedIn()
+        && resource.data.companyId is string
+        && (isCompanyMember(resource.data.companyId) || isSuperAdmin());
+      allow create, update, delete: if isSuperAdmin();
+    }
+
+    match /tasks/{taskId} {
+      allow read: if signedIn()
+        && resource.data.companyId is string
+        && (isCompanyMember(resource.data.companyId) || isSuperAdmin());
+      allow create, update, delete: if isSuperAdmin();
+    }
+
+    match /members/{uid} {
+      allow read: if signedIn()
+        && resource.data.companyId is string
+        && (isCompanyMember(resource.data.companyId) || isSuperAdmin());
+      allow create, update, delete: if isSuperAdmin();
+    }
+
+    match /teams/{teamId} {
+      allow read: if signedIn()
+        && resource.data.companyId is string
+        && (isCompanyMember(resource.data.companyId) || isSuperAdmin());
+      allow create, update, delete: if isSuperAdmin();
+    }
+
+    // -----------------------------------------------------------------------
+    // Users.
+    // -----------------------------------------------------------------------
+    match /users/{uid} {
+      allow read: if signedIn()
+        && (
+          request.auth.uid == uid
+          || isSuperAdmin()
+          || canReadRootUserForPeopleAdmin()
+        );
+
+      allow update: if signedIn()
+        && (
+          isOwnSafeRootUserUpdate(uid)
+          || isSuperAdmin()
+          || canPeopleAdminUpdateRootUserRole(uid)
+        );
+
+      allow create: if signedIn()
+        && request.auth.uid == uid;
+      allow delete: if isSuperAdmin();
+
+      match /memberships/{companyId} {
+        allow read, write: if signedIn()
+          && request.auth.uid == uid;
+      }
+
+      match /fcmTokens/{tokenId} {
+        allow read, write, delete: if signedIn()
+          && request.auth.uid == uid;
+      }
+    }
+
+    // -----------------------------------------------------------------------
+    // Company scoped data.
+    // -----------------------------------------------------------------------
+    match /companies/{companyId} {
+      allow read: if isCompanyMember(companyId) || isSuperAdmin();
+      allow create: if isSuperAdmin();
+      allow update: if canManageCompany(companyId);
+      allow delete: if isSuperAdmin();
+
+      match /members/{uid} {
+        allow read: if (signedIn() && request.auth.uid == uid)
+          || isCompanyMember(companyId)
+          || isOwnInviteLookup()
+          || isSuperAdmin();
+
+        allow create: if canManagePeople(companyId)
+          || isInvitedSelfBootstrap(companyId, uid)
+          || (
+            isSuperAdmin()
+            && signedIn()
+            && uid == request.auth.uid
+            && request.resource.data.uid == request.auth.uid
+            && request.resource.data.role == 'superAdmin'
+            && request.resource.data.status == 'active'
+          );
+
+        allow update: if canManagePeople(companyId)
+          || isOwnSafeMemberUpdate(uid)
+          || (canEditAppraisals(companyId) && isSafeAppraisalUpdate())
+          || isSuperAdmin();
+
+        allow delete: if canManagePeople(companyId) || isSuperAdmin();
+
+        match /notifications/{notificationId} {
+          allow read: if signedIn()
+            && request.auth.uid == uid;
+
+          allow create: if canCreatePrivateNotification(companyId)
+            && request.resource.data.recipientId == uid;
+
+          allow update: if signedIn()
+            && request.auth.uid == uid
+            && request.resource.data.recipientId == resource.data.recipientId;
+
+          allow delete: if signedIn()
+            && request.auth.uid == uid;
+        }
+
+        match /fcmTokens/{tokenId} {
+          allow read, create, update, delete: if signedIn()
+            && request.auth.uid == uid
+            && isCompanyMember(companyId);
+        }
+
+        match /employmentHistory/{historyId} {
+          allow read: if (signedIn() && request.auth.uid == uid)
+            || canEditAppraisals(companyId)
+            || isSuperAdmin();
+          // Written only by the secured Cloud Function using Admin SDK.
+          allow create, update, delete: if false;
+        }
+      }
+
+      match /teams/{teamId} {
+        allow read: if isCompanyMember(companyId) || isSuperAdmin();
+        allow create, update, delete: if canManageTaskForces(companyId);
+      }
+
+      // IMPORTANT:
+      // Keep this broad read. Do not make this assigned-project-only yet,
+      // otherwise the APK can show all project counts as 0.
+      // This is intentionally kept from the pasted rules so existing/old project
+      // docs remain visible to active company members while the app filters scope.
+      match /projects/{projectId} {
+        allow read: if isCompanyMember(companyId) || isSuperAdmin();
+        allow create: if canManageProjects(companyId);
+        allow update: if canEditProject(companyId);
+        allow delete: if canManageProjects(companyId);
+      }
+
+      // IMPORTANT:
+      // Keep this broad read. APK WorkspaceState filters visible scope.
+      // This preserves old task visibility and avoids blank APK/admin screens
+      // while data migration is still mixed.
+      match /tasks/{taskId} {
+        allow read: if canReadTaskDoc(companyId);
+
+        allow create: if canCreateTasks(companyId)
+          && taskWriteShapeIsValid(companyId);
+
+        allow update: if (
+            canEditTimeline(companyId)
+            || (
+              isAssignedToExistingTask()
+              && canMoveOwnTasks(companyId)
+              && isOwnSafeTaskProgressUpdate()
+            )
+          )
+          && taskWriteShapeIsValid(companyId);
+
+        allow delete: if canManageProjects(companyId);
+
+        match /comments/{commentId} {
+          allow read, create: if canReadTaskById(companyId, taskId);
+
+          allow update, delete: if canReadTaskById(companyId, taskId)
+            && resource.data.authorId == request.auth.uid;
+        }
+
+        match /attachments/{attachmentId} {
+          allow read, create: if canReadTaskById(companyId, taskId);
+
+          allow update, delete: if canViewFullProjectProgress(companyId)
+            || canManageInfrastructure(companyId);
+        }
+      }
+
+      match /notifications/{notificationId} {
+        allow read: if signedIn()
+          && resource.data.recipientId == request.auth.uid;
+
+        allow create: if canCreatePrivateNotification(companyId);
+
+        allow update: if signedIn()
+          && resource.data.recipientId == request.auth.uid
+          && request.resource.data.recipientId == resource.data.recipientId;
+
+        allow delete: if signedIn()
+          && resource.data.recipientId == request.auth.uid;
+      }
+
+      match /notificationLogs/{logId} {
+        allow read: if canManageInfrastructure(companyId)
+          || canManageProjects(companyId)
+          || canManageTaskForces(companyId)
+          || isSuperAdmin();
+
+        allow create, update, delete: if false;
+      }
+
+      match /activityLogs/{activityLogId} {
+        allow read: if isCompanyMember(companyId) || isSuperAdmin();
+
+        // Work counter start/stop is created by assigned employees too.
+        // Keep updates/deletes blocked so activity history stays append-only.
+        allow create: if isCompanyMember(companyId) || isSuperAdmin();
+
+        allow update, delete: if false;
+      }
+
+      match /auditLogs/{auditLogId} {
+        allow read: if canViewAudit(companyId);
+
+        allow create: if isCompanyMember(companyId) || isSuperAdmin();
+
+        allow update, delete: if false;
+      }
+
+      match /employmentActions/{actionId} {
+        allow read: if canEditAppraisals(companyId)
+          || (isCompanyMember(companyId) && resource.data.employeeId == request.auth.uid)
+          || isSuperAdmin();
+
+        allow create: if canRecommendCareerActions(companyId)
+          && employmentActionCreateIsValid(companyId);
+
+        // Review/approval/rejection is transactional and authorized by the Oracle Admin SDK backend.
+        allow update, delete: if false;
+      }
+
+      match /appraisalTemplates/{templateId} {
+        allow read: if isCompanyMember(companyId) || isSuperAdmin();
+        allow create, update: if canReviewCareerActions(companyId);
+        allow delete: if canManageCompany(companyId);
+      }
+
+      match /monthlyAnalytics/{monthId} {
+        allow read: if canViewReports(companyId) || isSuperAdmin();
+        // Canonical snapshot writes are performed by the Oracle Admin SDK backend; local web PDF generation needs no write.
+        allow create, update, delete: if false;
+
+        match /{detailDocument=**} {
+          allow read: if canViewReports(companyId) || isSuperAdmin();
+          allow create, update, delete: if false;
+        }
+      }
+
+      match /reports/{reportId} {
+        allow read: if canViewReports(companyId);
+
+        allow create, update, delete: if canGenerateReports(companyId);
+      }
+
+      match /dashboardStats/{statsDoc} {
+        allow read: if canViewFullProjectProgress(companyId);
+
+        allow write: if false;
+      }
+
+      match /settings/{settingDoc} {
+        allow read: if isCompanyMember(companyId)
+          || isSuperAdmin()
+          || (signedIn() && settingDoc == 'bootstrap');
+
+        allow create: if (
+            settingDoc == 'bootstrap'
+            && isSuperAdmin()
+          )
+          || (
+            canManageSettings(companyId)
+            && (
+              settingDoc != 'portalPosts'
+              || portalPostSettingsIsValid()
+            )
+          )
+          || (
+            isSuperAdmin()
+            && (
+              settingDoc != 'portalPosts'
+              || portalPostSettingsIsValid()
+            )
+          );
+
+        allow update: if canManageSettings(companyId)
+          && settingDoc != 'bootstrap'
+          && (
+            settingDoc != 'portalPosts'
+            || portalPostSettingsIsValid()
+          );
+
+        allow delete: if false;
+      }
+
+      match /uiConfigs/{configId} {
+        allow read: if isCompanyMember(companyId) || isSuperAdmin();
+
+        allow create: if (canManageSettings(companyId) || isSuperAdmin())
+          && uiConfigShapeIsValid(configId)
+          && uiConfigVersionCanCreate(configId);
+
+        allow update: if (canManageSettings(companyId) || isSuperAdmin())
+          && uiConfigShapeIsValid(configId)
+          && uiConfigVersionCanUpdate(configId);
+
+        allow delete: if false;
+
+        match /versions/{versionId} {
+          allow read: if isCompanyMember(companyId) || isSuperAdmin();
+
+          allow create, update: if canManageSettings(companyId) || isSuperAdmin();
+
+          allow delete: if false;
+        }
+      }
+
+      match /uiConfigMeta/{metaId} {
+        allow read: if isCompanyMember(companyId) || isSuperAdmin();
+
+        allow create, update: if canManageSettings(companyId) || isSuperAdmin();
+
+        allow delete: if false;
+      }
+
+      match /invites/{inviteId} {
+        allow read: if canManagePeople(companyId)
+          || (signedIn() && resource.data.email == request.auth.token.email);
+
+        allow create: if canManagePeople(companyId);
+
+        allow update: if canManagePeople(companyId)
+          || canClaimOwnInvite(companyId, inviteId);
+
+        allow delete: if canManagePeople(companyId);
+      }
+
+      match /{document=**} {
+        allow read, write: if false;
+      }
+    }
+  }
+}

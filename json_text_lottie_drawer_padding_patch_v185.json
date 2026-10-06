@@ -1,0 +1,151 @@
+{
+  "version": 265,
+  "configId": "mobileEmployee_v265_pageview_no_vertical_motion",
+  "rendererVersion": "employee_sdui_v186_drawer_cut_panel_padding",
+  "minRendererVersion": "employee_sdui_v186_drawer_cut_panel_padding",
+  "texts": {
+    "topNav": {
+      "searchPlaceholder": "Search projects, tasks, inbox, meetings..."
+    },
+    "quickActions": {
+      "title": "Quick action",
+      "createTask": "Create task",
+      "createProject": "Create project",
+      "uploadFile": "Upload file",
+      "openInbox": "Open inbox"
+    },
+    "sideMenu": {
+      "groups": {
+        "main": "Main",
+        "more": "More"
+      }
+    },
+    "routeLabels": {
+      "home": "Dashboard",
+      "projects": "Projects",
+      "tasks": "Tasks",
+      "taskTimeline": "Task Timeline",
+      "calendar": "Calendar",
+      "notifications": "Notifications",
+      "profile": "My Profile",
+      "board": "Task Board",
+      "meetings": "Meetings",
+      "taskMap": "Task Map / Site View",
+      "timeline": "Milestones",
+      "files": "Files & Documents",
+      "teamMembers": "Team Members",
+      "taskDetail": "Task Details",
+      "projectDetail": "Project Details",
+      "meetingDetail": "Meeting Details",
+      "onboarding": "Onboarding & Team Setup"
+    },
+    "home": {
+      "workSummary": {
+        "title": "Project Management Dashboard",
+        "subtitle": "Your assigned work, deadlines, project progress, and team updates in one mobile workspace."
+      },
+      "deadlineTimer": {
+        "title": "Next deadline"
+      },
+      "activeProjectsGrid": {
+        "title": "Active projects"
+      },
+      "todayTasks": {
+        "title": "Today"
+      },
+      "myOpenTasks": {
+        "title": "My open tasks"
+      },
+      "projectProgress": {
+        "title": "Project progress"
+      }
+    },
+    "screens": {
+      "taskTimeline": {
+        "title": "Task Timeline",
+        "subtitle": "Task progress and schedule timeline"
+      }
+    }
+  },
+  "topNav": {
+    "placeholder": "Search projects, tasks, inbox, meetings...",
+    "searchPlaceholder": "Search projects, tasks, inbox, meetings...",
+    "menuIconMode": "lottieOneShot",
+    "menuLottieAsset": "assets/lottie/menu_in_out.json"
+  },
+  "sideMenuConfig": {
+    "drawerContentLeft": 38,
+    "drawerContentTop": 50,
+    "drawerContentRight": 28,
+    "drawerContentBottom": 34,
+    "itemPaddingHorizontal": 20,
+    "itemPaddingVertical": 15,
+    "itemGap": 12,
+    "avatarTitleGap": 30,
+    "headerItemsGap": 36,
+    "premiumPadding": true,
+    "useLottieMenuIcon": true,
+    "oneShotMenuAnimation": true,
+    "preventConcurrentMenuAnimations": true,
+    "lottieIcon": {
+      "enabled": true,
+      "asset": "assets/lottie/menu_in_out.json",
+      "playMode": "oneShotOnTap",
+      "repeat": false,
+      "autoPlay": false,
+      "resetToStaticIconAfterComplete": true,
+      "maxConcurrentAnimations": 1,
+      "source": "uploaded_menu_in_out_json"
+    },
+    "mainPanelTopInset": 18,
+    "mainPanelBottomInset": 24,
+    "activePanelContentPaddingLeft": 18,
+    "activePanelContentPaddingTop": 10,
+    "activePanelContentPaddingRight": 18,
+    "activePanelContentPaddingBottom": 10,
+    "mainPanelContentPaddingLeft": 18,
+    "mainPanelContentPaddingTop": 10,
+    "mainPanelContentPaddingRight": 18,
+    "mainPanelContentPaddingBottom": 10,
+    "screenCutAmount": "premiumPadded",
+    "cutPanelContentPadding": true
+  },
+  "jsonLayoutPolicy": {
+    "enabled": true,
+    "rendererRole": "primitiveEngineOnly",
+    "jsonOwnsPageOrder": true,
+    "jsonOwnsSearchSummaryFilterContentOrder": true,
+    "defaultNonHomeOrder": [
+      "search",
+      "summary",
+      "filters",
+      "content"
+    ],
+    "homeKeepsPublishedSectionOrder": true,
+    "supportedOrderKeys": [
+      "sectionOrder",
+      "contentOrder",
+      "layoutOrder",
+      "pageOrder"
+    ],
+    "supportedPlacementKeys": [
+      "searchPlacement",
+      "summaryPlacement",
+      "filterPlacement",
+      "statsPlacement"
+    ],
+    "unsupportedWidgetsFallback": "safeUnsupportedCard",
+    "textSource": "all visible employee APK shell labels and drawer/action labels must resolve from JSON texts/screenConfigs before fallback generation",
+    "drawerAnimation": "uploaded Lottie menu_in_out.json runs once on tap and resets after completion"
+  },
+  "releaseNotes": {
+    "v185": "Adds JSON-owned visible text labels, one-shot uploaded menu Lottie for the drawer/back control, one-animation-at-a-time guard, and increased premium drawer padding.",
+    "requiresApkRendererVersion": "employee_sdui_v186_drawer_cut_panel_padding",
+    "version": 186,
+    "changes": [
+      "Increases drawer content padding and adds open-state active cut-panel inner padding so the live screen preview has more breathing room."
+    ],
+    "v186": "Premium drawer spacing: wider drawer content padding, larger list item padding, and JSON-controlled active cut-panel inner padding."
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

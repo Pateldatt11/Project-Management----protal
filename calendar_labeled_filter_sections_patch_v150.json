@@ -1,0 +1,172 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v150_calendar_labeled_filter_sections",
+  "minRendererVersion": "employee_sdui_v150_calendar_labeled_filter_sections",
+  "featureFlags": {
+    "expandableProjectTimeline": true,
+    "projectDetailSelectProject": true,
+    "calendarMonthPicker": true,
+    "calendarTodayHighlight": true,
+    "calendarDateLabels": true,
+    "calendarSelectedFilterTabs": true,
+    "calendarDeadlineFirstSections": true,
+    "calendarAssignedTaskSections": true
+  },
+  "calendarInteractionConfig": {
+    "enabled": true,
+    "tapDateShows": "deadlineFirstFilterTabs",
+    "assignedDateHighlight": "lightAccent",
+    "deadlineDateHighlight": "accentSolid",
+    "meetingDateIndicator": "none",
+    "selectedDateCard": true,
+    "assignedTasksSection": true,
+    "selectedDateFilterMode": "deadlineFirstThenAssignedCreatedDate",
+    "showOnlySelectedDateTasks": true,
+    "hideUpcomingTaskList": true,
+    "combineDeadlineAndAssignedTasks": true,
+    "mode": "selectedDateFilter",
+    "monthPicker": true,
+    "previousNextMonthControls": true,
+    "todayHighlight": true,
+    "highlightColors": {
+      "assignedDate": "accentLight",
+      "deadlineDate": "accentSolid",
+      "today": "accentOutline",
+      "meetingDate": "none"
+    },
+    "selectedDateShowsOnlyMatchingTasks": true,
+    "showDotIndicators": false,
+    "dateDotIndicators": false,
+    "dateLabels": true,
+    "deadlineLabel": "D",
+    "assignedLabel": "A",
+    "meetingLabel": "M",
+    "filterTabs": [
+      "All",
+      "Deadlines",
+      "Assigned",
+      "Meetings"
+    ],
+    "deadlineSectionFirst": true,
+    "meetingSection": true,
+    "separateDeadlineAndAssignedTasks": true,
+    "dedupeAssignedTasksAlreadyShownAsDeadlineInAllTab": true
+  },
+  "screenOverrides": {
+    "calendar": {
+      "type": "sectionList",
+      "title": "Calendar",
+      "subtitle": "Tap a date to view filter tabs, deadline tasks first, then assigned tasks",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EEF2EA",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "textMuted": "#8B9288",
+        "border": "#D8DED4",
+        "accent": "#5F7F55",
+        "accentDark": "#405446",
+        "success": "#5F7F55",
+        "warning": "#8F9168",
+        "danger": "#C85F55",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "padding": {
+        "left": 16,
+        "top": 8,
+        "right": 16,
+        "bottom": 16
+      },
+      "contentBehavior": "pureFloatingOverlay",
+      "sections": [
+        {
+          "id": "calendar",
+          "type": "calendarView",
+          "variant": "deadlineFirstLabeledCalendar",
+          "dataSource": "calendar.deadlines",
+          "dateLabels": {
+            "deadline": "D",
+            "assigned": "A",
+            "meeting": "M"
+          },
+          "selectedDateLayout": [
+            "filterTabs",
+            "deadlines",
+            "assignedTasks",
+            "meetings"
+          ],
+          "deadlineFirst": true,
+          "showDotIndicators": false
+        }
+      ],
+      "nested": true,
+      "edgeToEdgeBehavior": "androidFigureOneRight",
+      "contentDrawsBehindSystemBars": true,
+      "topProtectionMode": "scrollAwareInitialOnly",
+      "bottomProtectionMode": "gestureAwareOverlay",
+      "renderStyle": "referenceFilledDataRender",
+      "variant": "wireframeFilledDataCardList",
+      "calendarInteractionConfig": {
+        "enabled": true,
+        "tapDateShows": "deadlineFirstFilterTabs",
+        "assignedDateHighlight": "lightAccent",
+        "deadlineDateHighlight": "accentSolid",
+        "meetingDateIndicator": "none",
+        "selectedDateCard": true,
+        "assignedTasksSection": true,
+        "selectedDateFilterMode": "deadlineFirstThenAssignedCreatedDate",
+        "showOnlySelectedDateTasks": true,
+        "hideUpcomingTaskList": true,
+        "combineDeadlineAndAssignedTasks": true,
+        "mode": "selectedDateFilter",
+        "monthPicker": true,
+        "previousNextMonthControls": true,
+        "todayHighlight": true,
+        "highlightColors": {
+          "assignedDate": "accentLight",
+          "deadlineDate": "accentSolid",
+          "today": "accentOutline",
+          "meetingDate": "none"
+        },
+        "selectedDateShowsOnlyMatchingTasks": true,
+        "showDotIndicators": false,
+        "dateDotIndicators": false,
+        "dateLabels": true,
+        "deadlineLabel": "D",
+        "assignedLabel": "A",
+        "meetingLabel": "M",
+        "filterTabs": [
+          "All",
+          "Deadlines",
+          "Assigned",
+          "Meetings"
+        ],
+        "deadlineSectionFirst": true,
+        "meetingSection": true,
+        "separateDeadlineAndAssignedTasks": true,
+        "dedupeAssignedTasksAlreadyShownAsDeadlineInAllTab": true
+      }
+    }
+  },
+  "profileActions": {
+    "showLogout": true,
+    "setOfflineBeforeLogout": true,
+    "logoutPosition": "settingsExpandedSection",
+    "logoutStyle": "settingsRowDanger",
+    "settingsSectionEnabled": true,
+    "settingsExpandable": true,
+    "logoutAsButton": false,
+    "style": "collapsibleSettingsSection"
+  },
+  "profileCardConfig": {
+    "logoutPlacement": "settingsExpandableBottom",
+    "logoutStyle": "settingsRowDanger",
+    "actionsLayout": "settingsExpandable",
+    "settingsExpandable": true
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

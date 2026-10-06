@@ -1,0 +1,44 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v174_legacy_visual_json_controls",
+  "rendererSafety": {
+    "enabled": true,
+    "jsonFirst": true,
+    "showUnsupportedBanner": false,
+    "unsupportedWidgetMode": "legacyWarning",
+    "unknownWidgetMode": "legacyWarning",
+    "renderUnknownWithChildrenAsColumn": false,
+    "recoverBrokenNodes": true,
+    "hideBrokenNodes": false,
+    "nodeRecoveryCard": true,
+    "doNotBlockScreenOnNodeError": true,
+    "strictRegistryBlocksRuntime": false,
+    "missingKeysUseFallback": true,
+    "safePrimitiveFallback": "card",
+    "notes": "Renderer should not stop the screen when admin JSON adds unknown keys or unsupported child widgets. Unknown widgets become safe cards/columns unless this policy says hide/warning.",
+    "visualCompatibilityMode": "legacyV172",
+    "preserveLegacyVisualDefaults": true,
+    "preserveLegacyRowExpansion": true,
+    "preserveLegacyGridColumns": true,
+    "jsonVisualChangesOptIn": true
+  },
+  "rendererCompatibility": {
+    "minVersion": "employee_sdui_v174_legacy_visual_json_controls",
+    "recommendedVersion": "employee_sdui_v174_legacy_visual_json_controls",
+    "apkRendererVersion": "employee_sdui_v174_legacy_visual_json_controls",
+    "visualCompatibilityMode": "legacyV172",
+    "jsonFirstControlsDoNotChangeVisualDefaults": true,
+    "unsupportedWidgetsDoNotReplaceOldUi": true
+  },
+  "featureFlags": {
+    "legacyVisualCompatibilityMode": true,
+    "jsonFirstVisualChangesOptIn": true,
+    "preserveOldUiDefaults": true,
+    "jsonControlledPageSearchOrder": true,
+    "projectTaskSearchBeforeStats": true,
+    "explicitTopPaddingFirestoreWins": true,
+    "mobileOnlyLoginSignup": true,
+    "webLegacyAuthScreen": true
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

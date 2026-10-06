@@ -1,0 +1,18 @@
+{
+  "version": 210,
+  "rendererVersion": "employee_sdui_v210_phase_project_stack_carousel",
+  "boardStyle": "phaseProjectStackCarousel",
+  "taskBoardCardMotionMode": "circularPhaseProject3DStack",
+  "phaseProjectStackCarousel": true,
+  "phaseProjectQueueCards": true,
+  "circularQueueEnabled": true,
+  "tapPhaseCardOpensProjectList": true,
+  "tapProjectOpensPhaseTasks": true,
+  "showTaskStatusOnCard": false,
+  "showSideStatusPanel": false,
+  "phaseCardHeroTransition": true,
+  "phaseCardLottieMotion": true,
+  "phaseStackCarouselHeight": 472,
+  "emptyPhaseDialogText": "No task was in this phase.",
+  "releaseNotes": "Phase-only stacked carousel cards with project-first drilldown and safe empty phase dialog."
+}

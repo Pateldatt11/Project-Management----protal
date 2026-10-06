@@ -1,0 +1,159 @@
+{
+  "version": 201,
+  "rendererVersion": "employee_sdui_v201_stacked_notifications",
+  "minRendererVersion": "employee_sdui_v201_stacked_notifications",
+  "featureFlags": {
+    "stackedNotifications": true,
+    "notificationStackDeck": true,
+    "adminPreviewNotificationStackDeck": true
+  },
+  "rendererCompatibility": {
+    "apkRendererVersion": "employee_sdui_v201_stacked_notifications",
+    "requiresStackedNotifications": true,
+    "stackNotificationDeck": "nativeAndSduiRendererParity",
+    "adminPreviewStackedNotifications": true,
+    "notificationStackAnimation": "expandCollapseLayeredDeck"
+  },
+  "notificationScreenConfig": {
+    "motionHeaderEnabled": false,
+    "motionHeaderUrl": "https://miro.medium.com/v2/resize:fit:786/format:webp/1*M9Zhk2sTQ5f5iJY2z1y8uA.gif",
+    "motionHeaderFallback": "nativeBellPulse",
+    "motionHeaderPlacement": "topInsideNotificationScreen",
+    "nativeNotificationShortcutAnimationEnabled": false,
+    "legacyShortcutDirectOpen": true,
+    "stackNotificationsEnabled": true,
+    "stackedNotificationDeck": true,
+    "deckCardLimit": 4,
+    "defaultMode": "stack",
+    "tapStackToExpand": true,
+    "swipeHeaderMarkAllRead": true,
+    "expandedRowsGroupedByDate": true,
+    "notificationMotionHeaderEnabled": false,
+    "animation": {
+      "durationMs": 380,
+      "curve": "easeOutCubic",
+      "collapsedCardGap": 16,
+      "expandedCardGap": 132,
+      "collapsedSideInset": 7,
+      "collapsedScaleStep": 0.04
+    },
+    "colors": {
+      "notificationBackground": "#F4F5F1",
+      "notificationSurface": "#FFFFFF",
+      "surfaceAlt": "#EEF2EA",
+      "textPrimary": "#0F140F",
+      "textSecondary": "#5F675E",
+      "border": "#D8DED4",
+      "notificationAccent": "#5F7F55",
+      "success": "#18AD86",
+      "warning": "#F59E0B",
+      "danger": "#C85F55",
+      "info": "#5577F2",
+      "cardRadius": 30,
+      "screenPadding": 18
+    }
+  },
+  "screenOverrides": {
+    "notifications": {
+      "type": "sectionList",
+      "screen": "notifications",
+      "screenKey": "notifications",
+      "title": "Notifications",
+      "subtitle": "Stacked notification center",
+      "stackNotificationsEnabled": true,
+      "stackedNotificationDeck": true,
+      "notificationMotionHeaderEnabled": false,
+      "deckCardLimit": 4,
+      "stackCardLimit": 4,
+      "limit": 80,
+      "showSearch": true,
+      "dataSource": "notifications",
+      "notificationStackConfig": {
+        "enabled": true,
+        "defaultMode": "stack",
+        "tapToExpand": true,
+        "headerSwipeAction": "markAllRead",
+        "deckCardLimit": 4,
+        "groupExpandedRowsByDate": true,
+        "collapseChip": true,
+        "filters": [
+          "All",
+          "Unread",
+          "Tasks",
+          "Meetings",
+          "Mentions"
+        ],
+        "animation": {
+          "durationMs": 380,
+          "curve": "easeOutCubic",
+          "collapsedCardGap": 16,
+          "expandedCardGap": 132,
+          "collapsedSideInset": 7,
+          "collapsedScaleStep": 0.04
+        },
+        "colors": {
+          "notificationBackground": "#F4F5F1",
+          "notificationSurface": "#FFFFFF",
+          "surfaceAlt": "#EEF2EA",
+          "textPrimary": "#0F140F",
+          "textSecondary": "#5F675E",
+          "border": "#D8DED4",
+          "notificationAccent": "#5F7F55",
+          "success": "#18AD86",
+          "warning": "#F59E0B",
+          "danger": "#C85F55",
+          "info": "#5577F2",
+          "cardRadius": 30,
+          "screenPadding": 18
+        }
+      },
+      "theme": {
+        "mode": "light",
+        "background": "#F4F5F1",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EEF2EA",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "textMuted": "#8B9288",
+        "border": "#D8DED4",
+        "accent": "#5F7F55",
+        "accentDark": "#405446",
+        "success": "#18AD86",
+        "warning": "#F59E0B",
+        "danger": "#C85F55",
+        "cardRadius": 30,
+        "cardPadding": 16,
+        "density": "comfortable",
+        "info": "#5577F2"
+      },
+      "sections": [
+        {
+          "id": "notificationStackDeck",
+          "type": "notificationStackDeck",
+          "title": "Stacked notifications",
+          "dataSource": "notifications",
+          "deckCardLimit": 4,
+          "tapToExpand": true
+        },
+        {
+          "id": "filters",
+          "type": "filterChips",
+          "items": [
+            "All",
+            "Unread",
+            "Tasks",
+            "Meetings",
+            "Mentions"
+          ],
+          "active": "All"
+        }
+      ]
+    }
+  },
+  "supportedWidgets": [
+    "notificationStackDeck",
+    "stackedNotificationDeck",
+    "stackNotificationHeader",
+    "stackNotificationModeSelector"
+  ]
+}

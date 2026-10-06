@@ -1,0 +1,74 @@
+{
+  "screenOverrides": {
+    "projects": {
+      "type": "projectPage",
+      "title": "Projects",
+      "subtitle": "Live project progress from Firestore",
+      "showHeader": true,
+      "showSummary": true,
+      "showSearch": true,
+      "showStatusFilters": true,
+      "limit": 50,
+      "search": {
+        "hint": "Search active project name or details"
+      },
+      "projectCard": {
+        "variant": "advancedProgressCard",
+        "showFields": [
+          "projectName",
+          "description",
+          "statusTag",
+          "priority",
+          "progress",
+          "teamCount",
+          "deadline",
+          "taskCount",
+          "completedTaskCount"
+        ],
+        "actions": [
+          "openDetails"
+        ]
+      },
+      "allowInlineSearch": true,
+      "searchScope": "currentPageContentOnly",
+      "searchBarVariant": "topNavSearch",
+      "searchFields": [
+        "projectName",
+        "description",
+        "statusTag",
+        "priority",
+        "team",
+        "manager"
+      ]
+    }
+  },
+  "projectCardFields": [
+    "projectName",
+    "description",
+    "statusTag",
+    "priority",
+    "progress",
+    "teamCount",
+    "deadline",
+    "taskCount",
+    "completedTaskCount"
+  ],
+  "supportedWidgets": [
+    "topNav",
+    "homeCards",
+    "taskCard",
+    "projectCard",
+    "projectPage",
+    "projectList",
+    "profileCard",
+    "inbox"
+  ],
+  "version": 265,
+  "pageSearchConfig": {
+    "enabled": true,
+    "scope": "currentPageContentOnly",
+    "topNavSearchUntouched": true,
+    "filterMode": "hideNonMatchingCardsAndSections"
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

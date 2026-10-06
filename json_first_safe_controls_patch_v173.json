@@ -1,0 +1,396 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v173_json_first_safe_controls",
+  "minRendererVersion": "employee_sdui_v173_json_first_safe_controls",
+  "rendererSafety": {
+    "enabled": true,
+    "jsonFirst": true,
+    "showUnsupportedBanner": false,
+    "unsupportedWidgetMode": "safeCard",
+    "unknownWidgetMode": "safeCard",
+    "renderUnknownWithChildrenAsColumn": true,
+    "recoverBrokenNodes": true,
+    "hideBrokenNodes": false,
+    "nodeRecoveryCard": true,
+    "doNotBlockScreenOnNodeError": true,
+    "strictRegistryBlocksRuntime": false,
+    "missingKeysUseFallback": true,
+    "safePrimitiveFallback": "card",
+    "notes": "Renderer should not stop the screen when admin JSON adds unknown keys or unsupported child widgets. Unknown widgets become safe cards/columns unless this policy says hide/warning."
+  },
+  "jsonFirstControls": {
+    "enabled": true,
+    "purpose": "Move UI structure, order, spacing, visibility, labels, summary stats, and responsive layout behavior into Firestore JSON while the APK renderer only supplies safe primitives and native actions.",
+    "editableWithoutApkUpdate": [
+      "screen order: sectionOrder/contentOrder/layoutOrder/pageOrder",
+      "visibility: visible/enabled/show* flags",
+      "spacing: padding/margin/gap/spacing/itemSpacing",
+      "responsive grids: columns/smallColumns/mediumColumns/largeColumns/breakpoints",
+      "summary stats: summaryStats/stats/metricCards order, label, icon, color, visible",
+      "card text, subtitles, labels, icons, actions already supported by renderer",
+      "auth UI policy and visible methods already supported by renderer",
+      "unsupported widget behavior through rendererSafety.unsupportedWidgetMode"
+    ],
+    "stillRequiresApkUpdate": [
+      "new native plugin or SDK",
+      "new Firebase provider implementation",
+      "new notification channel or Android service behavior",
+      "new complex widget primitive that cannot be safely represented as card/column/grid/button/text",
+      "new write action not implemented in action engine"
+    ]
+  },
+  "rendererCompatibility": {
+    "recommendedVersion": "employee_sdui_v173_json_first_safe_controls",
+    "jsonFirstSafeControls": true,
+    "rendererDoesNotBlockOnUnknownJson": true,
+    "unsupportedWidgetMode": "safeCard",
+    "summaryStatsJsonControlled": true,
+    "responsiveGridJsonControlled": true,
+    "nodeLevelRecovery": true
+  },
+  "featureFlags": {
+    "jsonFirstSafeControls": true,
+    "rendererDoesNotBlockOnUnknownJson": true,
+    "jsonControlledSummaryStats": true,
+    "jsonControlledResponsiveGrid": true,
+    "nodeLevelRendererRecovery": true,
+    "unsupportedWidgetSafeCardFallback": true,
+    "hideUnsupportedBannerDefault": true
+  },
+  "screenOverrides": {
+    "projects": {
+      "type": "sectionList",
+      "title": "Projects",
+      "subtitle": "Browse and track projects",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EEF2EA",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "textMuted": "#8B9288",
+        "border": "#D8DED4",
+        "accent": "#5F7F55",
+        "accentDark": "#405446",
+        "success": "#5F7F55",
+        "warning": "#8F9168",
+        "danger": "#C85F55",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "padding": {
+        "left": 16,
+        "top": 8,
+        "right": 16,
+        "bottom": 16
+      },
+      "contentBehavior": "pureFloatingOverlay",
+      "sections": [
+        {
+          "id": "search",
+          "type": "searchHeader",
+          "placeholder": "Search projects..."
+        },
+        {
+          "id": "filters",
+          "type": "filterChips",
+          "items": [
+            "All",
+            "In Progress",
+            "Completed",
+            "On Hold"
+          ],
+          "active": "All"
+        },
+        {
+          "id": "projectFeed",
+          "type": "projectPage",
+          "title": "Project Feed",
+          "variant": "wireframeProjectFeedCard",
+          "dataSource": "projects",
+          "showSummary": true,
+          "summaryLayout": "grid",
+          "projectSummaryLayout": "grid",
+          "searchPlacement": "first",
+          "summaryPlacement": "afterSearch",
+          "sectionOrder": [
+            "search",
+            "summary",
+            "filters",
+            "content"
+          ],
+          "contentOrder": [
+            "search",
+            "summary",
+            "filters",
+            "feed"
+          ],
+          "pageSearchFirst": true,
+          "jsonControlsSearchOrder": true,
+          "filterPlacement": "afterSummary",
+          "summaryBeforeFilters": true,
+          "jsonControlsSummaryOrder": true,
+          "jsonControlsSummaryFilterOrder": true,
+          "jsonControlsSummaryStats": true,
+          "responsiveGrid": {
+            "smallColumns": 2,
+            "mediumColumns": 3,
+            "largeColumns": 4,
+            "overflowSafe": true
+          },
+          "summaryStats": [
+            {
+              "key": "total",
+              "label": "Total",
+              "icon": "folder",
+              "visible": true
+            },
+            {
+              "key": "active",
+              "label": "Active",
+              "icon": "bolt",
+              "visible": true
+            },
+            {
+              "key": "delayed",
+              "label": "Delayed",
+              "icon": "warning",
+              "visible": true
+            },
+            {
+              "key": "average",
+              "label": "Average",
+              "icon": "chart",
+              "visible": true
+            },
+            {
+              "key": "done",
+              "label": "Done",
+              "icon": "check",
+              "visible": true
+            }
+          ]
+        }
+      ],
+      "searchEnabled": true,
+      "filterChips": [
+        "All",
+        "In Progress",
+        "Completed",
+        "On Hold"
+      ],
+      "edgeToEdgeBehavior": "androidFigureOneRight",
+      "contentDrawsBehindSystemBars": true,
+      "topProtectionMode": "scrollAwareInitialOnly",
+      "bottomProtectionMode": "gestureAwareOverlay",
+      "summaryLayout": "grid",
+      "screen": "projects",
+      "screenKey": "projects",
+      "showSummary": true,
+      "projectSummaryLayout": "grid",
+      "searchPlacement": "first",
+      "summaryPlacement": "afterSearchBeforeFilters",
+      "sectionOrder": [
+        "search",
+        "summary",
+        "filters",
+        "content"
+      ],
+      "contentOrder": [
+        "search",
+        "summary",
+        "filters",
+        "feed"
+      ],
+      "pageSearchFirst": true,
+      "jsonControlsSearchOrder": true,
+      "filterPlacement": "afterSummary",
+      "summaryBeforeFilters": true,
+      "jsonControlsSummaryOrder": true,
+      "jsonControlsSummaryFilterOrder": true,
+      "jsonControlsSummaryStats": true,
+      "rendererSafety": {
+        "unsupportedWidgetMode": "safeCard",
+        "showUnsupportedBanner": false
+      }
+    },
+    "tasks": {
+      "type": "sectionList",
+      "title": "Tasks",
+      "subtitle": "Tasks by priority and status",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EEF2EA",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "textMuted": "#8B9288",
+        "border": "#D8DED4",
+        "accent": "#5F7F55",
+        "accentDark": "#405446",
+        "success": "#5F7F55",
+        "warning": "#8F9168",
+        "danger": "#C85F55",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "padding": {
+        "left": 16,
+        "top": 8,
+        "right": 16,
+        "bottom": 16
+      },
+      "contentBehavior": "pureFloatingOverlay",
+      "sections": [
+        {
+          "id": "search",
+          "type": "searchHeader",
+          "placeholder": "Search tasks..."
+        },
+        {
+          "id": "tabs",
+          "type": "filterChips",
+          "items": [
+            "All",
+            "New",
+            "My Tasks",
+            "Completed"
+          ],
+          "active": "All"
+        },
+        {
+          "id": "taskFeed",
+          "type": "taskPage",
+          "title": "Task List",
+          "variant": "editorialStatusCard",
+          "dataSource": "tasks",
+          "showAllFilterSubTabs": true,
+          "allFilterSubTabPlacement": "underFilters",
+          "allFilterSubTabStyle": "pillSegmented",
+          "defaultAllFilterSubTab": "newOpenTasks",
+          "allFilterSubTabs": [
+            {
+              "key": "newOpenTasks",
+              "label": "New tas...",
+              "filter": "status != completed"
+            },
+            {
+              "key": "allTasks",
+              "label": "All tasks",
+              "filter": "all"
+            }
+          ],
+          "note": "When the primary task filter is All, the renderer shows this pill tab row under the filter chips.",
+          "showSummary": true,
+          "showTaskSummary": true,
+          "statsLayout": "grid",
+          "searchPlacement": "first",
+          "summaryPlacement": "afterSearch",
+          "sectionOrder": [
+            "search",
+            "summary",
+            "filters",
+            "content"
+          ],
+          "contentOrder": [
+            "search",
+            "summary",
+            "filters",
+            "feed"
+          ],
+          "pageSearchFirst": true,
+          "jsonControlsSearchOrder": true,
+          "filterPlacement": "afterSummary",
+          "summaryBeforeFilters": true,
+          "jsonControlsSummaryOrder": true,
+          "jsonControlsSummaryFilterOrder": true,
+          "jsonControlsSummaryStats": true,
+          "responsiveGrid": {
+            "smallColumns": 2,
+            "mediumColumns": 3,
+            "largeColumns": 4,
+            "overflowSafe": true
+          },
+          "summaryStats": [
+            {
+              "key": "total",
+              "label": "Total",
+              "icon": "task",
+              "visible": true
+            },
+            {
+              "key": "active",
+              "label": "Active",
+              "icon": "bolt",
+              "visible": true
+            },
+            {
+              "key": "delayed",
+              "label": "Delayed",
+              "icon": "warning",
+              "visible": true
+            },
+            {
+              "key": "average",
+              "label": "Average",
+              "icon": "chart",
+              "visible": true
+            },
+            {
+              "key": "done",
+              "label": "Done",
+              "icon": "check",
+              "visible": true
+            }
+          ]
+        }
+      ],
+      "searchEnabled": true,
+      "filterChips": [
+        "All",
+        "New",
+        "My Tasks",
+        "Completed"
+      ],
+      "edgeToEdgeBehavior": "androidFigureOneRight",
+      "contentDrawsBehindSystemBars": true,
+      "topProtectionMode": "scrollAwareInitialOnly",
+      "bottomProtectionMode": "gestureAwareOverlay",
+      "screen": "tasks",
+      "screenKey": "tasks",
+      "showSummary": true,
+      "showTaskSummary": true,
+      "statsLayout": "grid",
+      "searchPlacement": "first",
+      "summaryPlacement": "afterSearchBeforeFilters",
+      "sectionOrder": [
+        "search",
+        "summary",
+        "filters",
+        "content"
+      ],
+      "contentOrder": [
+        "search",
+        "summary",
+        "filters",
+        "feed"
+      ],
+      "pageSearchFirst": true,
+      "jsonControlsSearchOrder": true,
+      "filterPlacement": "afterSummary",
+      "summaryBeforeFilters": true,
+      "jsonControlsSummaryOrder": true,
+      "jsonControlsSummaryFilterOrder": true,
+      "jsonControlsSummaryStats": true,
+      "rendererSafety": {
+        "unsupportedWidgetMode": "safeCard",
+        "showUnsupportedBanner": false
+      }
+    }
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

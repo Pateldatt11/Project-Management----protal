@@ -1,0 +1,31 @@
+{
+  "version": 169,
+  "rendererVersion": "employee_sdui_v169_mobile_auth_apk_only_web_legacy",
+  "authUiPolicy": {
+    "newLoginSignupEnabled": true,
+    "applyTo": [
+      "android",
+      "ios"
+    ],
+    "disableOnWeb": true,
+    "webUsesLegacyAuth": true,
+    "adminPreviewCanRenderMobileAuth": true,
+    "runtimeRule": "Mobile SDUI auth is APK/iOS only. Flutter Web keeps LoginScreen legacy web auth."
+  },
+  "rendererCompatibility": {
+    "minVersion": "employee_sdui_v169_mobile_auth_apk_only_web_legacy",
+    "recommendedVersion": "employee_sdui_v169_mobile_auth_apk_only_web_legacy",
+    "requiresMobileOnlyAuthGuard": true,
+    "webUsesLegacyAuth": true,
+    "mobileAuthApplyTo": [
+      "android",
+      "ios"
+    ],
+    "adminPreviewCanRenderMobileAuth": true
+  },
+  "featureFlags": {
+    "mobileOnlyLoginSignup": true,
+    "webLegacyAuthScreen": true,
+    "adminPreviewMobileAuthAllowed": true
+  }
+}

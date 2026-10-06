@@ -1,0 +1,37 @@
+{
+  "version": 153,
+  "rendererVersion": "employee_sdui_v153_profile_settings_iconless_calendar_parity",
+  "screenOverrides": {
+    "profile": {
+      "settingsSectionEnabled": true,
+      "notificationSettingsPlacement": "settingsExpandable",
+      "hideStandaloneNotificationSettings": true,
+      "logoutPlacement": "settingsExpandableBottom",
+      "logoutStyle": "settingsRowDanger"
+    },
+    "calendar": {
+      "calendarConfig": {
+        "showDots": false,
+        "showLabels": true,
+        "labelMode": "thinSquircle",
+        "removeFilterIcons": true
+      },
+      "selectedDatePanel": {
+        "filters": {
+          "style": "pill",
+          "showIcons": false
+        },
+        "sectionOrder": [
+          "deadlines",
+          "assignedTasks",
+          "meetings"
+        ]
+      }
+    }
+  },
+  "featureFlags": {
+    "profileNotificationSettingsInsideSettings": true,
+    "iconlessCalendarFilterChips": true,
+    "iconlessNotificationSettings": true
+  }
+}

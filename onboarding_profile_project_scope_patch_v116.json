@@ -1,0 +1,71 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v145_onboarding_profile_rules_scope",
+  "minRendererVersion": "employee_sdui_v145_onboarding_profile_rules_scope",
+  "profileCardConfig": {
+    "variant": "premiumWorkspaceProfile",
+    "showAvatar": true,
+    "showOnlineStatus": true,
+    "showCompanyName": true,
+    "showRole": true,
+    "showDepartment": true,
+    "fieldStyle": "settingsRows",
+    "logoutPlacement": "settingsListBottom",
+    "logoutStyle": "editorialFooterAction",
+    "showStatsGrid": true,
+    "showWorkProfile": true,
+    "showAssignedScope": true,
+    "privacyMode": "projectScoped",
+    "actionsLayout": "twoColumnCapsules",
+    "statusToggles": "softRows"
+  },
+  "onboardingConfig": {
+    "enabled": true,
+    "variant": "workspaceChecklist",
+    "title": "Welcome",
+    "subtitle": "Your project workspace is ready to set up",
+    "showCompanyHeader": true,
+    "showScopedDataNotice": true,
+    "steps": [
+      "profileReady",
+      "projectsJoined",
+      "tasksAssigned",
+      "alertsEnabled"
+    ]
+  },
+  "firebaseRulesConfig": {
+    "mode": "projectScopedPrivateData",
+    "employeeProjectRead": "assignedProjectsTeamsManagersOnly",
+    "employeeTaskRead": "assignedProjectTeamOnly",
+    "employeeMemberRead": "selfOrSharedProjectTeamOnly",
+    "adminFullRead": true
+  },
+  "screenOverrides": {
+    "onboarding": {
+      "screen": "onboarding",
+      "type": "onboardingScreen",
+      "title": "Welcome",
+      "subtitle": "Your project workspace is ready to set up",
+      "hideTitle": false
+    },
+    "profile": {
+      "screen": "profile",
+      "type": "profileSummary",
+      "title": "Profile",
+      "subtitle": "Private employee workspace profile",
+      "variant": "premiumWorkspaceProfile",
+      "hideTitle": false
+    }
+  },
+  "supportedWidgets": [
+    "profileHeroCard",
+    "profileStatsGrid",
+    "profileInfoSection",
+    "profileToggleRow",
+    "profileQuickActions",
+    "onboardingChecklist",
+    "onboardingMetricPill",
+    "secureProjectScopedRules"
+  ],
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

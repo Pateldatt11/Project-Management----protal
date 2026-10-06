@@ -1,0 +1,66 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v193_notification_motion_preview_logs_task_timeline_feature",
+  "screenConfigs": {
+    "taskTimeline": {
+      "index": 5,
+      "title": "Task Timeline",
+      "layout": "deliveryAppUIKitTimeline",
+      "route": "taskTimeline",
+      "topNav": true,
+      "bottomNav": true,
+      "nested": true,
+      "icon": "timeline",
+      "dataRender": "liveWorkspaceState",
+      "active": true,
+      "jsonControlled": true,
+      "label": "Task Timeline",
+      "variant": "deliveryAppUIKitTimeline",
+      "screen": "taskTimeline",
+      "type": "taskProgressTimeline",
+      "featureScreenPath": "lib/features/tasks/presentation/task_timeline_screen.dart",
+      "firstClassRoute": true,
+      "fallbackToHome": false,
+      "dataSource": "visibleTasks",
+      "liveDataMode": true
+    }
+  },
+  "sideMenuConfig": {
+    "routeCommitMode": "immediateBeforeClose",
+    "canonicalizeRoutes": true,
+    "preventFallbackToHomeOnNestedRoute": true,
+    "taskTimelineFeatureRoute": true
+  },
+  "notificationScreenConfig": {
+    "motionHeaderEnabled": true,
+    "motionHeaderUrl": "https://miro.medium.com/v2/resize:fit:786/format:webp/1*M9Zhk2sTQ5f5iJY2z1y8uA.gif",
+    "motionHeaderFallback": "nativeBellPulse",
+    "motionHeaderPlacement": "topInsideNotificationScreen",
+    "nativeNotificationShortcutAnimationEnabled": false,
+    "legacyShortcutDirectOpen": true
+  },
+  "adminPreviewConfig": {
+    "liveRuntimeLogs": true,
+    "logsWhilePreviewActiveOnly": true,
+    "clearLogsOnPreviewDispose": true,
+    "clearLogsOnRuntimeConfigChange": true,
+    "persistPreviewLogs": false,
+    "maxPreviewLogs": 80
+  },
+  "rendererCompatibility": {
+    "requiresTaskTimelineFeatureRoute": true,
+    "taskTimelineFeaturePath": "lib/features/tasks/presentation/task_timeline_screen.dart",
+    "taskTimelineRouteMustNotFallbackToHome": true,
+    "previewRuntimeLogsEnabled": true,
+    "previewRuntimeLogsEphemeral": true,
+    "notificationScreenMotionHeader": true
+  },
+  "featureFlags": {
+    "taskTimelineFeatureScreen": true,
+    "taskTimelineFirstClassRoute": true,
+    "notificationMotionHeader": true,
+    "adminPreviewLiveLogs": true,
+    "adminPreviewLogsEphemeral": true
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

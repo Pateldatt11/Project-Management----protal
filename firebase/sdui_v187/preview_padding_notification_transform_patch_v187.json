@@ -1,0 +1,122 @@
+{
+  "version": 187,
+  "configId": "mobileEmployee_cleanWireframe_v187_preview_padding_notification_transform",
+  "updatedAt": "2026-06-27T00:00:00.000Z",
+  "updatedBy": "chatgpt_preview_padding_notification_transform_v187",
+  "rendererVersion": "employee_sdui_v187_preview_padding_notification_transform",
+  "minRendererVersion": "employee_sdui_v187_preview_padding_notification_transform",
+  "sideMenuConfig": {
+    "drawerContentLeft": 38,
+    "drawerContentTop": 50,
+    "drawerContentRight": 28,
+    "drawerContentBottom": 34,
+    "itemPaddingHorizontal": 20,
+    "itemPaddingVertical": 15,
+    "itemGap": 12,
+    "mainPanelTopInset": 18,
+    "mainPanelBottomInset": 24,
+    "activePanelContentPaddingLeft": 18,
+    "activePanelContentPaddingTop": 10,
+    "activePanelContentPaddingRight": 18,
+    "activePanelContentPaddingBottom": 10,
+    "previewPaddingParity": true,
+    "adminPreviewReadsDrawerContentPadding": true,
+    "adminPreviewReadsActivePanelContentPadding": true
+  },
+  "topNav": {
+    "notificationShortcutAnimation": {
+      "enabled": true,
+      "type": "transform",
+      "trigger": "notificationShortcutTap",
+      "mode": "oneShot",
+      "durationMs": 460,
+      "curve": "easeOutCubic",
+      "scaleSequence": [
+        1.0,
+        0.88,
+        1.12,
+        1.0
+      ],
+      "rotationTurns": 0.035,
+      "lift": -3,
+      "preventConcurrentAnimations": true,
+      "usesAnimatedBuilder": true,
+      "usesTweenSequence": true,
+      "resetAfterComplete": true,
+      "appliesTo": [
+        "topNavInboxShortcut",
+        "notificationShortcut",
+        "adminPreviewTopNavInboxShortcut"
+      ]
+    }
+  },
+  "notificationShortcutAnimation": {
+    "enabled": true,
+    "type": "transform",
+    "trigger": "notificationShortcutTap",
+    "mode": "oneShot",
+    "durationMs": 460,
+    "curve": "easeOutCubic",
+    "scaleSequence": [
+      1.0,
+      0.88,
+      1.12,
+      1.0
+    ],
+    "rotationTurns": 0.035,
+    "lift": -3,
+    "preventConcurrentAnimations": true,
+    "usesAnimatedBuilder": true,
+    "usesTweenSequence": true,
+    "resetAfterComplete": true,
+    "appliesTo": [
+      "topNavInboxShortcut",
+      "notificationShortcut",
+      "adminPreviewTopNavInboxShortcut"
+    ]
+  },
+  "notificationAlertConfig": {
+    "shortcutAnimation": {
+      "enabled": true,
+      "type": "transform",
+      "trigger": "notificationShortcutTap",
+      "mode": "oneShot",
+      "durationMs": 460,
+      "curve": "easeOutCubic",
+      "scaleSequence": [
+        1.0,
+        0.88,
+        1.12,
+        1.0
+      ],
+      "rotationTurns": 0.035,
+      "lift": -3,
+      "preventConcurrentAnimations": true,
+      "usesAnimatedBuilder": true,
+      "usesTweenSequence": true,
+      "resetAfterComplete": true,
+      "appliesTo": [
+        "topNavInboxShortcut",
+        "notificationShortcut",
+        "adminPreviewTopNavInboxShortcut"
+      ]
+    }
+  },
+  "rendererCompatibility": {
+    "minRendererVersion": "employee_sdui_v187_preview_padding_notification_transform",
+    "recommendedVersion": "employee_sdui_v187_preview_padding_notification_transform",
+    "adminPreviewUsesActivePanelContentPadding": true,
+    "adminPreviewDrawerPaddingParity": true,
+    "notificationShortcutTransformAnimation": true
+  },
+  "featureFlags": {
+    "adminPreviewDrawerPaddingParity": true,
+    "activeCutPanelPaddingPreviewParity": true,
+    "notificationShortcutTransformAnimation": true,
+    "notificationShortcutAnimationJsonControlled": true
+  },
+  "releaseNotes": {
+    "version": 187,
+    "v187": "Fixes Admin Mobile UI Designer drawer padding parity and adds JSON-controlled one-shot notification shortcut transformation animation."
+  }
+}

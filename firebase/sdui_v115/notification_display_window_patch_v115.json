@@ -1,0 +1,18 @@
+{
+  "version": 115,
+  "notificationAlertConfig": {
+    "enabled": true,
+    "displayWindowMode": "currentMonth",
+    "displayWindowDays": 31,
+    "displayWindowHours": 24,
+    "hideExpiredNotifications": true,
+    "expiresAtField": "expiresAt",
+    "visibleUntilField": "visibleUntil",
+    "supportedDisplayWindowModes": [
+      "currentMonth",
+      "customDays",
+      "customHours",
+      "all"
+    ]
+  }
+}

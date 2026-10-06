@@ -1,0 +1,85 @@
+{
+  "version": 265,
+  "configId": "mobileEmployee_v265_pageview_no_vertical_motion",
+  "rendererVersion": "employee_sdui_v133_task_all_secondary_tabs",
+  "supportedWidgets": [
+    "taskAllFilterSubTabs",
+    "taskOpenAllTabs",
+    "pillSegmentedTaskTabs"
+  ],
+  "rendererCompatibility": {
+    "minRendererVersion": "employee_sdui_v133_task_all_secondary_tabs",
+    "requiresTaskAllSecondaryTabs": true,
+    "requiresOpenAllTaskTabsUnderAllFilter": true
+  },
+  "taskListConfig": {
+    "secondaryTabsWhenPrimaryFilter": "All",
+    "secondaryTabsPlacement": "underPrimaryFilters",
+    "secondaryTabsStyle": "pillSegmented",
+    "defaultSecondaryTab": "newOpenTasks",
+    "secondaryTabs": [
+      {
+        "key": "newOpenTasks",
+        "label": "New/Open Tasks",
+        "filter": "status != completed"
+      },
+      {
+        "key": "allTasks",
+        "label": "All Tasks",
+        "filter": "all"
+      }
+    ]
+  },
+  "screenConfigs": {
+    "tasks": {
+      "secondaryTabs": "visible under filters when primary filter is All"
+    }
+  },
+  "screenOverrides": {
+    "tasks": {
+      "sections": [
+        {
+          "id": "search",
+          "type": "searchHeader",
+          "placeholder": "Search tasks..."
+        },
+        {
+          "id": "tabs",
+          "type": "filterChips",
+          "items": [
+            "All",
+            "New",
+            "My Tasks",
+            "Completed"
+          ],
+          "active": "All"
+        },
+        {
+          "id": "taskFeed",
+          "type": "taskPage",
+          "title": "Task List",
+          "variant": "editorialStatusCard",
+          "dataSource": "tasks",
+          "showAllFilterSubTabs": true,
+          "allFilterSubTabPlacement": "underFilters",
+          "allFilterSubTabStyle": "pillSegmented",
+          "defaultAllFilterSubTab": "newOpenTasks",
+          "allFilterSubTabs": [
+            {
+              "key": "newOpenTasks",
+              "label": "New/Open Tasks",
+              "filter": "status != completed"
+            },
+            {
+              "key": "allTasks",
+              "label": "All Tasks",
+              "filter": "all"
+            }
+          ],
+          "note": "When the primary task filter is All, the renderer shows this pill tab row under the filter chips."
+        }
+      ]
+    }
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

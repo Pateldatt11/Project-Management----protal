@@ -1,0 +1,39 @@
+{
+  "version": 65,
+  "bottomTabs": [
+    "home",
+    "tasks",
+    "projects",
+    "notifications",
+    "profile"
+  ],
+  "notificationAlertConfig": {
+    "enabled": true,
+    "notificationCenterEnabled": true,
+    "lockScreenEnabled": true,
+    "loopUntilAccept": true,
+    "meetingActionsEnabled": true,
+    "googleMeetEnabled": true,
+    "whatsappMeetingEnabled": true,
+    "acceptJoinLabel": "Accept & Join",
+    "rejectLabel": "Reject",
+    "joinBehavior": "openExternalMeetingAppAfterAccept",
+    "supportedMeetingUrlFields": [
+      "actionUrl",
+      "meetingUrl",
+      "meetingLink",
+      "meetLink",
+      "googleMeetUrl",
+      "whatsappUrl",
+      "whatsappMeetingUrl",
+      "joinUrl",
+      "conferenceUrl",
+      "url"
+    ]
+  },
+  "supportedWidgets": [
+    "meetingNotificationActions",
+    "notificationList",
+    "meetingLinkAction"
+  ]
+}

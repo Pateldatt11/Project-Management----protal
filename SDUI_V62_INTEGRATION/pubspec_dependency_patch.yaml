@@ -1,0 +1,8 @@
+# Add/keep these dependencies in your app pubspec.yaml.
+# Do not downgrade existing versions.
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cloud_firestore: any
+  firebase_core: any

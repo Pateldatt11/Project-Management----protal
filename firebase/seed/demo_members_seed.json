@@ -1,0 +1,209 @@
+{
+  "companyId": "company_demo",
+  "members": [
+    {
+      "uid": "user_super",
+      "displayName": "Sanjay Owner",
+      "email": "super@acme.demo",
+      "role": "superAdmin",
+      "status": "active",
+      "teamIds": [
+        "team_admin"
+      ],
+      "projectIds": [
+        "project_app",
+        "project_web",
+        "project_ops"
+      ],
+      "department": "Executive",
+      "jobTitle": "Workspace Owner",
+      "available": true,
+      "isOnline": true,
+      "lastSeenAt": null
+    },
+    {
+      "uid": "user_admin",
+      "displayName": "Darshan Admin",
+      "email": "admin@acme.demo",
+      "role": "admin",
+      "status": "active",
+      "teamIds": [
+        "team_admin"
+      ],
+      "projectIds": [
+        "project_app",
+        "project_web",
+        "project_ops"
+      ],
+      "department": "Administration",
+      "jobTitle": "Company Admin",
+      "available": true,
+      "isOnline": true,
+      "lastSeenAt": null
+    },
+    {
+      "uid": "user_it",
+      "displayName": "Meera IT Admin",
+      "email": "it.admin@acme.demo",
+      "role": "itAdmin",
+      "status": "active",
+      "teamIds": [
+        "team_it"
+      ],
+      "projectIds": [
+        "project_web",
+        "project_ops"
+      ],
+      "department": "IT & Infrastructure",
+      "jobTitle": "IT Administrator",
+      "available": true,
+      "isOnline": true,
+      "lastSeenAt": null
+    },
+    {
+      "uid": "user_pm",
+      "displayName": "Aarav Mehta",
+      "email": "pm@acme.demo",
+      "role": "projectManager",
+      "status": "active",
+      "teamIds": [
+        "team_product"
+      ],
+      "projectIds": [
+        "project_app",
+        "project_web"
+      ],
+      "department": "Delivery Management",
+      "jobTitle": "Project Manager",
+      "available": true,
+      "isOnline": false,
+      "lastSeenAt": null
+    },
+    {
+      "uid": "user_lead",
+      "displayName": "Nisha Patel",
+      "email": "tl@acme.demo",
+      "role": "teamLead",
+      "status": "active",
+      "teamIds": [
+        "team_frontend"
+      ],
+      "projectIds": [
+        "project_app"
+      ],
+      "department": "Delivery Management",
+      "jobTitle": "Frontend Team Lead",
+      "available": true,
+      "isOnline": true,
+      "lastSeenAt": null
+    },
+    {
+      "uid": "user_dev1",
+      "displayName": "Rohan Shah",
+      "email": "developer@acme.demo",
+      "role": "developer",
+      "status": "active",
+      "teamIds": [
+        "team_frontend"
+      ],
+      "projectIds": [
+        "project_app"
+      ],
+      "department": "Engineering",
+      "jobTitle": "Flutter Developer",
+      "available": true,
+      "isOnline": true,
+      "lastSeenAt": null
+    },
+    {
+      "uid": "user_qa",
+      "displayName": "Isha QA",
+      "email": "qa@acme.demo",
+      "role": "qaTester",
+      "status": "active",
+      "teamIds": [
+        "team_quality"
+      ],
+      "projectIds": [
+        "project_app",
+        "project_web"
+      ],
+      "department": "Quality Assurance",
+      "jobTitle": "QA Engineer",
+      "available": true,
+      "isOnline": true,
+      "lastSeenAt": null
+    },
+    {
+      "uid": "user_designer",
+      "displayName": "Maya Designer",
+      "email": "designer@acme.demo",
+      "role": "designer",
+      "status": "active",
+      "teamIds": [
+        "team_product"
+      ],
+      "projectIds": [
+        "project_app"
+      ],
+      "department": "Product Design",
+      "jobTitle": "UI/UX Designer",
+      "available": true,
+      "isOnline": false,
+      "lastSeenAt": null
+    },
+    {
+      "uid": "user_devops",
+      "displayName": "Kabir DevOps",
+      "email": "devops@acme.demo",
+      "role": "devOps",
+      "status": "active",
+      "teamIds": [
+        "team_it"
+      ],
+      "projectIds": [
+        "project_web",
+        "project_ops"
+      ],
+      "department": "IT & Infrastructure",
+      "jobTitle": "DevOps Engineer",
+      "available": true,
+      "isOnline": true,
+      "lastSeenAt": null
+    },
+    {
+      "uid": "user_hr",
+      "displayName": "Priya HR",
+      "email": "hr@acme.demo",
+      "role": "hrManager",
+      "status": "active",
+      "teamIds": [
+        "team_people"
+      ],
+      "projectIds": [
+        "project_ops"
+      ],
+      "department": "People Operations",
+      "jobTitle": "HR Manager",
+      "available": true,
+      "isOnline": false,
+      "lastSeenAt": null
+    },
+    {
+      "uid": "user_client",
+      "displayName": "Client Viewer",
+      "email": "client@acme.demo",
+      "role": "clientViewer",
+      "status": "active",
+      "teamIds": [],
+      "projectIds": [
+        "project_app"
+      ],
+      "department": "External Stakeholder",
+      "jobTitle": "Client Reviewer",
+      "available": true,
+      "isOnline": false,
+      "lastSeenAt": null
+    }
+  ]
+}

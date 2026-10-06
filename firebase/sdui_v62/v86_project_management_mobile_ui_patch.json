@@ -1,0 +1,18 @@
+{
+  "version": 86,
+  "name": "v86 Project Management Dashboard mobile UI-only redesign",
+  "scope": "employee APK/mobile UI only",
+  "reference": "dribbble_shot_26627350",
+  "changes": [
+    "Renamed the design system to Project Management Dashboard.",
+    "Removed the previous non-project-management identity from config names and notes.",
+    "Updated employee APK defaults to the neutral green/gray rounded mobile structure.",
+    "Kept core app logic, Firestore data model, RBAC, SDUI renderer boundary, FCM, and native notifications unchanged."
+  ],
+  "firestoreDocumentsToPublish": [
+    "companies/{companyId}/uiConfigs/mobileEmployee",
+    "companies/{companyId}/uiConfigs/mobileEmployeeDesignDraft",
+    "appConfig/mobileUi",
+    "adminConfig/mobileUiPreview"
+  ]
+}

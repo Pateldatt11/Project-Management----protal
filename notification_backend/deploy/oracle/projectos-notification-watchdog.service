@@ -1,0 +1,24 @@
+[Unit]
+Description=ProjectOS notification backend health watchdog
+After=network-online.target pm2-projectos.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/opt/projectos-notification/scripts/backend-watchdog.sh
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+TimeoutStartSec=60
+
+# The watchdog needs to restart the PM2 systemd unit when the API is unhealthy.
+NoNewPrivileges=false
+PrivateTmp=true
+ProtectHome=false
+ProtectSystem=full
+ReadWritePaths=/opt/projectos-notification /var/log/projectos-notification /run /tmp
+
+[Install]
+WantedBy=multi-user.target

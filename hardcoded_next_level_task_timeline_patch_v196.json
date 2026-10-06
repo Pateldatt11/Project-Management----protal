@@ -1,0 +1,46 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v196_hardcoded_next_level_task_timeline",
+  "featureFlags": {
+    "hardcodedTaskTimelineScreen": true,
+    "taskTimelineNoDummyFallback": true,
+    "taskTimelineUsesWorkspaceState": true
+  },
+  "screenConfigs": {
+    "taskTimeline": {
+      "enabled": true,
+      "route": "taskTimeline",
+      "screen": "taskTimeline",
+      "renderMode": "hardcodedFeatureScreen",
+      "dataSource": "WorkspaceState.visibleTasks",
+      "fallbackDataSource": "scoped WorkspaceState.tasks",
+      "dummyDataDisabled": true
+    }
+  },
+  "screenOverrides": {
+    "taskTimeline": {
+      "screen": "taskTimeline",
+      "route": "taskTimeline",
+      "title": "Task Timeline",
+      "renderMode": "hardcodedFeatureScreen",
+      "hardcodedNativeScreen": true,
+      "liveDataOnly": true,
+      "dummyDataDisabled": true
+    }
+  },
+  "navigationGraph": {
+    "taskTimeline": {
+      "route": "taskTimeline",
+      "screen": "taskTimeline",
+      "kind": "featureScreen",
+      "fallback": "none"
+    }
+  },
+  "adminPreviewConfig": {
+    "previewLogsEnabled": true,
+    "clearLogsOnPreviewStart": true,
+    "clearLogsOnRouteChange": true,
+    "persistPreviewLogs": false
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

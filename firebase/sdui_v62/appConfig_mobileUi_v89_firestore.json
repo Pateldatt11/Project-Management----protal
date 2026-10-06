@@ -1,0 +1,1312 @@
+{
+  "bottomTabs": [
+    "home",
+    "projects",
+    "board",
+    "profile"
+  ],
+  "compactMode": false,
+  "enabled": true,
+  "homeCards": [
+    "workSummary",
+    "activeProjectsGrid",
+    "todayTasks",
+    "projectProgress"
+  ],
+  "inboxConfig": {
+    "allowMarkAllRead": true,
+    "allowMarkRead": true,
+    "enabled": true,
+    "openFromTopNav": true,
+    "showUnreadCount": true,
+    "source": "notifications",
+    "presentation": "nativeSheet",
+    "animation": "slideUpFade"
+  },
+  "notificationAlertConfig": {
+    "acceptButtonEnabled": true,
+    "allowUserSelection": true,
+    "assistantText": "You are assigned a new task. Please accept the notification.",
+    "assistantVoice": true,
+    "defaultSoundName": "emergency_alarm",
+    "enabled": true,
+    "lockScreenEnabled": true,
+    "loopUntilAccept": true,
+    "notificationCenterEnabled": true,
+    "showInProfile": true,
+    "showTestButton": true,
+    "style": "minimalAlertCard",
+    "placement": "topFloatingUnderNav",
+    "acceptBehavior": "updateTaskStatusAndStopLoop",
+    "dismissBehavior": "blockedUntilAcceptWhenCritical",
+    "meetingActionsEnabled": true,
+    "meetingLinkSupport": true,
+    "googleMeetEnabled": true,
+    "whatsappMeetingEnabled": true,
+    "acceptJoinLabel": "Accept & Join",
+    "rejectLabel": "Reject",
+    "joinBehavior": "openExternalMeetingAppAfterAccept",
+    "supportedMeetingUrlFields": [
+      "actionUrl",
+      "meetingUrl",
+      "meetingLink",
+      "meetLink",
+      "googleMeetUrl",
+      "whatsappUrl",
+      "whatsappMeetingUrl",
+      "joinUrl",
+      "conferenceUrl",
+      "url"
+    ],
+    "assistantTextMeeting": "You have a meeting invite. Please accept and join, or reject the notification.",
+    "adminMeetingAccess": true,
+    "includeAdminsOnMeetingInvite": true,
+    "adminRoles": [
+      "superAdmin",
+      "admin",
+      "itAdmin"
+    ],
+    "managerCanCreateMeetingLinks": true,
+    "teamLeadCanCreateMeetingLinks": true
+  },
+  "notificationSoundOptions": {
+    "emergency_alarm": "Emergency alarm",
+    "old_phone_ringtone": "Old phone ringtone",
+    "old_ring_tone": "Old ring tone",
+    "ringing_old_phone": "Ringing old phone",
+    "task_alert_airport_ding": "Airport ding",
+    "task_alert_church_bell": "Church bell"
+  },
+  "profileActions": {
+    "logoutPosition": "bottom",
+    "logoutStyle": "filledIcon",
+    "setOfflineBeforeLogout": true,
+    "showLogout": true,
+    "style": "editorialFooterAction"
+  },
+  "profileFields": [
+    "name",
+    "email",
+    "phone",
+    "companyName",
+    "role",
+    "department",
+    "onlineStatus",
+    "joinedAt"
+  ],
+  "projectCard": {
+    "actions": [
+      "openDetails"
+    ],
+    "showFields": [
+      "projectName",
+      "statusTag",
+      "progress",
+      "teamCount",
+      "deadline",
+      "taskCount",
+      "description"
+    ],
+    "variant": "softProgressCard",
+    "surface": "paper",
+    "interaction": "openProjectDetail",
+    "progressPresentation": "thinTrackPlusCount",
+    "metadataDensity": "compact"
+  },
+  "projectCardFields": [
+    "projectName",
+    "statusTag",
+    "progress",
+    "teamCount",
+    "deadline",
+    "taskCount",
+    "description"
+  ],
+  "projectCardVariant": "softProgressCard",
+  "supportedWidgets": [
+    "topNav",
+    "homeCards",
+    "deadlineHero",
+    "metricTile",
+    "activeProjectsGrid",
+    "taskCard",
+    "projectCard",
+    "taskPage",
+    "taskList",
+    "projectPage",
+    "projectList",
+    "profileCard",
+    "inbox",
+    "notificationAlert",
+    "notificationSoundSelector",
+    "floatingBottomNav",
+    "floatingTopNav",
+    "quickActionDock",
+    "filterChips",
+    "searchHeader",
+    "progressTimeline",
+    "statusPill",
+    "emptyState",
+    "skeletonLoader",
+    "nativeSheet",
+    "meetingNotificationActions",
+    "notificationList",
+    "meetingLinkAction",
+    "sduiTemplate",
+    "templateScreen",
+    "templateSection",
+    "meetingInviteCard",
+    "adminMeetingAccess",
+    "meetingLinkInput",
+    "meetingActionButtons",
+    "meetingPage",
+    "meetingCreateForm",
+    "superAdminMeetingCreator",
+    "meetingList",
+    "meetings",
+    "nativeListRow",
+    "editorialProgressCard",
+    "wireframeSystem",
+    "screenRegistry",
+    "navigationGraph",
+    "screenOverride",
+    "onboardingScreen",
+    "dashboardFeed",
+    "projectFeed",
+    "kanbanBoard",
+    "taskMap",
+    "timelineMilestones",
+    "taskDetails",
+    "teamMembers",
+    "filesDocuments",
+    "calendarView",
+    "floatingReferenceBottomNav",
+    "contentPassUnderNav",
+    "quickCreateButton",
+    "mapPins",
+    "timeline"
+  ],
+  "taskCard": {
+    "actions": [
+      "openDetails",
+      "comment",
+      "uploadFile"
+    ],
+    "showFields": [
+      "taskTitle",
+      "projectName",
+      "priority",
+      "status",
+      "deadlineTimer",
+      "progress",
+      "assigneeCount"
+    ],
+    "variant": "editorialStatusCard",
+    "statusColorMode": "softTint",
+    "interaction": "openTaskDetail",
+    "swipeActions": [
+      "comment",
+      "uploadFile"
+    ],
+    "metadataDensity": "compact"
+  },
+  "taskCardFields": [
+    "taskTitle",
+    "projectName",
+    "priority",
+    "status",
+    "deadlineTimer",
+    "progress",
+    "assigneeCount"
+  ],
+  "taskCardVariant": "editorialStatusCard",
+  "taskListConfig": {
+    "completedSort": "completedAtDesc",
+    "defaultTab": "all",
+    "newArrivalFirst": true,
+    "showCompletedTab": true,
+    "showFloatingTabs": true,
+    "tabStyle": "outlineAndActivePills",
+    "searchPlacement": "topInline",
+    "groupBy": "todayTomorrowStatus",
+    "stickyHeader": true,
+    "layout": "taskFeedWireframe"
+  },
+  "topNav": {
+    "density": "comfortable",
+    "enabled": true,
+    "inboxBadge": true,
+    "showAvatar": true,
+    "showCompanyName": false,
+    "showInbox": true,
+    "showLogout": false,
+    "showOnlineStatus": false,
+    "showPresenceGlow": true,
+    "showUserRole": false,
+    "style": "nativeMinimalFloating",
+    "mode": "wireframeTopSearchBar",
+    "floating": true,
+    "position": "top",
+    "safeArea": true,
+    "avoidStatusBar": true,
+    "contentInset": "auto",
+    "height": 56,
+    "marginHorizontal": 14,
+    "marginTop": 8,
+    "cornerRadius": 26,
+    "elevation": 8,
+    "shadow": true,
+    "blurBackground": false,
+    "background": "#FFFFFF",
+    "border": "#D8DED4",
+    "routeAwareTitle": true,
+    "titleSource": "currentScreenTitle",
+    "subtitleSource": "none",
+    "actions": [
+      "backWhenNested",
+      "smartSearch",
+      "inbox",
+      "avatar"
+    ],
+    "primaryAction": "inbox",
+    "openInboxOnTap": true,
+    "badgeSource": "notifications",
+    "searchEnabled": true,
+    "presenceGlow": true,
+    "animation": "nativeSlideFade",
+    "behavior": {
+      "hideOnScrollDown": false,
+      "showOnScrollUp": true,
+      "snapAfterScroll": true,
+      "collapseTitleOnScroll": true,
+      "keepVisibleOnHome": true,
+      "keepVisibleOnForms": true,
+      "blockBehindClicks": false,
+      "backButtonOnlyOnNestedRoutes": true,
+      "tapTitleScrollToTop": true
+    },
+    "responsive": true,
+    "minHeight": 52,
+    "maxHeight": 60,
+    "maxWidth": 620
+  },
+  "updatedAt": "2026-06-23T08:30:00.000Z",
+  "updatedBy": "chatgpt_firestore_ui_doc_v89",
+  "version": 89,
+  "navigationConfig": {
+    "mode": "nativeFloatingShell",
+    "statusBarPolicy": "nativeOnly",
+    "shellPolicy": "preserveNativeShell",
+    "contentRenderMode": "screenBodyOnly",
+    "safeArea": true,
+    "autoContentPadding": true,
+    "routeSync": true,
+    "tabStatePersistence": "perTabScrollAndFilter",
+    "tapDebounceMs": 220,
+    "haptics": "selectionClick",
+    "keyboardBehavior": "hideBottomBarWhenKeyboardVisible",
+    "activeTabRetapBehavior": "scrollToTopOrPopToRoot",
+    "centerActionRoute": "createTask",
+    "responsiveNav": true,
+    "contentPassUnderBottomNav": true,
+    "bottomNavOverlayMode": "contentPassUnderFloatingDock",
+    "contentTabs": [
+      "home",
+      "projects",
+      "tasks",
+      "board",
+      "meetings",
+      "notifications",
+      "profile"
+    ],
+    "nestedRoutes": [
+      "onboarding",
+      "projectDetail",
+      "taskDetail",
+      "taskMap",
+      "timeline",
+      "teamMembers",
+      "files",
+      "calendar"
+    ]
+  },
+  "bottomNav": {
+    "enabled": true,
+    "mode": "floatingNative",
+    "variant": "wireframeReferenceFloatingDock",
+    "position": "bottom",
+    "safeArea": true,
+    "overlayContent": true,
+    "contentInset": "passUnder",
+    "height": 58,
+    "marginHorizontal": 48,
+    "marginBottom": 12,
+    "cornerRadius": 30,
+    "background": "#FFFFFF",
+    "border": "#0F140F",
+    "shadow": true,
+    "elevation": 12,
+    "activeIndicator": false,
+    "activeIndicatorPosition": "bottom",
+    "selectedTabSource": "currentRoute",
+    "syncWithBottomTabs": true,
+    "labelMode": "hidden",
+    "centerAction": true,
+    "centerActionIcon": "plus",
+    "centerActionRoute": "createTask",
+    "responsive": true,
+    "minHeight": 54,
+    "maxHeight": 62,
+    "maxWidth": 340,
+    "adaptiveCenterAction": true,
+    "activeColor": "#FFFFFF",
+    "inactiveColor": "#0F140F",
+    "indicatorColor": "#6B8C5A",
+    "centerActionColor": "#6B8C5A",
+    "centerActionIconColor": "#FFFFFF",
+    "style": "projectFloatingDock",
+    "activeStyle": "floatingCircle",
+    "activeItemBackground": "#6B8C5A",
+    "iconMap": {
+      "home": "home",
+      "projects": "search",
+      "board": "heart",
+      "tasks": "task_alt",
+      "profile": "person",
+      "notifications": "bell"
+    },
+    "tabs": [
+      "home",
+      "projects",
+      "board",
+      "profile"
+    ]
+  },
+  "floatingTopNav": {
+    "enabled": true,
+    "style": "nativeMinimalFloating",
+    "height": 56,
+    "contentInsetTop": 80,
+    "routeTitleMap": {
+      "home": "Dashboard",
+      "projects": "Projects",
+      "tasks": "Tasks",
+      "board": "Board",
+      "notifications": "Notifications",
+      "profile": "Profile",
+      "meetings": "Meetings"
+    },
+    "showBackOnNested": true,
+    "showSearchOnListPages": true,
+    "showInbox": true,
+    "showAvatar": true
+  },
+  "floatingBottomNav": {
+    "enabled": true,
+    "style": "projectFloatingDock",
+    "contentInsetBottom": 22,
+    "hideWhenKeyboard": true,
+    "showOnScrollUp": true,
+    "hideOnScrollDown": false,
+    "preserveTabState": true,
+    "contentPassUnder": true
+  },
+  "quickActionDock": {
+    "enabled": true,
+    "trigger": "bottomNavCenterAction",
+    "presentation": "nativeBottomSheet",
+    "sheetStyle": "wireframeQuickActionSheet",
+    "actions": [
+      "createTask",
+      "createProject",
+      "uploadFile",
+      "openInbox"
+    ]
+  },
+  "designSystem": {
+    "id": "projectManagementWireframeNative2026",
+    "name": "Project Management Dashboard",
+    "mode": "wireframeProjectNative",
+    "templateName": "wireframeProjectNativeUi",
+    "statusBarPolicy": "nativeOnly",
+    "shellPolicy": "preserveNativeShell",
+    "surface": "#F7F8F4",
+    "card": "#FFFFFF",
+    "textPrimary": "#0F140F",
+    "textSecondary": "#5F675E",
+    "border": "#D8DED4",
+    "accent": "#5F7F55",
+    "success": "#5F7F55",
+    "warning": "#8F9168",
+    "danger": "#C85F55",
+    "radiusLarge": 26,
+    "radiusMedium": 20,
+    "shadowStyle": "floatingSoftWireframe",
+    "visualSource": "dribbble_26627350_structure_palette_only",
+    "editableTheme": true,
+    "editableFromAdmin": true,
+    "brandLock": "projectManagementOnly",
+    "editableScreensFromFirestore": true,
+    "projectManagementContentOnly": true
+  },
+  "animationConfig": {
+    "enabled": true,
+    "level": "nativeSubtle",
+    "respectReduceMotion": true,
+    "defaultCurve": "easeOutCubic",
+    "screenTransition": "slideFade",
+    "cardEntrance": "fadeUp",
+    "listItemStaggerMs": 45,
+    "tapScale": 0.97,
+    "floatingNavAnimation": "slideFade",
+    "progressAnimation": true,
+    "skeletonLoading": true
+  },
+  "layoutConfig": {
+    "screenBodyOnly": true,
+    "nativeStatusBar": true,
+    "safeAreaTop": true,
+    "safeAreaBottom": true,
+    "contentPaddingTop": 84,
+    "contentPaddingBottom": 22,
+    "horizontalPadding": 16,
+    "maxContentWidth": 560,
+    "responsiveMode": "phoneFirstAdaptive",
+    "background": "#F7F8F4",
+    "avoidKeyboard": true,
+    "responsiveNav": true,
+    "contentPassUnderBottomNav": true,
+    "bottomOverlaySafeGap": 22
+  },
+  "homeLayout": {
+    "variant": "dashboardProjectFeedWireframe",
+    "sections": [
+      "workSummary",
+      "projectMetrics",
+      "activeProjectsGrid",
+      "todayTasks",
+      "projectProgress"
+    ],
+    "headerStyle": "locationTeamHeader",
+    "showSectionTitles": true,
+    "filterPills": [
+      "All",
+      "In Progress",
+      "Completed",
+      "Overdue"
+    ],
+    "cardSpacing": 12
+  },
+  "homeCardConfig": {
+    "workSummary": {
+      "variant": "darkEditorialHero",
+      "showGreeting": true,
+      "showRole": true,
+      "showActiveCounts": true
+    },
+    "deadlineTimer": {
+      "variant": "darkEditorialHero",
+      "showCountdown": true,
+      "showProjectName": true,
+      "showPriority": true
+    },
+    "todayTasks": {
+      "variant": "smallMetricTile",
+      "iconStyle": "line",
+      "showTrend": false
+    },
+    "myOpenTasks": {
+      "variant": "smallMetricTile",
+      "iconStyle": "line",
+      "showTrend": false
+    },
+    "projectProgress": {
+      "variant": "softProgressCard",
+      "showProgressBar": true,
+      "showCompletedCount": true
+    }
+  },
+  "projectListConfig": {
+    "layout": "projectFeedWireframe",
+    "searchPlacement": "topInline",
+    "filterStyle": "outlineAndActivePills",
+    "showPopularFilters": true,
+    "defaultFilters": [
+      "All",
+      "In Progress",
+      "Completed",
+      "On Hold"
+    ],
+    "sort": "deadlineAsc",
+    "cardVariant": "wireframeProjectFeedCard",
+    "showMetricsPills": [
+      "tasks",
+      "members",
+      "daysLeft"
+    ]
+  },
+  "screenConfigs": {
+    "onboarding": {
+      "index": 1,
+      "title": "Onboarding & Team Setup",
+      "layout": "onboardingTeamSetup",
+      "route": "onboarding",
+      "topNav": false,
+      "bottomNav": false,
+      "entry": "auth"
+    },
+    "home": {
+      "index": 2,
+      "title": "Dashboard",
+      "layout": "dashboardProjectFeedWireframe",
+      "route": "home",
+      "topNav": true,
+      "bottomNav": true,
+      "search": true,
+      "filters": true
+    },
+    "projects": {
+      "index": 3,
+      "title": "Projects",
+      "layout": "projectFeedWireframe",
+      "route": "projects",
+      "topNav": true,
+      "bottomNav": true,
+      "search": true,
+      "filters": true
+    },
+    "board": {
+      "index": 4,
+      "title": "Task Board",
+      "layout": "kanbanBoard",
+      "route": "board",
+      "topNav": true,
+      "bottomNav": true,
+      "filters": true
+    },
+    "taskMap": {
+      "index": 5,
+      "title": "Task Map / Site View",
+      "layout": "taskMapSiteView",
+      "route": "taskMap",
+      "topNav": true,
+      "bottomNav": true,
+      "search": true,
+      "mapPins": true,
+      "nested": true
+    },
+    "timeline": {
+      "index": 6,
+      "title": "Timeline & Milestones",
+      "layout": "timelineMilestones",
+      "route": "timeline",
+      "topNav": true,
+      "bottomNav": true,
+      "nested": true
+    },
+    "tasks": {
+      "index": 7,
+      "title": "Tasks",
+      "layout": "taskFeedWireframe",
+      "route": "tasks",
+      "topNav": true,
+      "bottomNav": true,
+      "search": true,
+      "filters": true
+    },
+    "taskDetail": {
+      "index": 8,
+      "title": "Task Details",
+      "layout": "taskDetailWireframe",
+      "route": "taskDetail",
+      "topNav": true,
+      "bottomNav": true,
+      "nested": true
+    },
+    "teamMembers": {
+      "index": 9,
+      "title": "Team Members",
+      "layout": "teamProjectMembers",
+      "route": "teamMembers",
+      "topNav": true,
+      "bottomNav": true,
+      "nested": true
+    },
+    "notifications": {
+      "index": 10,
+      "title": "Notifications",
+      "layout": "notificationList",
+      "route": "notifications",
+      "topNav": true,
+      "bottomNav": true,
+      "filters": true
+    },
+    "profile": {
+      "index": 11,
+      "title": "My Profile",
+      "layout": "profileSettings",
+      "route": "profile",
+      "topNav": true,
+      "bottomNav": true
+    },
+    "files": {
+      "index": 12,
+      "title": "Files & Documents",
+      "layout": "filesDocuments",
+      "route": "files",
+      "topNav": true,
+      "bottomNav": true,
+      "nested": true
+    },
+    "calendar": {
+      "index": 13,
+      "title": "Calendar",
+      "layout": "calendarDeadlines",
+      "route": "calendar",
+      "topNav": true,
+      "bottomNav": true,
+      "nested": true
+    }
+  },
+  "profileCardConfig": {
+    "variant": "wireframeProfileSettings",
+    "showAvatar": true,
+    "showOnlineStatus": true,
+    "showCompanyName": true,
+    "showRole": true,
+    "showDepartment": true,
+    "fieldStyle": "settingsRows",
+    "logoutPlacement": "settingsListBottom",
+    "logoutStyle": "editorialFooterAction"
+  },
+  "dataBindings": {
+    "profile": "users/{uid}",
+    "tasks": "companies/{companyId}/tasks + legacy tasks where companyId == {companyId}",
+    "projects": "companies/{companyId}/projects + legacy projects where companyId == {companyId}",
+    "notifications": "companies/{companyId}/notifications + members/{uid}/notifications + admin group notifications",
+    "company": "companies/{companyId}",
+    "presence": "presence/{uid}",
+    "fcmTokens": "users/{uid}/fcmTokens",
+    "meetingNotifications": "notifications[type=meetingInvite]",
+    "meetings": "companies/{companyId}/notifications[type=meetingInvite]",
+    "companyResolver": "users/{uid}.defaultCompanyId -> users/{uid}/memberships -> fallbackCompanyId",
+    "members": "companies/{companyId}/members + legacy members where companyId == {companyId}",
+    "teams": "companies/{companyId}/teams + legacy teams where companyId == {companyId}",
+    "wireframeScreens": "companies/{companyId}/uiConfigs/mobileEmployee.screenOverrides",
+    "screenRegistry": "companies/{companyId}/uiConfigs/mobileEmployee.screenRegistry",
+    "navigationGraph": "companies/{companyId}/uiConfigs/mobileEmployee.navigationGraph"
+  },
+  "rendererCompatibility": {
+    "minRendererVersion": 4,
+    "fallbackRendererVersion": 1,
+    "fallbackMode": "legacyConfigKeys",
+    "preserveOldKeys": true,
+    "requiresFloatingNavSupport": true,
+    "requiresAnimationSupport": true,
+    "requiresScreenBodyOnly": true,
+    "hardcodedBodyRenderer": false,
+    "apkPreviewParityMode": "sharedFirestoreWireframeJson",
+    "requiresTemplateRenderer": true,
+    "dataRecoveryMode": "companyIdResolvedAndLegacyRootFallback",
+    "preserveExistingFirestoreData": true,
+    "v64VisualStyle": true,
+    "visualBaseVersion": 64,
+    "previewParityMode": "sharedSduiJson",
+    "requiresScreenOverridesFromConfig": true,
+    "requiresContentPassUnderBottomNav": true,
+    "requiresCircularActiveBottomNav": true,
+    "futureUiChangeMode": "jsonOnlyFirestoreConfig"
+  },
+  "responsiveNav": {
+    "enabled": true,
+    "mode": "autoBreakpoint",
+    "breakpoints": {
+      "tinyPhoneMaxWidth": 340,
+      "compactPhoneMaxWidth": 390,
+      "tabletMinWidth": 600
+    },
+    "contentMaxWidth": {
+      "phone": 560,
+      "tablet": 720,
+      "nav": 620
+    },
+    "topNav": {
+      "tiny": {
+        "height": 52,
+        "marginHorizontal": 10,
+        "marginTop": 5,
+        "iconButtonSize": 34,
+        "titleFontSize": 15,
+        "hideSearch": true,
+        "hideAvatar": true
+      },
+      "compact": {
+        "height": 54,
+        "marginHorizontal": 12,
+        "marginTop": 6,
+        "iconButtonSize": 36,
+        "titleFontSize": 16,
+        "hideSearch": false,
+        "hideAvatar": true
+      },
+      "regular": {
+        "height": 58,
+        "marginHorizontal": 18,
+        "marginTop": 8,
+        "iconButtonSize": 38,
+        "titleFontSize": 18,
+        "hideSearch": false,
+        "hideAvatar": false
+      },
+      "tablet": {
+        "height": 60,
+        "marginHorizontal": 18,
+        "marginTop": 10,
+        "iconButtonSize": 38,
+        "titleFontSize": 18,
+        "maxWidth": 620
+      }
+    },
+    "bottomNav": {
+      "tiny": {
+        "height": 62,
+        "marginHorizontal": 10,
+        "marginBottom": 8,
+        "centerButtonSize": 50,
+        "iconSize": 21
+      },
+      "compact": {
+        "height": 66,
+        "marginHorizontal": 14,
+        "marginBottom": 10,
+        "centerButtonSize": 54,
+        "iconSize": 22
+      },
+      "regular": {
+        "height": 70,
+        "marginHorizontal": 22,
+        "marginBottom": 12,
+        "centerButtonSize": 58,
+        "iconSize": 23
+      },
+      "tablet": {
+        "height": 72,
+        "marginHorizontal": 18,
+        "marginBottom": 14,
+        "centerButtonSize": 58,
+        "iconSize": 23,
+        "maxWidth": 620
+      }
+    },
+    "overlapProtection": {
+      "autoContentPadding": true,
+      "includeSystemSafeArea": true,
+      "keyboardHideBottomNav": true,
+      "minimumTopGap": 14,
+      "minimumBottomGap": 12
+    }
+  },
+  "templateName": "wireframeProjectNativeUi",
+  "uiTemplates": {
+    "active": "editorialNativeUi",
+    "available": [
+      "cleanWorkApp",
+      "compactEmployeeApp",
+      "modernCardUi",
+      "progressFocusUi",
+      "minimalFieldUi",
+      "editorialNativeUi"
+    ],
+    "labels": {
+      "cleanWorkApp": "Clean Work App",
+      "compactEmployeeApp": "Compact Employee App",
+      "modernCardUi": "Modern Card UI",
+      "progressFocusUi": "Progress Focus UI",
+      "minimalFieldUi": "Minimal Field UI",
+      "editorialNativeUi": "Editorial Native UI"
+    },
+    "rendererMode": "sduiJsonRenderer",
+    "note": "Editorial Native UI is a normal SDUI template, not a hardcoded APK body."
+  },
+  "meetingAccessConfig": {
+    "enabled": true,
+    "creatorRoles": [
+      "superAdmin",
+      "admin",
+      "projectManager",
+      "teamLead"
+    ],
+    "adminAccessEnabled": true,
+    "adminRoles": [
+      "superAdmin",
+      "admin",
+      "itAdmin"
+    ],
+    "includeAdminsByDefault": true,
+    "allowToggleAdminAccess": true,
+    "supportedProviders": [
+      "googleMeet",
+      "whatsapp",
+      "whatsappBusiness",
+      "browserFallback"
+    ],
+    "meetingUrlFields": [
+      "actionUrl",
+      "meetingUrl",
+      "meetingLink",
+      "meetLink",
+      "googleMeetUrl",
+      "whatsappUrl",
+      "whatsappMeetingUrl",
+      "joinUrl",
+      "conferenceUrl",
+      "url"
+    ],
+    "actions": [
+      "acceptAndJoin",
+      "reject"
+    ],
+    "acceptAndJoinBehavior": "markAcceptedStopLoopAndOpenExternalApp",
+    "rejectBehavior": "markRejectedStopLoop",
+    "nativeNotificationChannel": "urgent_work_alerts_v84_glass_remoteviews",
+    "dedicatedMeetingsPage": true,
+    "superAdminCanCreateMeetingLinks": true,
+    "adminsCanCreateMeetingLinks": true,
+    "managerCanCreateMeetingLinks": true,
+    "teamLeadCanCreateMeetingLinks": true,
+    "adminMeetingAccessDefault": true,
+    "rolesWithCreateAccess": [
+      "superAdmin",
+      "admin",
+      "itAdmin",
+      "projectManager",
+      "teamLead"
+    ],
+    "supportedMeetingProviders": [
+      "googleMeet",
+      "whatsapp",
+      "whatsappBusiness",
+      "browserFallback"
+    ],
+    "notificationActions": [
+      "acceptAndJoinMeeting",
+      "rejectMeeting"
+    ],
+    "nativeAndroidActions": true
+  },
+  "adminPages": {
+    "meetings": {
+      "enabled": true,
+      "label": "Meetings",
+      "icon": "video_call",
+      "route": "meetings",
+      "roles": [
+        "superAdmin",
+        "admin",
+        "itAdmin",
+        "projectManager",
+        "teamLead"
+      ],
+      "dedicatedPage": true,
+      "allowCreateMeetingLinks": true,
+      "allowGoogleMeetLinks": true,
+      "allowWhatsappLinks": true,
+      "showAdminAccessToggle": true,
+      "defaultAdminAccess": true
+    }
+  },
+  "uiRestyle": {
+    "version": "v86_project_management_mobile_ui_only",
+    "scope": "employee_apk_mobile_ui_layer_only",
+    "reference": "dribbble_shot_26627350",
+    "brand": "Project Management Dashboard",
+    "removedPreviousIdentity": true,
+    "keptAppCoreStructure": true,
+    "appliesTo": [
+      "employee_mobile_shell",
+      "mobile_json_ui_renderer",
+      "mobile_ui_config_defaults"
+    ],
+    "notes": [
+      "Only project-management wording is used.",
+      "Firebase, FCM, native notification, RBAC, and Firestore paths are unchanged.",
+      "Dribbble structure is used as visual inspiration only: calm palette, rounded surfaces, floating shell, large hero, card feed."
+    ]
+  },
+  "styleLock": "v86_project_management_mobile_ui_only",
+  "screenOverrides": {
+    "home": {
+      "type": "sectionList",
+      "title": "Dashboard",
+      "subtitle": "At-a-glance project overview",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "accent": "#5F7F55",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "border": "#D8DED4",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "padding": {
+        "left": 16,
+        "top": 8,
+        "right": 16,
+        "bottom": 16
+      },
+      "sections": [
+        {
+          "id": "search",
+          "type": "searchHeader",
+          "placeholder": "Search projects, tasks, or members..."
+        },
+        {
+          "id": "filters",
+          "type": "filterChips",
+          "items": [
+            "All",
+            "In Progress",
+            "Completed",
+            "Overdue"
+          ],
+          "active": "All"
+        },
+        {
+          "id": "metrics",
+          "type": "grid",
+          "columns": 4,
+          "items": [
+            {
+              "type": "metricTile",
+              "title": "Projects",
+              "value": "12"
+            },
+            {
+              "type": "metricTile",
+              "title": "Tasks",
+              "value": "28"
+            },
+            {
+              "type": "metricTile",
+              "title": "Overdue",
+              "value": "5"
+            },
+            {
+              "type": "metricTile",
+              "title": "Members",
+              "value": "8"
+            }
+          ]
+        },
+        {
+          "id": "activeProjects",
+          "type": "projectList",
+          "title": "Active Projects",
+          "limit": 4,
+          "variant": "softProgressCard"
+        },
+        {
+          "id": "today",
+          "type": "taskList",
+          "title": "Today Tasks",
+          "limit": 3,
+          "variant": "editorialStatusCard"
+        }
+      ]
+    },
+    "projects": {
+      "type": "sectionList",
+      "title": "Projects",
+      "subtitle": "Browse and track projects",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "accent": "#5F7F55",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "border": "#D8DED4",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "sections": [
+        {
+          "type": "searchHeader",
+          "placeholder": "Search projects..."
+        },
+        {
+          "type": "filterChips",
+          "items": [
+            "All",
+            "In Progress",
+            "Completed",
+            "On Hold"
+          ],
+          "active": "All"
+        },
+        {
+          "type": "projectPage",
+          "title": "Project Feed",
+          "variant": "softProgressCard"
+        }
+      ]
+    },
+    "tasks": {
+      "type": "sectionList",
+      "title": "Tasks",
+      "subtitle": "Tasks by priority and status",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "accent": "#5F7F55",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "border": "#D8DED4",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "sections": [
+        {
+          "type": "searchHeader",
+          "placeholder": "Search tasks..."
+        },
+        {
+          "type": "filterChips",
+          "items": [
+            "All",
+            "My Tasks",
+            "In Progress",
+            "Done"
+          ],
+          "active": "All"
+        },
+        {
+          "type": "taskPage",
+          "title": "Task List",
+          "variant": "editorialStatusCard"
+        }
+      ]
+    },
+    "board": {
+      "type": "sectionList",
+      "title": "Task Board / Kanban",
+      "subtitle": "Organize work by stage",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "accent": "#5F7F55",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "border": "#D8DED4",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "sections": [
+        {
+          "type": "searchHeader",
+          "placeholder": "Board: Mobile App v2.0"
+        },
+        {
+          "type": "filterChips",
+          "items": [
+            "Backlog",
+            "In Progress",
+            "Done"
+          ],
+          "active": "In Progress"
+        },
+        {
+          "type": "kanbanBoard",
+          "title": "Board"
+        }
+      ]
+    },
+    "notifications": {
+      "type": "sectionList",
+      "title": "Notifications",
+      "subtitle": "Stay updated and manage alerts",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "accent": "#5F7F55",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "border": "#D8DED4",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "sections": [
+        {
+          "type": "filterChips",
+          "items": [
+            "All",
+            "Mentions",
+            "Updates"
+          ],
+          "active": "All"
+        },
+        {
+          "type": "notificationList",
+          "title": "Notifications"
+        }
+      ]
+    },
+    "profile": {
+      "type": "sectionList",
+      "title": "My Profile",
+      "subtitle": "Account and preferences",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "accent": "#5F7F55",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "border": "#D8DED4",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "sections": [
+        {
+          "type": "profileSummary",
+          "title": "My Profile"
+        },
+        {
+          "type": "notificationAlert",
+          "title": "Notification Preferences"
+        }
+      ]
+    }
+  },
+  "screenRegistry": {
+    "source": "firestoreUiConfig",
+    "purpose": "Every APK mobile screen is described here so future UI changes are JSON-only.",
+    "activeBottomTabs": [
+      "home",
+      "projects",
+      "board",
+      "profile"
+    ],
+    "activeTabs": [
+      "home",
+      "projects",
+      "tasks",
+      "board",
+      "notifications",
+      "profile"
+    ],
+    "nestedScreens": [
+      "onboarding",
+      "taskMap",
+      "timeline",
+      "taskDetail",
+      "teamMembers",
+      "files",
+      "calendar"
+    ],
+    "screenOrder": [
+      "onboarding",
+      "home",
+      "projects",
+      "board",
+      "taskMap",
+      "timeline",
+      "tasks",
+      "taskDetail",
+      "teamMembers",
+      "notifications",
+      "profile",
+      "files",
+      "calendar"
+    ]
+  },
+  "navigationGraph": {
+    "initialRoute": "home",
+    "bottomNav": [
+      "home",
+      "projects",
+      "board",
+      "profile"
+    ],
+    "floatingCenterAction": "createTask",
+    "routes": {
+      "home": {
+        "opens": [
+          "projects",
+          "tasks",
+          "projectDetail",
+          "taskDetail",
+          "notifications"
+        ]
+      },
+      "projects": {
+        "opens": [
+          "projectDetail",
+          "teamMembers",
+          "timeline",
+          "taskMap",
+          "files"
+        ]
+      },
+      "board": {
+        "opens": [
+          "taskDetail",
+          "tasks",
+          "timeline"
+        ]
+      },
+      "tasks": {
+        "opens": [
+          "taskDetail",
+          "files",
+          "comments"
+        ]
+      },
+      "profile": {
+        "opens": [
+          "notificationPreferences",
+          "logout"
+        ]
+      },
+      "notifications": {
+        "opens": [
+          "taskDetail",
+          "meetingInvite",
+          "projectDetail"
+        ]
+      }
+    },
+    "contentUnderBottomNav": true
+  },
+  "wireframeSystem": {
+    "name": "Low-Fidelity Wireframe System: Project Management App",
+    "reference": "user_supplied_wireframe_2026_06_23",
+    "principle": "Firestore config owns screen structure; APK renderer owns only reusable primitives.",
+    "navBarSpec": {
+      "type": "floatingReferenceBottomNav",
+      "shape": "roundedPill",
+      "background": "#FFFFFF",
+      "border": "#0F140F",
+      "activeItem": "greenCircularIconBackground",
+      "centerAction": "greenFloatingPlus",
+      "contentBehavior": "screenContentScrollsUnderDock"
+    },
+    "changePolicy": {
+      "themeOnly": "edit designSystem, bottomNav, topNav, layoutConfig",
+      "screenStructure": "edit screenOverrides and screenConfigs",
+      "dataLogic": "do not change; Firebase bindings stay stable",
+      "nativeNotificationLogic": "do not change; FCM remains backend/native"
+    }
+  }
+}

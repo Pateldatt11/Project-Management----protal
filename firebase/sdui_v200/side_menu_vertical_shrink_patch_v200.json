@@ -1,0 +1,25 @@
+{
+  "version": 200,
+  "rendererVersion": "employee_sdui_v200_side_menu_vertical_shrink",
+  "sideMenuConfig": {
+    "verticalShrinkEnabled": true,
+    "mainPanelVerticalShrinkEnabled": true,
+    "verticalShrinkMode": "jsonControlledScaleY",
+    "verticalShrinkScale": 0.965,
+    "mainPanelVerticalShrinkScale": 0.965,
+    "activePanelVerticalScale": 0.965,
+    "verticalShrinkCurve": "easeOutCubic",
+    "adminPreviewUsesVerticalShrink": true,
+    "apkUsesVerticalShrink": true,
+    "previewVerticalShrinkParity": true,
+    "mainPanelTopInset": 22,
+    "mainPanelBottomInset": 30,
+    "screenCutAmount": "premiumPaddedVerticalShrink",
+    "smoothnessMode": "repaintBoundaryAnimatedPositionedTweenScaleY"
+  },
+  "rendererCompatibility": {
+    "requiresSideMenuVerticalShrinkAnimation": true,
+    "sideMenuVerticalShrinkControlledByJson": true,
+    "adminPreviewSideMenuVerticalShrinkParity": true
+  }
+}

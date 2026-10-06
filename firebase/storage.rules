@@ -1,0 +1,106 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function memberDoc(companyId) {
+      return firestore.get(/databases/(default)/documents/companies/$(companyId)/members/$(request.auth.uid));
+    }
+
+
+    function taskDoc(companyId, taskId) {
+      return firestore.get(/databases/(default)/documents/companies/$(companyId)/tasks/$(taskId));
+    }
+
+    function taskExists(companyId, taskId) {
+      return firestore.exists(/databases/(default)/documents/companies/$(companyId)/tasks/$(taskId));
+    }
+
+    function listHasAny(left, right) {
+      return left is list && right is list && left.hasAny(right);
+    }
+
+    function isCompanyMember(companyId) {
+      return signedIn()
+        && firestore.exists(/databases/(default)/documents/companies/$(companyId)/members/$(request.auth.uid))
+        && memberDoc(companyId).data.status == 'active';
+    }
+
+    function hasRole(companyId, roles) {
+      return isCompanyMember(companyId) && memberDoc(companyId).data.role in roles;
+    }
+
+    function canUploadTaskFile(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'itAdmin', 'projectManager', 'teamLead', 'developer', 'qaTester', 'designer', 'devOps', 'employee']);
+    }
+
+    function canViewFullTaskFiles(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'itAdmin', 'projectManager', 'teamLead']);
+    }
+
+    function canReadTaskFile(companyId, taskId) {
+      return canViewFullTaskFiles(companyId)
+        || (isCompanyMember(companyId)
+          && taskExists(companyId, taskId)
+          && (
+            (taskDoc(companyId, taskId).data.assignedToIds is list && request.auth.uid in taskDoc(companyId, taskId).data.assignedToIds)
+            || (taskDoc(companyId, taskId).data.projectId is string && memberDoc(companyId).data.projectIds is list && taskDoc(companyId, taskId).data.projectId in memberDoc(companyId).data.projectIds)
+            || (taskDoc(companyId, taskId).data.teamId is string && memberDoc(companyId).data.teamIds is list && taskDoc(companyId, taskId).data.teamId in memberDoc(companyId).data.teamIds)
+            || listHasAny(taskDoc(companyId, taskId).data.teamIds, memberDoc(companyId).data.teamIds)
+          ));
+    }
+
+    function canWriteTaskFile(companyId, taskId) {
+      return canUploadTaskFile(companyId)
+        && canReadTaskFile(companyId, taskId)
+        && validBusinessFile();
+    }
+
+    function canWriteReports(companyId) {
+      return hasRole(companyId, ['superAdmin', 'admin', 'projectManager', 'hrManager']);
+    }
+
+    function validBusinessFile() {
+      return request.resource.size < 25 * 1024 * 1024
+        && request.resource.contentType in [
+          'image/png',
+          'image/jpeg',
+          'image/webp',
+          'application/pdf',
+          'application/msword',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          'application/vnd.ms-excel',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'text/plain'
+        ];
+    }
+
+    match /companies/{companyId}/tasks/{taskId}/attachments/{attachmentId}/{fileName=**} {
+      allow read: if canReadTaskFile(companyId, taskId);
+      allow write: if canWriteTaskFile(companyId, taskId);
+    }
+
+    // Legacy path kept for older APKs / already-uploaded task files.
+    match /companies/{companyId}/projects/{projectId}/tasks/{taskId}/{fileName=**} {
+      allow read: if canReadTaskFile(companyId, taskId);
+      allow write: if canWriteTaskFile(companyId, taskId);
+    }
+
+    match /companies/{companyId}/reports/{reportId}/{fileName=**} {
+      allow read: if isCompanyMember(companyId);
+      allow write: if canWriteReports(companyId) && validBusinessFile();
+    }
+
+    match /companies/{companyId}/profile-images/{uid}/{fileName=**} {
+      allow read: if isCompanyMember(companyId);
+      allow write: if isCompanyMember(companyId) && request.auth.uid == uid && request.resource.size < 5 * 1024 * 1024;
+    }
+
+    match /companies/{companyId}/{allPaths=**} {
+      allow read: if isCompanyMember(companyId);
+      allow write: if false;
+    }
+  }
+}

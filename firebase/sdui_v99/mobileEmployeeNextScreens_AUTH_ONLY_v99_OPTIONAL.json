@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "version": 99,
+  "configType": "mobileEmployeeWireframeAuthScreensOnly",
+  "screenOverrides": {
+    "onboarding": "Use firebase/sdui_v96/mobileEmployeeNextDesign_NAV_AUTH_ONLY_v96_PUSH_THIS.json screenOverrides.onboarding",
+    "login": "Use firebase/sdui_v96/mobileEmployeeNextDesign_NAV_AUTH_ONLY_v96_PUSH_THIS.json screenOverrides.login",
+    "signup": "Use firebase/sdui_v96/mobileEmployeeNextDesign_NAV_AUTH_ONLY_v96_PUSH_THIS.json screenOverrides.signup"
+  },
+  "note": "This optional file is only a pointer. Main push file is mobileEmployeeNextDesign_NAV_AUTH_ONLY_v96_PUSH_THIS.json.",
+  "updatedAt": "2026-06-24T00:00:00.000Z",
+  "apkSplitDocMergeEnabled": true,
+  "apkSplitDocMergeOrder": [
+    "core",
+    "design",
+    "screens"
+  ],
+  "v99Note": "APK structure now reads and merges core + design + screens, same as admin preview."
+}

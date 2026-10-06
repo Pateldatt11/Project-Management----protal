@@ -1,0 +1,133 @@
+{
+  "version": 265,
+  "configId": "mobileEmployee_v265_pageview_no_vertical_motion",
+  "rendererVersion": "employee_sdui_v175_productive_timeline_progress",
+  "minRendererVersion": "employee_sdui_v175_productive_timeline_progress",
+  "timelineVisualConfig": {
+    "enabled": true,
+    "variant": "productiveTimeline",
+    "theme": "projectManagementCleanWireframe",
+    "showTaskProgressCard": true,
+    "showTaskTimelineBars": true,
+    "showMilestones": true,
+    "progressTitle": "Task Progress",
+    "progressNote": "You have a good progress",
+    "timelineBarsTitle": "Task Timeline",
+    "timelineBarsSubtitle": "Due dates and status progress",
+    "timelineTaskLimit": 4,
+    "style": "referenceProductiveSoftCard",
+    "jsonControlled": true
+  },
+  "screenOverrides": {
+    "timeline": {
+      "type": "sectionList",
+      "title": "Timeline",
+      "subtitle": "Task progress and project milestones",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EEF2EA",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "textMuted": "#8B9288",
+        "border": "#D8DED4",
+        "accent": "#5F7F55",
+        "accentDark": "#405446",
+        "success": "#5F7F55",
+        "warning": "#8F9168",
+        "danger": "#C85F55",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "padding": {
+        "left": 16,
+        "top": 8,
+        "right": 16,
+        "bottom": 16
+      },
+      "contentBehavior": "pureFloatingOverlay",
+      "variant": "productiveTimeline",
+      "layout": "productiveTimeline",
+      "timelineVisualConfig": {
+        "enabled": true,
+        "variant": "productiveTimeline",
+        "theme": "projectManagementCleanWireframe",
+        "showTaskProgressCard": true,
+        "showTaskTimelineBars": true,
+        "showMilestones": true,
+        "progressTitle": "Task Progress",
+        "progressNote": "You have a good progress",
+        "timelineBarsTitle": "Task Timeline",
+        "timelineBarsSubtitle": "Due dates and status progress",
+        "timelineTaskLimit": 4,
+        "style": "referenceProductiveSoftCard",
+        "jsonControlled": true
+      },
+      "sections": [
+        {
+          "id": "taskProgress",
+          "type": "taskProgressPanel",
+          "progressTitle": "Task Progress",
+          "progressNote": "You have a good progress",
+          "dataSource": "visibleTasks.statusAndDueDate",
+          "variant": "productiveTimelineCard",
+          "jsonControlled": true
+        },
+        {
+          "id": "taskTimelineBars",
+          "type": "taskTimelineBars",
+          "timelineBarsTitle": "Task Timeline",
+          "timelineBarsSubtitle": "Due dates and status progress",
+          "timelineTaskLimit": 4,
+          "dataSource": "visibleTasks.dueDateStatus",
+          "variant": "timelineBarsCard",
+          "jsonControlled": true
+        },
+        {
+          "id": "milestones",
+          "type": "progressTimeline",
+          "title": "Project milestones",
+          "subtitle": "Expandable project timeline remains available",
+          "dataSource": "visibleProjects.visibleTasks",
+          "variant": "legacyExpandableMilestones",
+          "showTaskProgressCard": false,
+          "showTaskTimelineBars": false,
+          "showMilestones": true
+        }
+      ],
+      "nested": true,
+      "edgeToEdgeBehavior": "androidFigureOneRight",
+      "contentDrawsBehindSystemBars": true,
+      "topProtectionMode": "scrollAwareInitialOnly",
+      "bottomProtectionMode": "gestureAwareOverlay",
+      "renderStyle": "productiveTimelineProgress",
+      "screen": "timeline",
+      "screenKey": "timeline"
+    }
+  },
+  "supportedWidgets": [
+    "taskProgressPanel",
+    "taskProgressChart",
+    "taskProgressCard",
+    "taskTimelineBars",
+    "timelineBars",
+    "productiveTimeline",
+    "taskProgressTimeline",
+    "jsonControlledTimelineVisuals"
+  ],
+  "featureFlags": {
+    "taskProgressPanel": true,
+    "productiveTimeline": true,
+    "taskTimelineBars": true,
+    "jsonControlledTimelineVisuals": true
+  },
+  "rendererCompatibility": {
+    "apkRendererVersion": "employee_sdui_v175_productive_timeline_progress",
+    "requiresProductiveTimelineProgress": true,
+    "jsonControlledTimelineVisuals": true,
+    "legacyVisualDefaultsPreserved": true
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

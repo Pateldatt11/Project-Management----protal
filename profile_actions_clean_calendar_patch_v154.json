@@ -1,0 +1,146 @@
+{
+  "version": 265,
+  "patchName": "profile_actions_clean_calendar_v154",
+  "profileActions": {
+    "showLogout": true,
+    "setOfflineBeforeLogout": true,
+    "logoutPosition": "profileActionButton",
+    "logoutStyle": "filledIcon",
+    "style": "topActionButtonsWithSettingsSection",
+    "settingsSectionEnabled": true,
+    "settingsExpandable": true,
+    "logoutAsButton": true,
+    "showLogoutPreview": false,
+    "settingsLogoutRow": false,
+    "showEditProfileButton": true,
+    "showCopyLogButton": true,
+    "showCrashlyticsTestButton": true
+  },
+  "screenOverrides": {
+    "calendar": {
+      "type": "sectionList",
+      "title": "Calendar",
+      "subtitle": "Tap a date to view filter tabs, deadline tasks first, then assigned tasks",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EEF2EA",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "textMuted": "#8B9288",
+        "border": "#D8DED4",
+        "accent": "#5F7F55",
+        "accentDark": "#405446",
+        "success": "#5F7F55",
+        "warning": "#8F9168",
+        "danger": "#C85F55",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "padding": {
+        "left": 16,
+        "top": 8,
+        "right": 16,
+        "bottom": 16
+      },
+      "contentBehavior": "pureFloatingOverlay",
+      "sections": [
+        {
+          "id": "calendar",
+          "type": "calendarView",
+          "variant": "deadlineFirstCleanCalendar",
+          "dataSource": "calendar.deadlines",
+          "dateLabels": false,
+          "selectedDateLayout": [
+            "filterTabs",
+            "deadlines",
+            "assignedTasks",
+            "meetings"
+          ],
+          "deadlineFirst": true,
+          "showDotIndicators": false,
+          "labelMode": "hidden",
+          "dateLabelStyle": {
+            "enabled": false
+          },
+          "labelDefinitions": {},
+          "showDateLabels": false
+        }
+      ],
+      "nested": true,
+      "edgeToEdgeBehavior": "androidFigureOneRight",
+      "contentDrawsBehindSystemBars": true,
+      "topProtectionMode": "scrollAwareInitialOnly",
+      "bottomProtectionMode": "gestureAwareOverlay",
+      "renderStyle": "wireframeCleanCalendar",
+      "variant": "deadlineFirstCleanCalendar",
+      "calendarInteractionConfig": {
+        "enabled": true,
+        "tapDateShows": "deadlineFirstFilterTabs",
+        "assignedDateHighlight": "lightAccent",
+        "deadlineDateHighlight": "accentSolid",
+        "meetingDateIndicator": "none",
+        "selectedDateCard": true,
+        "assignedTasksSection": true,
+        "selectedDateFilterMode": "deadlineFirstThenAssignedCreatedDate",
+        "showOnlySelectedDateTasks": true,
+        "hideUpcomingTaskList": true,
+        "combineDeadlineAndAssignedTasks": true,
+        "mode": "selectedDateFilter",
+        "monthPicker": true,
+        "previousNextMonthControls": true,
+        "todayHighlight": true,
+        "highlightColors": {
+          "assignedDate": "accentLight",
+          "deadlineDate": "accentSolid",
+          "today": "accentOutline",
+          "meetingDate": "none"
+        },
+        "selectedDateShowsOnlyMatchingTasks": true,
+        "showDotIndicators": false,
+        "dateDotIndicators": false,
+        "dateLabels": false,
+        "deadlineLabel": "",
+        "assignedLabel": "",
+        "meetingLabel": "",
+        "filterTabs": [
+          "All",
+          "Deadlines",
+          "Assigned",
+          "Meetings"
+        ],
+        "deadlineSectionFirst": true,
+        "meetingSection": true,
+        "separateDeadlineAndAssignedTasks": true,
+        "dedupeAssignedTasksAlreadyShownAsDeadlineInAllTab": true,
+        "labelMode": "hidden",
+        "labelMaxPerDate": 0,
+        "dateLabelStyle": {
+          "enabled": false
+        },
+        "labelDefinitions": {},
+        "showLegend": false,
+        "cleanDateCells": true
+      },
+      "layout": "calendarLabelFilterSections",
+      "rendererVersion": "employee_sdui_v154_profile_actions_clean_calendar",
+      "renderParity": "mobileUiDesignerAndApkShareCleanCalendarRenderer",
+      "designerPreview": {
+        "enabled": true,
+        "usesSameRenderer": true,
+        "labelMode": "hidden",
+        "showDateLabels": false,
+        "showLegend": false
+      }
+    }
+  },
+  "rendererVersion": "employee_sdui_v154_profile_actions_clean_calendar",
+  "notes": [
+    "Restores top Profile buttons: Edit profile, Copy log, Crashlytics Test, Logout.",
+    "Removes Logout preview row from expandable Settings.",
+    "Removes D/A/M chips and calendar legend; keeps date filter tabs and deadline-first selected-date list."
+  ],
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

@@ -1,0 +1,25 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v207_task_board_overflow_safe_8_cards",
+  "description": "Fix task board designer-thumbnail carousel overflow, remove black instruction header and selected/priority extra cards, and limit main stack to 8 live cards.",
+  "screenConfigs": {
+    "board": {
+      "showPriorityRail": false,
+      "showPinnedPriorityRail": false,
+      "showSelectedTaskPreview": false,
+      "showBoardSelectedTaskCard": false,
+      "onlyMainStackCards": true,
+      "mainStackCardLimit": 8,
+      "stackedCarouselLimit": 8,
+      "cinematicStackLimit": 8,
+      "cinematicVisibleSideDepth": 2,
+      "cinematicCardSpacingX": 58,
+      "stackedCarouselHeight": 430,
+      "cinematicStackHeight": 430,
+      "taskBoardOverflowSafe": true,
+      "designerThumbnailCompactSafe": true,
+      "removeCarouselInstructionHeader": true
+    }
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

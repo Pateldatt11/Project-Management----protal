@@ -1,0 +1,89 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v208_exact_designer_carousel_only",
+  "taskBoardPatch": {
+    "boardStyle": "exactDesignerThumbnailCarouselOnly",
+    "exactDesignerTaskCarousel": true,
+    "carouselOnlyTaskBoard": true,
+    "designerThumbnailCarouselOnly": true,
+    "showBoardHero": false,
+    "showProjectPicker": false,
+    "showBoardSearch": false,
+    "showBoardFilters": false,
+    "showSelectedTaskPreview": false,
+    "showBoardSelectedTaskCard": false,
+    "showPriorityRail": false,
+    "showPinnedPriorityRail": false,
+    "showCinematicOuterBackground": false,
+    "stackedCarouselLimit": 8,
+    "cinematicStackLimit": 8,
+    "stackedCarouselHeight": 462,
+    "cinematicStackHeight": 462,
+    "cinematicStackBackground": "#00000000",
+    "stackedCarouselBackground": "#00000000",
+    "taskBoardPreviewDialog": true,
+    "tapCardOpensPreviewDialog": true,
+    "tapPreviewDialogOpenFullTask": true
+  },
+  "screenConfigs": {
+    "board": {
+      "boardStyle": "exactDesignerThumbnailCarouselOnly",
+      "exactDesignerTaskCarousel": true,
+      "carouselOnlyTaskBoard": true,
+      "designerThumbnailCarouselOnly": true,
+      "showBoardHero": false,
+      "showProjectPicker": false,
+      "showBoardSearch": false,
+      "showBoardFilters": false,
+      "showSelectedTaskPreview": false,
+      "showBoardSelectedTaskCard": false,
+      "showPriorityRail": false,
+      "showPinnedPriorityRail": false,
+      "showCinematicOuterBackground": false,
+      "stackedCarouselLimit": 8,
+      "cinematicStackLimit": 8,
+      "stackedCarouselHeight": 462,
+      "cinematicStackHeight": 462,
+      "cinematicStackBackground": "#00000000",
+      "stackedCarouselBackground": "#00000000",
+      "taskBoardPreviewDialog": true,
+      "tapCardOpensPreviewDialog": true,
+      "tapPreviewDialogOpenFullTask": true
+    }
+  },
+  "screenOverrides": {
+    "board": {
+      "sections": [
+        {
+          "type": "cinematicHorizontalTaskStack",
+          "enabled": true,
+          "limit": 8,
+          "tapOpens": "previewDialogThenFullTask"
+        }
+      ],
+      "boardStyle": "exactDesignerThumbnailCarouselOnly",
+      "exactDesignerTaskCarousel": true,
+      "carouselOnlyTaskBoard": true,
+      "designerThumbnailCarouselOnly": true,
+      "showBoardHero": false,
+      "showProjectPicker": false,
+      "showBoardSearch": false,
+      "showBoardFilters": false,
+      "showSelectedTaskPreview": false,
+      "showBoardSelectedTaskCard": false,
+      "showPriorityRail": false,
+      "showPinnedPriorityRail": false,
+      "showCinematicOuterBackground": false,
+      "stackedCarouselLimit": 8,
+      "cinematicStackLimit": 8,
+      "stackedCarouselHeight": 462,
+      "cinematicStackHeight": 462,
+      "cinematicStackBackground": "#00000000",
+      "stackedCarouselBackground": "#00000000",
+      "taskBoardPreviewDialog": true,
+      "tapCardOpensPreviewDialog": true,
+      "tapPreviewDialogOpenFullTask": true
+    }
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

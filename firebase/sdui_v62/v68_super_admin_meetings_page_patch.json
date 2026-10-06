@@ -1,0 +1,31 @@
+{
+  "version": 68,
+  "feature": "super_admin_dedicated_meetings_page",
+  "requiredFirestoreFields": {
+    "adminPages.meetings": {},
+    "meetingAccessConfig.superAdminCanCreateMeetingLinks": true,
+    "meetingAccessConfig.dedicatedMeetingsPage": true,
+    "screenConfigs.meetings": true,
+    "supportedWidgets": [
+      "meetingPage",
+      "meetingCreateForm",
+      "superAdminMeetingCreator",
+      "meetingList",
+      "adminMeetingAccess",
+      "meetingLinkInput",
+      "meetingActionButtons"
+    ]
+  },
+  "rolesWithCreateAccess": [
+    "superAdmin",
+    "admin",
+    "itAdmin",
+    "projectManager",
+    "teamLead"
+  ],
+  "notes": [
+    "Super Admin can create Google Meet or WhatsApp meeting links from the new Meetings page.",
+    "Meeting invites are still native notification payloads with Accept & Join and Reject actions.",
+    "The UI remains SDUI-compatible; the APK renderer supports meetingPage and meetingList widgets."
+  ]
+}

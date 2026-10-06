@@ -1,0 +1,24 @@
+{
+  "version": 265,
+  "pageScopedSearch": true,
+  "pageScopedFilters": true,
+  "filterMode": "currentPageContentOnly",
+  "combineSearchAndFilters": "and",
+  "propagateFiltersToNestedCards": true,
+  "showSectionSourceBadges": true,
+  "sourceBadgeMode": "visibleOnNestedSearchOrFilterResults",
+  "topNavSearchMode": "universalUntouched",
+  "projectSearchMode": "projectFieldsOnly",
+  "taskSearchMode": "taskFieldsWithProjectContext",
+  "sourceBadgeLabels": {
+    "projects": "Project section",
+    "tasks": "Task section",
+    "board": "Board section",
+    "notifications": "Inbox section",
+    "meetings": "Meeting section",
+    "deadline": "Deadline section",
+    "profile": "Profile section",
+    "dashboard": "Dashboard section"
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

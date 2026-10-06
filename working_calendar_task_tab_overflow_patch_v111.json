@@ -1,0 +1,70 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v138_working_calendar_task_tab_overflow_fix",
+  "minRendererVersion": "employee_sdui_v138_working_calendar_task_tab_overflow_fix",
+  "taskListConfig": {
+    "secondaryTabsWhenPrimaryFilter": "All",
+    "secondaryTabsPlacement": "underPrimaryFilters",
+    "secondaryTabsStyle": "pillSegmented",
+    "secondaryTabsOverflowSafe": true,
+    "secondaryTabLabelMode": "shortEllipsis",
+    "secondaryTabsMaxLabelWidth": 168,
+    "secondaryTabs": [
+      {
+        "key": "newOpenTasks",
+        "label": "New tas...",
+        "filter": "status != completed"
+      },
+      {
+        "key": "allTasks",
+        "label": "All tasks",
+        "filter": "all"
+      }
+    ]
+  },
+  "calendarInteractionConfig": {
+    "enabled": true,
+    "tapDateShows": "deadlineTasksForSelectedDate",
+    "assignedDateHighlight": "lightAccent",
+    "deadlineDateHighlight": "accentSolid",
+    "meetingDateIndicator": "none",
+    "selectedDateCard": true,
+    "assignedTasksSection": true
+  },
+  "screenOverrides": {
+    "calendar": {
+      "calendarInteractionConfig": {
+        "enabled": true,
+        "tapDateShows": "deadlineTasksForSelectedDate",
+        "assignedDateHighlight": "lightAccent",
+        "deadlineDateHighlight": "accentSolid",
+        "meetingDateIndicator": "none",
+        "selectedDateCard": true,
+        "assignedTasksSection": true
+      },
+      "subtitle": "Deadlines, assignments and meetings from Firestore"
+    },
+    "tasks": {
+      "sections": [
+        {
+          "id": "taskFeed",
+          "type": "taskPage",
+          "showAllFilterSubTabs": true,
+          "allFilterSubTabs": [
+            {
+              "key": "newOpenTasks",
+              "label": "New tas...",
+              "filter": "status != completed"
+            },
+            {
+              "key": "allTasks",
+              "label": "All tasks",
+              "filter": "all"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

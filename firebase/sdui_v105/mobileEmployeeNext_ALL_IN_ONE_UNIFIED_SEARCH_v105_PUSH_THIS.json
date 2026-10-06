@@ -1,0 +1,1727 @@
+{
+  "enabled": true,
+  "version": 105,
+  "configId": "mobileEmployeeNext_gradient_runtime_v105",
+  "configStatus": "testReadyAllInOneGradient",
+  "configType": "singleDocRuntimeConfig",
+  "targetDocId": "mobileEmployeeNext",
+  "templateName": "projectManagementGradientRuntimeAllInOne",
+  "updatedAt": "2026-06-24T00:00:00.000Z",
+  "updatedBy": "admin",
+  "brand": {
+    "appName": "Project Management Dashboard",
+    "shortName": "PMD",
+    "companyNameSource": "company.name",
+    "roleSource": "member.role"
+  },
+  "singleDocumentMode": true,
+  "apkSplitDocMergeEnabled": false,
+  "note": "v105: unified second-style search bar on home/projects/tasks/board, top nav universal search, avatar enabled, safer bottom dock padding.",
+  "rendererCompatibility": {
+    "minApkBuild": 102,
+    "testedWith": "v102/v103 SDUI runtime",
+    "requiresActionRouter": true,
+    "supportsSplitDocs": true,
+    "allInOneMode": true,
+    "gradientFallbackSafe": true
+  },
+  "structurePolicy": {
+    "purpose": "Full all-in-one test config for employee mobile APK SDUI runtime.",
+    "oldReleaseSafe": false,
+    "useForReleaseOnlyAfterV102ApkRollout": true,
+    "currentUsersUnaffectedWhenStoredInMobileEmployeeNext": true
+  },
+  "designSystem": {
+    "mode": "gradientRuntime",
+    "surface": "#F4F6FF",
+    "card": "#FFFFFF",
+    "cardAlt": "#F8FAFF",
+    "accent": "#5B5FEF",
+    "accentDark": "#2E3192",
+    "accentBlue": "#1FA2FF",
+    "accentCyan": "#12D8FA",
+    "accentPink": "#F5576C",
+    "textPrimary": "#111827",
+    "textSecondary": "#5B6478",
+    "textMuted": "#8A94AA",
+    "border": "#DDE5F7",
+    "radiusSmall": 14,
+    "radiusMedium": 20,
+    "radiusLarge": 28,
+    "shadow": "softGradientNative",
+    "gradientPolicy": {
+      "enabled": true,
+      "safeFallback": true,
+      "rendererFallback": "use accent/background when gradient is unsupported",
+      "primary": [
+        "#667EEA",
+        "#764BA2"
+      ],
+      "active": [
+        "#1FA2FF",
+        "#12D8FA"
+      ],
+      "warm": [
+        "#F5576C",
+        "#F093FB"
+      ],
+      "success": [
+        "#22C55E",
+        "#14B8A6"
+      ]
+    }
+  },
+  "theme": {
+    "background": "#F4F6FF",
+    "surface": "#FFFFFF",
+    "textPrimary": "#111827",
+    "textSecondary": "#5B6478",
+    "border": "#DDE5F7",
+    "accent": "#5B5FEF",
+    "cardRadius": 24,
+    "cardPadding": 15,
+    "gradient": {
+      "enabled": true,
+      "type": "linear",
+      "begin": "topLeft",
+      "end": "bottomRight",
+      "colors": [
+        "#667EEA",
+        "#764BA2",
+        "#12D8FA"
+      ],
+      "fallbackColor": "#5B5FEF"
+    },
+    "backgroundGradient": {
+      "enabled": true,
+      "colors": [
+        "#F4F6FF",
+        "#F9FBFF",
+        "#EEF7FF"
+      ],
+      "fallbackColor": "#F4F6FF"
+    }
+  },
+  "layoutConfig": {
+    "nativeStatusBar": true,
+    "safeAreaTop": true,
+    "safeAreaBottom": true,
+    "background": "#F4F6FF",
+    "horizontalPadding": 15,
+    "contentPassUnderBottomNav": false,
+    "bottomContentPadding": 136,
+    "scrollPhysics": "bouncing",
+    "deviceAdaptive": true,
+    "backgroundGradient": {
+      "enabled": true,
+      "colors": [
+        "#F4F6FF",
+        "#F9FBFF",
+        "#EEF7FF"
+      ],
+      "fallbackColor": "#F4F6FF"
+    },
+    "contentPaddingBottom": 150,
+    "bottomOverlaySafeGap": 150,
+    "autoContentPadding": true
+  },
+  "animationConfig": {
+    "enabled": true,
+    "pageTransition": "gradientSlideFade",
+    "listItemAnimation": "fadeUpScale",
+    "navAnimation": "springGradientDock",
+    "durationMs": 240,
+    "staggerMs": 28
+  },
+  "screenRegistry": {
+    "initialRoute": "home",
+    "authInitialRoute": "onboarding",
+    "activeBottomTabs": [
+      "home",
+      "projects",
+      "board",
+      "profile"
+    ],
+    "availableScreens": [
+      "onboarding",
+      "login",
+      "signup",
+      "home",
+      "projects",
+      "tasks",
+      "board",
+      "notifications",
+      "profile",
+      "meetings",
+      "files",
+      "calendar",
+      "taskMap",
+      "teamMembers"
+    ],
+    "nestedScreens": [
+      "taskDetail",
+      "projectDetails",
+      "timeline"
+    ]
+  },
+  "navigationConfig": {
+    "enabled": true,
+    "shell": "floatingNativeWireframeShell",
+    "topNavDocSource": "self.topNav",
+    "bottomNavDocSource": "self.bottomNav",
+    "openFromTopNav": {
+      "inbox": "notifications",
+      "search": "smartSearch",
+      "avatar": "profile"
+    },
+    "centerAction": {
+      "enabled": true,
+      "action": "createTask"
+    },
+    "autoContentPadding": true,
+    "contentPassUnderBottomNav": false,
+    "universalSearch": {
+      "enabled": true,
+      "sources": [
+        "projects",
+        "tasks",
+        "notifications"
+      ],
+      "openMode": "bottomSheet",
+      "searchFields": [
+        "title",
+        "name",
+        "description",
+        "status",
+        "priority",
+        "message"
+      ]
+    }
+  },
+  "topNav": {
+    "enabled": true,
+    "type": "floatingTopNav",
+    "style": "gradientGlassFloating",
+    "mode": "gradientCompactTopBar",
+    "floating": true,
+    "position": "top",
+    "safeArea": true,
+    "avoidStatusBar": true,
+    "height": 56,
+    "marginHorizontal": 14,
+    "marginTop": 8,
+    "cornerRadius": 24,
+    "elevation": 4,
+    "shadow": true,
+    "background": "#FFFFFFE6",
+    "border": "#DDE5F7",
+    "routeAwareTitle": true,
+    "routeTitleMap": {
+      "home": "Dashboard",
+      "projects": "Projects",
+      "tasks": "Tasks",
+      "board": "Board",
+      "notifications": "Inbox",
+      "profile": "Profile",
+      "meetings": "Meetings"
+    },
+    "actions": [
+      "smartSearch",
+      "openInbox",
+      "profileAvatar"
+    ],
+    "primaryAction": "openInbox",
+    "openInboxOnTap": true,
+    "badgeSource": "notifications",
+    "searchEnabled": true,
+    "showInbox": true,
+    "inboxBadge": true,
+    "showAvatar": true,
+    "showCompanyName": false,
+    "showUserRole": false,
+    "showOnlineStatus": false,
+    "showLogout": false,
+    "behavior": {
+      "hideOnScrollDown": false,
+      "showOnScrollUp": true,
+      "snapAfterScroll": true,
+      "backButtonOnlyOnNestedRoutes": true
+    },
+    "backgroundGradient": {
+      "enabled": true,
+      "colors": [
+        "#FFFFFFF2",
+        "#EEF4FFFF"
+      ],
+      "fallbackColor": "#FFFFFF"
+    },
+    "activeColor": "#5B5FEF",
+    "iconColor": "#111827",
+    "shadowColor": "#667EEA22",
+    "avatarSource": "currentMember",
+    "avatarFallback": "initials",
+    "searchAction": {
+      "action": "smartSearch"
+    }
+  },
+  "bottomTabs": [
+    "home",
+    "projects",
+    "board",
+    "profile"
+  ],
+  "bottomNav": {
+    "enabled": true,
+    "type": "floatingBottomNav",
+    "style": "gradientFloatingPill",
+    "mode": "gradientPillCenterAction",
+    "floating": true,
+    "position": "bottom",
+    "overlayContent": false,
+    "contentInset": "safe",
+    "height": 62,
+    "marginHorizontal": 42,
+    "marginBottom": 14,
+    "cornerRadius": 32,
+    "background": "#FFFFFFF2",
+    "border": "#C9D4F4",
+    "activeItemBackground": "#5B5FEF",
+    "activeColor": "#FFFFFF",
+    "inactiveColor": "#3F465A",
+    "labelMode": "none",
+    "iconOnly": true,
+    "centerAction": true,
+    "centerActionIcon": "add",
+    "centerActionColor": "#F5576C",
+    "centerActionIconColor": "#FFFFFF",
+    "centerActionRoute": "createTask",
+    "tabs": [
+      "home",
+      "projects",
+      "board",
+      "profile"
+    ],
+    "backgroundGradient": {
+      "enabled": true,
+      "colors": [
+        "#FFFFFFF5",
+        "#EEF4FFFF"
+      ],
+      "fallbackColor": "#FFFFFF"
+    },
+    "activeGradient": {
+      "enabled": true,
+      "colors": [
+        "#667EEA",
+        "#764BA2"
+      ],
+      "fallbackColor": "#5B5FEF"
+    },
+    "centerActionGradient": {
+      "enabled": true,
+      "colors": [
+        "#F5576C",
+        "#F093FB"
+      ],
+      "fallbackColor": "#F5576C"
+    },
+    "safeBottomPadding": true
+  },
+  "floatingTopNav": {
+    "source": "topNav",
+    "searchEnabled": true,
+    "showAvatar": true,
+    "searchAction": {
+      "action": "smartSearch"
+    }
+  },
+  "floatingBottomNav": {
+    "source": "bottomNav"
+  },
+  "quickActionDock": {
+    "enabled": true,
+    "action": "createTask",
+    "visibleOn": [
+      "home",
+      "projects",
+      "tasks",
+      "board"
+    ]
+  },
+  "dataBindings": {
+    "profile": "companies/{companyId}/members/{uid}",
+    "projects": "companies/{companyId}/projects where visibleTo current user",
+    "tasks": "companies/{companyId}/tasks where assignedTo current user",
+    "notifications": "companies/{companyId}/notifications where receiverId current user",
+    "meetings": "notifications filtered by isMeetingInvite",
+    "universalSearch": {
+      "enabled": true,
+      "sources": {
+        "projects": "visibleProjects",
+        "tasks": "visibleTasks",
+        "notifications": "myNotifications"
+      },
+      "action": "smartSearch"
+    }
+  },
+  "inboxConfig": {
+    "enabled": true,
+    "source": "notifications",
+    "openFromTopNav": true,
+    "showUnreadCount": true,
+    "allowMarkRead": true,
+    "allowMarkAllRead": true
+  },
+  "notificationAlertConfig": {
+    "enabled": true,
+    "loopUntilAccept": true,
+    "acceptButtonEnabled": true,
+    "allowUserSelection": true,
+    "defaultSoundName": "emergency_alarm",
+    "assistantVoice": true,
+    "assistantText": "You are assigned a new task. Please accept the notification.",
+    "lockScreenEnabled": true,
+    "notificationCenterEnabled": true,
+    "showInProfile": true,
+    "showTestButton": true
+  },
+  "notificationSoundOptions": {
+    "emergency_alarm": "Emergency alarm",
+    "classic_alarm": "Classic alarm",
+    "soft_chime": "Soft chime",
+    "digital_beep": "Digital beep"
+  },
+  "profileFields": [
+    "displayName",
+    "email",
+    "role",
+    "department",
+    "jobTitle",
+    "location",
+    "available",
+    "isOnline"
+  ],
+  "profileActions": {
+    "showLogout": true,
+    "setOfflineBeforeLogout": true,
+    "logoutPosition": "bottom",
+    "logoutStyle": "filledIcon",
+    "showEditProfile": true,
+    "showPresenceToggle": true,
+    "showAvailabilityToggle": true,
+    "showNotificationTest": true,
+    "showCopyDiagnostics": true
+  },
+  "homeCards": [
+    "deadlineTimer",
+    "todayTasks",
+    "myOpenTasks",
+    "projectProgress"
+  ],
+  "homeLayout": {
+    "sections": [
+      "gradientHero",
+      "deadlineTimer",
+      "todayTasks",
+      "myOpenTasks",
+      "projectProgress"
+    ]
+  },
+  "taskCardFields": [
+    "projectName",
+    "taskTitle",
+    "status",
+    "priority",
+    "deadlineTimer",
+    "progress",
+    "commentsCount",
+    "attachmentsCount"
+  ],
+  "taskCardVariant": "editorialStatusCard",
+  "taskCard": {
+    "variant": "editorialStatusCard",
+    "showFields": [
+      "projectName",
+      "taskTitle",
+      "status",
+      "priority",
+      "deadlineTimer",
+      "progress",
+      "commentsCount",
+      "attachmentsCount"
+    ],
+    "actions": [
+      "openDetails",
+      "comment",
+      "uploadFile"
+    ],
+    "gradientEnabled": true,
+    "gradientAccent": {
+      "enabled": true,
+      "type": "linear",
+      "begin": "topLeft",
+      "end": "bottomRight",
+      "colors": [
+        "#667EEA",
+        "#764BA2",
+        "#12D8FA"
+      ],
+      "fallbackColor": "#5B5FEF"
+    }
+  },
+  "taskListConfig": {
+    "defaultTab": "newArrival",
+    "showFloatingTabs": true,
+    "showCompletedTab": true,
+    "newArrivalFirst": true,
+    "completedSort": "completedAtDesc",
+    "gradientStatus": true
+  },
+  "projectCardFields": [
+    "projectName",
+    "description",
+    "status",
+    "statusTag",
+    "taskCount",
+    "completedTaskCount",
+    "teamCount",
+    "deadline",
+    "progress"
+  ],
+  "projectCardVariant": "advancedProgressCard",
+  "projectCard": {
+    "variant": "progressCard",
+    "showFields": [
+      "projectName",
+      "description",
+      "status",
+      "statusTag",
+      "taskCount",
+      "completedTaskCount",
+      "teamCount",
+      "deadline",
+      "progress"
+    ],
+    "actions": [
+      "openDetails"
+    ],
+    "gradientEnabled": true,
+    "gradientAccent": {
+      "enabled": true,
+      "type": "linear",
+      "begin": "topLeft",
+      "end": "bottomRight",
+      "colors": [
+        "#667EEA",
+        "#764BA2",
+        "#12D8FA"
+      ],
+      "fallbackColor": "#5B5FEF"
+    }
+  },
+  "projectListConfig": {
+    "showSearch": true,
+    "showStatusFilters": true,
+    "showSummary": true,
+    "openDetailsOnTap": true,
+    "gradientCards": true
+  },
+  "meetingAccessConfig": {
+    "enabled": true,
+    "adminsCanCreate": true,
+    "superAdminCanCreate": true,
+    "employeesCanAcceptReject": true,
+    "actions": [
+      "acceptAndJoinMeeting",
+      "rejectMeeting"
+    ]
+  },
+  "supportedWidgets": [
+    "screen",
+    "page",
+    "card",
+    "container",
+    "sectionList",
+    "column",
+    "row",
+    "grid",
+    "text",
+    "title",
+    "subtitle",
+    "button",
+    "primaryAction",
+    "secondaryAction",
+    "profileAction",
+    "profileActionList",
+    "settingsTile",
+    "heroCard",
+    "workSummary",
+    "deadlineHero",
+    "taskPage",
+    "taskList",
+    "todayTaskList",
+    "taskCard",
+    "projectPage",
+    "projectCard",
+    "projectProgressCard",
+    "profileSummary",
+    "notificationList",
+    "notificationAlert",
+    "notificationSoundSelector",
+    "kanbanBoard",
+    "meetingPage",
+    "filterChips",
+    "searchHeader",
+    "progressBar",
+    "progressTimeline",
+    "filesDocuments",
+    "calendarView",
+    "taskMap",
+    "teamMembers",
+    "wireframeAuthScreen",
+    "authLogo",
+    "textField",
+    "passwordField",
+    "socialAuthButton",
+    "authSwitch",
+    "floatingTopNav",
+    "floatingBottomNav",
+    "runtimeSearchBox"
+  ],
+  "screenConfigs": {
+    "onboarding": {
+      "route": "onboarding",
+      "title": "Onboarding",
+      "layout": "auth"
+    },
+    "login": {
+      "route": "login",
+      "title": "Login",
+      "layout": "auth"
+    },
+    "signup": {
+      "route": "signup",
+      "title": "Sign Up",
+      "layout": "auth"
+    },
+    "home": {
+      "route": "home",
+      "title": "Dashboard",
+      "layout": "dashboardProjectFeedWireframe"
+    },
+    "projects": {
+      "route": "projects",
+      "title": "Projects",
+      "layout": "searchableProjectList"
+    },
+    "tasks": {
+      "route": "tasks",
+      "title": "Tasks",
+      "layout": "statusTimelineList"
+    },
+    "board": {
+      "route": "board",
+      "title": "Board",
+      "layout": "kanbanBoard"
+    },
+    "notifications": {
+      "route": "notifications",
+      "title": "Inbox",
+      "layout": "notificationList"
+    },
+    "profile": {
+      "route": "profile",
+      "title": "Profile",
+      "layout": "profileSettings"
+    },
+    "meetings": {
+      "route": "meetings",
+      "title": "Meetings",
+      "layout": "meetingList"
+    }
+  },
+  "screenOverrides": {
+    "onboarding": {
+      "screen": "onboarding",
+      "type": "wireframeAuthScreen",
+      "title": "Project Management Dashboard",
+      "padding": {
+        "left": 18,
+        "top": 18,
+        "right": 18,
+        "bottom": 18
+      },
+      "gradientHeader": {
+        "enabled": true,
+        "colors": [
+          "#667EEA",
+          "#764BA2",
+          "#12D8FA"
+        ]
+      },
+      "sections": [
+        {
+          "type": "spacer",
+          "height": 14
+        },
+        {
+          "type": "authLogo",
+          "label": "PM",
+          "caption": "Project Management Dashboard"
+        },
+        {
+          "type": "heroCard",
+          "title": "Run every project from one mobile workspace",
+          "subtitle": "Tasks, projects, meetings, files and notifications connected with live Firebase sync.",
+          "color": "#667EEA",
+          "gradient": {
+            "enabled": true,
+            "colors": [
+              "#667EEA",
+              "#764BA2"
+            ]
+          }
+        },
+        {
+          "type": "grid",
+          "columns": 2,
+          "children": [
+            {
+              "type": "metricCard",
+              "title": "Live tasks",
+              "value": "24"
+            },
+            {
+              "type": "metricCard",
+              "title": "Active projects",
+              "value": "08"
+            },
+            {
+              "type": "metricCard",
+              "title": "Meetings",
+              "value": "03"
+            },
+            {
+              "type": "metricCard",
+              "title": "Files",
+              "value": "128"
+            }
+          ]
+        },
+        {
+          "type": "button",
+          "label": "Login",
+          "action": {
+            "type": "navigate",
+            "route": "login"
+          },
+          "variant": "filled"
+        },
+        {
+          "type": "button",
+          "label": "Create account",
+          "action": {
+            "type": "navigate",
+            "route": "signup"
+          },
+          "variant": "outlined"
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "socialAuthButton",
+              "label": "Google",
+              "icon": "g"
+            },
+            {
+              "type": "socialAuthButton",
+              "label": "Apple",
+              "icon": "apple"
+            },
+            {
+              "type": "socialAuthButton",
+              "label": "Email",
+              "icon": "mail"
+            }
+          ]
+        }
+      ],
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      }
+    },
+    "login": {
+      "screen": "login",
+      "type": "wireframeAuthScreen",
+      "title": "Login",
+      "padding": {
+        "left": 18,
+        "top": 18,
+        "right": 18,
+        "bottom": 18
+      },
+      "sections": [
+        {
+          "type": "authLogo",
+          "label": "PM",
+          "caption": "Secure workspace login"
+        },
+        {
+          "type": "heroCard",
+          "title": "Welcome back",
+          "subtitle": "Continue your project work with real-time tasks and notifications.",
+          "color": "#5B5FEF",
+          "gradient": {
+            "enabled": true,
+            "colors": [
+              "#5B5FEF",
+              "#1FA2FF"
+            ]
+          }
+        },
+        {
+          "type": "textField",
+          "label": "Email",
+          "placeholder": "name@company.com",
+          "icon": "mail"
+        },
+        {
+          "type": "passwordField",
+          "label": "Password",
+          "placeholder": "Enter password",
+          "icon": "lock"
+        },
+        {
+          "type": "button",
+          "label": "Login",
+          "action": "login"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "socialAuthButton",
+              "label": "Google",
+              "icon": "g"
+            },
+            {
+              "type": "socialAuthButton",
+              "label": "Apple",
+              "icon": "apple"
+            }
+          ]
+        },
+        {
+          "type": "authSwitch",
+          "text": "New here?",
+          "actionLabel": "Sign up",
+          "action": {
+            "type": "navigate",
+            "route": "signup"
+          }
+        }
+      ],
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      }
+    },
+    "signup": {
+      "screen": "signup",
+      "type": "wireframeAuthScreen",
+      "title": "Sign Up",
+      "padding": {
+        "left": 18,
+        "top": 18,
+        "right": 18,
+        "bottom": 18
+      },
+      "sections": [
+        {
+          "type": "authLogo",
+          "label": "PM",
+          "caption": "Create workspace"
+        },
+        {
+          "type": "heroCard",
+          "title": "Create your team account",
+          "subtitle": "Start project tracking with company, department and role setup.",
+          "color": "#764BA2",
+          "gradient": {
+            "enabled": true,
+            "colors": [
+              "#764BA2",
+              "#F093FB"
+            ]
+          }
+        },
+        {
+          "type": "textField",
+          "label": "Full name",
+          "placeholder": "Alex Morgan",
+          "icon": "person"
+        },
+        {
+          "type": "textField",
+          "label": "Email",
+          "placeholder": "name@company.com",
+          "icon": "mail"
+        },
+        {
+          "type": "textField",
+          "label": "Company name",
+          "placeholder": "Company Pvt Ltd",
+          "icon": "business"
+        },
+        {
+          "type": "passwordField",
+          "label": "Password",
+          "placeholder": "Create password",
+          "icon": "lock"
+        },
+        {
+          "type": "button",
+          "label": "Sign Up",
+          "action": "signup"
+        },
+        {
+          "type": "authSwitch",
+          "text": "Already have an account?",
+          "actionLabel": "Login",
+          "action": {
+            "type": "navigate",
+            "route": "login"
+          }
+        }
+      ],
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      }
+    },
+    "home": {
+      "screen": "home",
+      "type": "sectionList",
+      "title": "Dashboard",
+      "hideTitle": false,
+      "sections": [
+        {
+          "id": "search",
+          "type": "searchHeader",
+          "placeholder": "Search projects, tasks, inbox...",
+          "showInlineResults": true
+        },
+        {
+          "id": "gradientHero",
+          "type": "heroCard",
+          "variant": "darkEditorialHero",
+          "title": "Good work starts here",
+          "subtitle": "Live workspace summary from Firebase tasks, projects and deadlines.",
+          "color": "#667EEA",
+          "gradient": {
+            "enabled": true,
+            "colors": [
+              "#667EEA",
+              "#764BA2",
+              "#12D8FA"
+            ]
+          }
+        },
+        {
+          "id": "quickStats",
+          "type": "grid",
+          "columns": 2,
+          "children": [
+            {
+              "type": "metricCard",
+              "title": "Today tasks",
+              "value": "Live"
+            },
+            {
+              "type": "metricCard",
+              "title": "Open work",
+              "value": "Sync"
+            },
+            {
+              "type": "metricCard",
+              "title": "Progress",
+              "value": "Auto"
+            },
+            {
+              "type": "metricCard",
+              "title": "Alerts",
+              "value": "FCM"
+            }
+          ]
+        },
+        {
+          "id": "deadline",
+          "type": "deadlineHero",
+          "variant": "darkEditorialHero",
+          "title": "Next deadline",
+          "subtitle": "Nearest open task from your assigned work",
+          "color": "#5B5FEF",
+          "gradient": {
+            "enabled": true,
+            "colors": [
+              "#5B5FEF",
+              "#1FA2FF"
+            ]
+          }
+        },
+        {
+          "id": "todayTasks",
+          "type": "todayTaskList",
+          "title": "Today tasks",
+          "limit": 3,
+          "variant": "editorialStatusCard"
+        },
+        {
+          "id": "projectProgress",
+          "type": "projectPage",
+          "title": "Active projects",
+          "limit": 4,
+          "showHeader": false,
+          "showSummary": false,
+          "showSearch": false,
+          "showStatusFilters": false,
+          "variant": "progressCard"
+        }
+      ],
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      }
+    },
+    "projects": {
+      "screen": "projects",
+      "type": "projectPage",
+      "title": "Projects",
+      "hideTitle": false,
+      "showSummary": true,
+      "showSearch": true,
+      "showStatusFilters": true,
+      "limit": 50,
+      "search": {
+        "hint": "Search project name or details",
+        "style": "runtimePill",
+        "source": "pageProjects"
+      },
+      "projectCard": {
+        "variant": "advancedProgressCard",
+        "showFields": [
+          "projectName",
+          "description",
+          "statusTag",
+          "taskCount",
+          "completedTaskCount",
+          "teamCount",
+          "deadline",
+          "progress",
+          "priority"
+        ]
+      },
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      },
+      "statusFilters": [
+        "all",
+        "active",
+        "completed",
+        "onHold",
+        "review",
+        "delayed"
+      ],
+      "unifiedSearchBar": true
+    },
+    "tasks": {
+      "screen": "tasks",
+      "type": "taskPage",
+      "title": "Tasks",
+      "hideTitle": false,
+      "defaultTab": "newArrival",
+      "showFloatingTabs": true,
+      "showCompletedTab": true,
+      "newArrivalFirst": true,
+      "limit": 60,
+      "taskCard": {
+        "variant": "editorialStatusCard",
+        "showFields": [
+          "projectName",
+          "taskTitle",
+          "description",
+          "status",
+          "priority",
+          "deadlineTimer",
+          "progress",
+          "assigneeCount",
+          "commentsCount",
+          "attachmentsCount"
+        ],
+        "actions": [
+          "openDetails",
+          "changeStatus",
+          "comment",
+          "uploadFile"
+        ]
+      },
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      },
+      "showSearch": true,
+      "search": {
+        "hint": "Search assigned tasks, project or priority",
+        "style": "runtimePill",
+        "source": "pageTasks"
+      }
+    },
+    "board": {
+      "screen": "board",
+      "type": "kanbanBoard",
+      "title": "Board",
+      "hideTitle": false,
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      },
+      "showSearch": true,
+      "search": {
+        "hint": "Search board tasks or status",
+        "style": "runtimePill",
+        "source": "board"
+      }
+    },
+    "notifications": {
+      "screen": "notifications",
+      "type": "notificationList",
+      "title": "Inbox",
+      "hideTitle": false,
+      "limit": 40,
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      }
+    },
+    "meetings": {
+      "screen": "meetings",
+      "type": "meetingPage",
+      "title": "Meetings",
+      "hideTitle": false,
+      "limit": 40,
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      }
+    },
+    "profile": {
+      "screen": "profile",
+      "type": "sectionList",
+      "title": "Profile",
+      "hideTitle": false,
+      "sections": [
+        {
+          "id": "profileHero",
+          "type": "heroCard",
+          "title": "My profile",
+          "subtitle": "Manage availability, notification sound, profile and diagnostics.",
+          "color": "#667EEA",
+          "gradient": {
+            "enabled": true,
+            "colors": [
+              "#667EEA",
+              "#764BA2"
+            ]
+          }
+        },
+        {
+          "id": "profileSummary",
+          "type": "profileSummary",
+          "title": "Profile summary",
+          "dataSource": "profile"
+        },
+        {
+          "id": "profileActions",
+          "type": "profileActionList",
+          "children": [
+            {
+              "type": "profileAction",
+              "label": "Edit profile",
+              "subtitle": "Update name, email, department, job title and location",
+              "icon": "person",
+              "action": "updateProfile"
+            },
+            {
+              "type": "profileAction",
+              "label": "Toggle online status",
+              "subtitle": "Set online or offline for managers",
+              "icon": "check",
+              "action": "setPresence"
+            },
+            {
+              "type": "profileAction",
+              "label": "Toggle availability",
+              "subtitle": "Available or busy for new work",
+              "icon": "check",
+              "action": "setAvailability"
+            },
+            {
+              "type": "profileAction",
+              "label": "Test alert",
+              "subtitle": "Test Android native notification sound and assistant voice",
+              "icon": "notification",
+              "action": "testAlert"
+            },
+            {
+              "type": "profileAction",
+              "label": "Copy diagnostic logs",
+              "subtitle": "Copy Flutter and native notification logs",
+              "icon": "task",
+              "action": "copyDiagnostics"
+            },
+            {
+              "type": "profileAction",
+              "label": "Logout",
+              "subtitle": "Set offline and sign out",
+              "icon": "person",
+              "action": "logout",
+              "variant": "outlined"
+            }
+          ]
+        },
+        {
+          "id": "sounds",
+          "type": "notificationSoundSelector",
+          "title": "Notification sound"
+        }
+      ],
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      },
+      "bottomSafePadding": 136
+    },
+    "files": {
+      "screen": "files",
+      "type": "filesDocuments",
+      "title": "Files",
+      "subtitle": "Project and task attachments with upload action.",
+      "value": 0.65,
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      }
+    },
+    "calendar": {
+      "screen": "calendar",
+      "type": "calendarView",
+      "title": "Calendar",
+      "subtitle": "Deadlines, meetings and milestone schedule.",
+      "value": 0.65,
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      }
+    },
+    "taskMap": {
+      "screen": "taskMap",
+      "type": "taskMap",
+      "title": "Task map",
+      "subtitle": "Site/location preview for field tasks.",
+      "value": 0.65,
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      }
+    },
+    "teamMembers": {
+      "screen": "teamMembers",
+      "type": "teamMembers",
+      "title": "Team members",
+      "subtitle": "Assigned members, workload and roles.",
+      "value": 0.65,
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      }
+    },
+    "timeline": {
+      "screen": "timeline",
+      "type": "progressTimeline",
+      "title": "Timeline",
+      "subtitle": "Milestones and project activity.",
+      "value": 0.65,
+      "theme": {
+        "background": "#F4F6FF",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111827",
+        "textSecondary": "#5B6478",
+        "border": "#DDE5F7",
+        "accent": "#5B5FEF",
+        "cardRadius": 24,
+        "cardPadding": 15,
+        "gradient": {
+          "enabled": true,
+          "type": "linear",
+          "begin": "topLeft",
+          "end": "bottomRight",
+          "colors": [
+            "#667EEA",
+            "#764BA2",
+            "#12D8FA"
+          ],
+          "fallbackColor": "#5B5FEF"
+        },
+        "backgroundGradient": {
+          "enabled": true,
+          "colors": [
+            "#F4F6FF",
+            "#F9FBFF",
+            "#EEF7FF"
+          ],
+          "fallbackColor": "#F4F6FF"
+        }
+      }
+    }
+  },
+  "navigationGraph": {
+    "onboarding": {
+      "path": "/onboarding",
+      "screen": "onboarding",
+      "authRequired": false
+    },
+    "login": {
+      "path": "/login",
+      "screen": "login",
+      "authRequired": false
+    },
+    "signup": {
+      "path": "/signup",
+      "screen": "signup",
+      "authRequired": false
+    },
+    "home": {
+      "path": "/home",
+      "screen": "home",
+      "tab": "home",
+      "authRequired": true
+    },
+    "projects": {
+      "path": "/projects",
+      "screen": "projects",
+      "tab": "projects",
+      "authRequired": true
+    },
+    "tasks": {
+      "path": "/tasks",
+      "screen": "tasks",
+      "authRequired": true
+    },
+    "board": {
+      "path": "/board",
+      "screen": "board",
+      "tab": "board",
+      "authRequired": true
+    },
+    "notifications": {
+      "path": "/notifications",
+      "screen": "notifications",
+      "authRequired": true
+    },
+    "profile": {
+      "path": "/profile",
+      "screen": "profile",
+      "tab": "profile",
+      "authRequired": true
+    },
+    "meetings": {
+      "path": "/meetings",
+      "screen": "meetings",
+      "authRequired": true
+    }
+  }
+}

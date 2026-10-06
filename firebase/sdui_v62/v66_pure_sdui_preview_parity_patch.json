@@ -1,0 +1,26 @@
+{
+  "version": 66,
+  "templateName": "editorialNativeUi",
+  "designSystem": {
+    "templateName": "editorialNativeUi",
+    "rendererMode": "sduiJsonRenderer"
+  },
+  "rendererCompatibility": {
+    "hardcodedBodyRenderer": false,
+    "apkPreviewParityMode": "sharedSduiJson",
+    "requiresTemplateRenderer": true,
+    "forcePreviewParity": false,
+    "forceFlutterPreviewParity": false
+  },
+  "uiTemplates": {
+    "active": "editorialNativeUi",
+    "available": [
+      "cleanWorkApp",
+      "compactEmployeeApp",
+      "modernCardUi",
+      "progressFocusUi",
+      "minimalFieldUi",
+      "editorialNativeUi"
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+name: Deploy notification backend to Oracle VM
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "notification_backend/**"
+      - ".github/workflows/deploy-notification-backend-oracle.yml"
+
+concurrency:
+  group: projectos-notification-production
+  cancel-in-progress: false
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: notification_backend/package-lock.json
+
+      - name: Install and type-check backend
+        working-directory: notification_backend
+        run: |
+          npm ci
+          npm run typecheck
+          npm run build
+
+      - name: Configure SSH
+        env:
+          ORACLE_SSH_KEY: ${{ secrets.ORACLE_SSH_KEY }}
+          ORACLE_HOST: ${{ secrets.ORACLE_HOST }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$ORACLE_SSH_KEY" > ~/.ssh/oracle_key
+          chmod 600 ~/.ssh/oracle_key
+          ssh-keyscan -H "$ORACLE_HOST" >> ~/.ssh/known_hosts
+
+      - name: Upload release
+        env:
+          ORACLE_HOST: ${{ secrets.ORACLE_HOST }}
+          ORACLE_USER: ${{ secrets.ORACLE_USER }}
+        run: |
+          RELEASE_ID="${GITHUB_SHA::12}"
+          tar --exclude=.git --exclude=build --exclude=.dart_tool --exclude=node_modules -czf /tmp/projectos-release.tgz .
+          scp -i ~/.ssh/oracle_key /tmp/projectos-release.tgz "$ORACLE_USER@$ORACLE_HOST:/tmp/projectos-release.tgz"
+          ssh -i ~/.ssh/oracle_key "$ORACLE_USER@$ORACLE_HOST" "\
+            rm -rf /tmp/projectos-release && mkdir -p /tmp/projectos-release && \
+            tar -xzf /tmp/projectos-release.tgz -C /tmp/projectos-release && \
+            chmod -R a+rX /tmp/projectos-release && \
+            sudo -u projectos /tmp/projectos-release/notification_backend/deploy/oracle/deploy_release.sh '$RELEASE_ID' /tmp/projectos-release"
+
+      - name: Verify public health endpoint
+        env:
+          BACKEND_HEALTH_URL: ${{ secrets.BACKEND_HEALTH_URL }}
+        run: curl --fail --retry 5 --retry-delay 5 --max-time 20 "$BACKEND_HEALTH_URL"

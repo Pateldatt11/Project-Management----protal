@@ -1,0 +1,41 @@
+{
+  "taskListConfig": {
+    "showFloatingTabs": true,
+    "defaultTab": "newArrival",
+    "newArrivalFirst": true,
+    "showCompletedTab": true,
+    "completedSort": "completedAtDesc"
+  },
+  "screenOverrides": {
+    "tasks": {
+      "type": "taskPage",
+      "title": "My Tasks",
+      "subtitle": "Newest assigned tasks first",
+      "showFloatingTabs": true,
+      "showCompletedTab": true,
+      "defaultTab": "newArrival",
+      "limit": 50,
+      "taskCard": {
+        "variant": "progressCard",
+        "showFields": [
+          "projectName",
+          "taskTitle",
+          "status",
+          "statusTag",
+          "priority",
+          "deadlineTimer",
+          "commentsCount",
+          "filesCount",
+          "progress"
+        ],
+        "actions": [
+          "openDetails",
+          "comment",
+          "uploadFile"
+        ]
+      }
+    }
+  },
+  "version": 265,
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

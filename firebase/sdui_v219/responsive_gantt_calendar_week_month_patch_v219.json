@@ -1,0 +1,19 @@
+{
+  "version": 219,
+  "description": "v219: responsive Gantt timeline fixes, 20 percent shorter phase stack carousel, week/month calendar timeline controls, selected row clipping fix.",
+  "taskTimeline": {
+    "ganttVisibleRows": 5,
+    "ganttInnerScrollAfterRows": 5,
+    "ganttSelectedRowStyle": "thickRoundedCapsule",
+    "timelineScaleOptions": ["week", "month"],
+    "weekMode": "calendarMondayToSunday",
+    "splitTaskAcrossWeeks": true
+  },
+  "phaseStack": {
+    "phaseStackHeightScale": 0.8,
+    "compactPhaseStackCarouselHeight": 328,
+    "phaseStackCarouselHeight": 413,
+    "phaseStackCardHeight": 389,
+    "phaseStackCardHeightRatio": 1.32
+  }
+}

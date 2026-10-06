@@ -1,0 +1,41 @@
+{
+  "version": 265,
+  "rendererVersion": "employee_sdui_v148_calendar_month_picker_today",
+  "minRendererVersion": "employee_sdui_v148_calendar_month_picker_today",
+  "calendarInteractionConfig": {
+    "enabled": true,
+    "tapDateShows": "tasksForSelectedDateOnly",
+    "assignedDateHighlight": "lightAccent",
+    "deadlineDateHighlight": "accentSolid",
+    "meetingDateIndicator": "none",
+    "selectedDateCard": true,
+    "assignedTasksSection": false,
+    "selectedDateFilterMode": "deadlineOrAssignedCreatedDate",
+    "showOnlySelectedDateTasks": true,
+    "hideUpcomingTaskList": true,
+    "combineDeadlineAndAssignedTasks": true,
+    "mode": "selectedDateFilter",
+    "monthPicker": true,
+    "previousNextMonthControls": true,
+    "todayHighlight": true,
+    "highlightColors": {
+      "assignedDate": "accentLight",
+      "deadlineDate": "accentSolid",
+      "today": "accentOutline",
+      "meetingDate": "none"
+    },
+    "selectedDateShowsOnlyMatchingTasks": true,
+    "showDotIndicators": false,
+    "dateDotIndicators": false
+  },
+  "featureFlags": {
+    "calendarMonthPicker": true,
+    "calendarTodayHighlight": true
+  },
+  "supportedWidgetsAdd": [
+    "calendarMonthPicker",
+    "calendarTodayHighlight",
+    "calendarDateFilter"
+  ],
+  "updatedAt": "2026-07-02T08:15:00Z"
+}

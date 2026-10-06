@@ -1,0 +1,107 @@
+{
+  "version": 172,
+  "rendererVersion": "employee_sdui_v172_auth_bruteforce_protection",
+  "minRendererVersion": "employee_sdui_v172_auth_bruteforce_protection",
+  "authUiPolicy": {
+    "enabled": true,
+    "newLoginSignupEnabled": true,
+    "jsonControlsAuthUi": true,
+    "applyTo": [
+      "android",
+      "ios"
+    ],
+    "disableOnWeb": true,
+    "webUsesLegacyAuth": true,
+    "adminPreviewCanRenderMobileAuth": true,
+    "allowEmailPassword": true,
+    "allowSignUp": true,
+    "allowPasswordReset": true,
+    "methods": [
+      "emailPassword",
+      "signUp",
+      "passwordReset",
+      "google",
+      "apple",
+      "facebook"
+    ],
+    "providers": [
+      "google",
+      "apple",
+      "facebook"
+    ],
+    "labels": {
+      "loginTab": "Login",
+      "signupTab": "Sign Up",
+      "loginTitle": "Welcome back",
+      "signupTitle": "Create your workspace account",
+      "loginSubtitle": "Sign in to continue to your project dashboard.",
+      "signupSubtitle": "Use company email to request access or create the first admin account.",
+      "loginButton": "Login",
+      "signupButton": "Create account",
+      "forgotPassword": "Forgot password?",
+      "otherWays": "Other ways to sign in",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "nameLabel": "Full name",
+      "securityNote": "Protected with rate limiting and Firebase security checks."
+    },
+    "apiActions": {
+      "login": "signInEmailPassword",
+      "signup": "signUpEmailPassword",
+      "forgotPassword": "sendPasswordResetEmail",
+      "google": "signInWithProviderId:google",
+      "apple": "signInWithProviderId:apple",
+      "facebook": "signInWithProviderId:facebook",
+      "logout": "signOut"
+    },
+    "runtimeRule": "Mobile auth layout/method visibility is JSON-controlled. Firebase calls remain in AuthService APIs. Flutter Web keeps legacy auth.",
+    "bruteForceProtection": {
+      "enabled": true,
+      "useCloudFunctions": true,
+      "localFallback": true,
+      "maxLoginFailures": 5,
+      "maxSignupFailures": 3,
+      "maxResetRequests": 3,
+      "windowMinutes": 15,
+      "lockoutMinutes": 15,
+      "maxLockoutMinutes": 60,
+      "genericAuthErrors": true,
+      "lockedMessage": "Too many attempts. Please wait and try again.",
+      "serverFunctions": [
+        "checkAuthRateLimit",
+        "recordAuthAttempt"
+      ],
+      "firestoreStorage": "security/authRateLimits/{hashedEmailAction}",
+      "storeRawEmail": false,
+      "recommendedConsoleSettings": [
+        "Enable Email Enumeration Protection",
+        "Enable App Check / reCAPTCHA Enterprise for Identity Platform where available"
+      ]
+    }
+  },
+  "rendererCompatibility": {
+    "apkRendererVersion": "employee_sdui_v172_auth_bruteforce_protection",
+    "minVersion": "employee_sdui_v172_auth_bruteforce_protection",
+    "recommendedVersion": "employee_sdui_v172_auth_bruteforce_protection",
+    "requiresAuthBruteForceProtection": true,
+    "requiresCloudFunctionAuthRateLimit": true,
+    "requiresGenericAuthErrors": true,
+    "requiresEmailEnumerationSafeErrors": true
+  },
+  "featureFlags": {
+    "authBruteForceProtection": true,
+    "authRateLimitCloudFunctions": true,
+    "authLocalRateLimitFallback": true,
+    "authGenericErrors": true,
+    "authSecurityNote": true
+  },
+  "supportedWidgets": [
+    "authBruteForceProtection",
+    "authRateLimit",
+    "authAttemptLockout",
+    "authSecurityNote",
+    "cloudFunctionAuthGuard",
+    "genericAuthErrors",
+    "emailEnumerationSafeErrors"
+  ]
+}

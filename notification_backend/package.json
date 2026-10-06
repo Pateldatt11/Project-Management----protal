@@ -1,0 +1,25 @@
+{
+  "name": "projectos-notification-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Always-on Oracle VM notification worker and Firebase Admin SDK API for ProjectOS.",
+  "main": "dist/server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/server.js",
+    "dev": "node --watch dist/server.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^14.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "^5.8.3"
+  }
+}

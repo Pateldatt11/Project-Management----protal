@@ -1,0 +1,22 @@
+{
+  "version": 88,
+  "patch": "PMD mobile SDUI wireframe structure",
+  "firestoreTargets": {
+    "active": "companies/{companyId}/uiConfigs/mobileEmployee",
+    "draft": "companies/{companyId}/uiConfigs/mobileEmployeeDesignDraft",
+    "rollback": "companies/{companyId}/uiConfigs/mobileEmployee/versions/v88"
+  },
+  "files": [
+    "firebase/sdui_v62/companies_uiConfigs_mobileEmployee_v88_wireframe.json",
+    "firebase/sdui_v62/companies_uiConfigs_mobileEmployeeDesignDraft_v88_wireframe.json",
+    "firebase/sdui_v62/appConfig_mobileUi_v88_wireframe.json",
+    "firebase/sdui_v62/adminConfig_mobileUiPreview_v88_wireframe.json"
+  ],
+  "features": [
+    "wireframe screen registry",
+    "JSON screen overrides",
+    "floating white bottom dock",
+    "content passes under nav",
+    "project-management-only branding"
+  ]
+}

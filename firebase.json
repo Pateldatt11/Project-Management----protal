@@ -1,0 +1,51 @@
+{
+  "firestore": {
+    "rules": "firebase/firestore.rules",
+    "indexes": "firebase/firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "firebase/storage.rules"
+  },
+  "functions": {
+    "source": "functions"
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "project-management-dashb-aa77a",
+          "appId": "1:1051281746131:android:c2bcb45beddb46d2460c26",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "project-management-dashb-aa77a",
+          "configurations": {
+            "android": "1:1051281746131:android:c2bcb45beddb46d2460c26",
+            "ios": "1:1051281746131:ios:ed89eea1aef75c1f460c26",
+            "macos": "1:1051281746131:ios:ed89eea1aef75c1f460c26",
+            "web": "1:1051281746131:web:decb710a96982193460c26",
+            "windows": "1:1051281746131:web:48f6832e07e2ae09460c26"
+          }
+        }
+      }
+    }
+  },
+  "version": 281,
+  "updatedAt": "2026-07-10T00:00:00Z"
+}

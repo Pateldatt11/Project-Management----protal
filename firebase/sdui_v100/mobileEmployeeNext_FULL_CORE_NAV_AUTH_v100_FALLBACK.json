@@ -1,0 +1,745 @@
+{
+  "enabled": true,
+  "version": 99,
+  "configStatus": "draft",
+  "configType": "mobileEmployeeWireframeCorePlusNavAuthFallback",
+  "brand": {
+    "name": "Project Management Dashboard",
+    "lock": "projectManagementOnly",
+    "contentDomain": "projects_tasks_teams_files_meetings"
+  },
+  "templateName": "sduiWireframeRenderExamplesNavAuthOnly",
+  "updatedAt": "2026-06-24T00:00:00.000Z",
+  "updatedBy": "admin",
+  "targetDocId": "mobileEmployeeNext",
+  "sourceDesignDocId": "mobileEmployeeNextDesign",
+  "sourceScreensDocId": "mobileEmployeeNextScreens",
+  "rendererCompatibility": {
+    "minRendererVersion": 4,
+    "fallbackRendererVersion": 1,
+    "fallbackMode": "legacyConfigKeys",
+    "preserveOldKeys": true,
+    "hardcodedBodyRenderer": false,
+    "requiresScreenRegistry": true,
+    "requiresNavigationGraph": true,
+    "requiresScreenOverridesFromConfig": true,
+    "requiresFloatingNavSupport": true,
+    "requiresScreenBodyOnly": true,
+    "requiresAuthPreviewWidgets": true,
+    "futureUiChangeMode": "jsonOnlyFirestoreConfig"
+  },
+  "structurePolicy": {
+    "purpose": "Core SDUI structure for the wireframe render example layout. UI visuals live in mobileEmployeeNextDesign.",
+    "scope": "employee_apk_mobile_structure",
+    "preserveNativeShell": true,
+    "nativeStatusBarOnly": true,
+    "screenBodyOnly": true,
+    "projectManagementContentOnly": true,
+    "allowThemeLater": true,
+    "allowVisualOverridesLater": true,
+    "doNotChangeFirebaseDataLogic": true,
+    "doNotChangeNotificationLogic": true
+  },
+  "screenRegistry": {
+    "source": "firestoreUiConfig",
+    "initialRoute": "home",
+    "authInitialRoute": "login",
+    "activeBottomTabs": [
+      "home",
+      "projects",
+      "board",
+      "profile"
+    ],
+    "availableTabs": [
+      "home",
+      "projects",
+      "tasks",
+      "board",
+      "notifications",
+      "profile"
+    ],
+    "authScreens": [
+      "onboarding",
+      "login",
+      "signup"
+    ],
+    "nestedScreens": [
+      "projectDetail",
+      "taskDetail",
+      "taskMap",
+      "timeline",
+      "teamMembers",
+      "files",
+      "calendar",
+      "meetingDetail",
+      "createTask",
+      "createProject"
+    ],
+    "screenOrder": [
+      "onboarding",
+      "login",
+      "signup",
+      "home",
+      "projects",
+      "board",
+      "taskMap",
+      "timeline",
+      "tasks",
+      "taskDetail",
+      "teamMembers",
+      "notifications",
+      "profile",
+      "files",
+      "calendar",
+      "meetings"
+    ]
+  },
+  "screenConfigs": {
+    "onboarding": {
+      "title": "Streamline Your Team\u2019s Project Work",
+      "route": "onboarding",
+      "layout": "wireframeOnboarding",
+      "topNav": false,
+      "bottomNav": true,
+      "entry": "auth"
+    },
+    "login": {
+      "title": "Login",
+      "route": "login",
+      "layout": "wireframeLogin",
+      "topNav": false,
+      "bottomNav": true,
+      "entry": "auth"
+    },
+    "signup": {
+      "title": "Sign Up",
+      "route": "signup",
+      "layout": "wireframeSignup",
+      "topNav": false,
+      "bottomNav": true,
+      "entry": "auth"
+    },
+    "home": {
+      "title": "Home Dashboard",
+      "route": "home",
+      "layout": "dashboard",
+      "topNav": true,
+      "bottomNav": true,
+      "search": true,
+      "filters": true
+    },
+    "projects": {
+      "title": "Projects Feed",
+      "route": "projects",
+      "layout": "projectList",
+      "topNav": true,
+      "bottomNav": true,
+      "search": true,
+      "filters": true
+    },
+    "board": {
+      "title": "Task Board / Kanban",
+      "route": "board",
+      "layout": "kanbanBoard",
+      "topNav": true,
+      "bottomNav": true,
+      "filters": true
+    },
+    "taskMap": {
+      "title": "Task Map / Site View",
+      "route": "taskMap",
+      "layout": "taskMap",
+      "topNav": true,
+      "bottomNav": true,
+      "nested": true
+    },
+    "timeline": {
+      "title": "Timeline & Milestones",
+      "route": "timeline",
+      "layout": "timeline",
+      "topNav": true,
+      "bottomNav": true,
+      "nested": true
+    },
+    "tasks": {
+      "title": "Tasks",
+      "route": "tasks",
+      "layout": "taskList",
+      "topNav": true,
+      "bottomNav": true,
+      "search": true,
+      "filters": true
+    },
+    "taskDetail": {
+      "title": "Task Details",
+      "route": "taskDetail",
+      "layout": "taskDetail",
+      "topNav": true,
+      "bottomNav": true,
+      "nested": true
+    },
+    "teamMembers": {
+      "title": "Team / Project Members",
+      "route": "teamMembers",
+      "layout": "teamMembers",
+      "topNav": true,
+      "bottomNav": true,
+      "nested": true
+    },
+    "notifications": {
+      "title": "Notifications",
+      "route": "notifications",
+      "layout": "notificationList",
+      "topNav": true,
+      "bottomNav": true
+    },
+    "profile": {
+      "title": "Profile",
+      "route": "profile",
+      "layout": "profile",
+      "topNav": true,
+      "bottomNav": true
+    }
+  },
+  "dataBindings": {
+    "company": "companies/{companyId}",
+    "profile": "companies/{companyId}/users/{uid}",
+    "presence": "presence/{uid}",
+    "projects": "companies/{companyId}/projects",
+    "tasks": "companies/{companyId}/tasks",
+    "teams": "companies/{companyId}/teams",
+    "members": "companies/{companyId}/members",
+    "notifications": "companies/{companyId}/notifications",
+    "userNotifications": "companies/{companyId}/users/{uid}/notifications",
+    "fcmTokens": "companies/{companyId}/users/{uid}/fcmTokens"
+  },
+  "supportedWidgets": [
+    "wireframeAuthScreen",
+    "authLogo",
+    "title",
+    "subtitle",
+    "textField",
+    "passwordField",
+    "button",
+    "divider",
+    "row",
+    "socialAuthButton",
+    "authSwitch",
+    "topNav",
+    "bottomNav",
+    "floatingTopNav",
+    "floatingBottomNav"
+  ],
+  "designSystem": {
+    "id": "wireframeRenderExamples2026",
+    "name": "SDUI Wireframe Render Examples",
+    "mode": "blackWhiteGreenWireframe",
+    "templateName": "sduiWireframeRenderExamplesNavAuthOnly",
+    "statusBarPolicy": "nativeOnly",
+    "shellPolicy": "preserveNativeShell",
+    "surface": "#F7F8F4",
+    "card": "#FFFFFF",
+    "cardAlt": "#F2F4EF",
+    "textPrimary": "#111611",
+    "textSecondary": "#5F675E",
+    "textMuted": "#8B9288",
+    "border": "#D7DDD4",
+    "accent": "#2E6B3C",
+    "accentDark": "#214D2C",
+    "success": "#2E6B3C",
+    "warning": "#8F9168",
+    "danger": "#C85F55",
+    "radiusLarge": 26,
+    "radiusMedium": 18,
+    "radiusSmall": 12,
+    "shadowStyle": "lightWireframeCard",
+    "projectManagementContentOnly": true,
+    "jsonOnlyFutureUiChanges": true
+  },
+  "layoutConfig": {
+    "screenBodyOnly": true,
+    "nativeStatusBar": true,
+    "safeAreaTop": true,
+    "safeAreaBottom": true,
+    "contentPaddingTop": 76,
+    "contentPaddingBottom": 88,
+    "horizontalPadding": 16,
+    "maxContentWidth": 560,
+    "responsiveMode": "phoneFirstWireframe",
+    "background": "#F7F8F4",
+    "avoidKeyboard": true,
+    "responsiveNav": true,
+    "contentPassUnderBottomNav": false
+  },
+  "navigationConfig": {
+    "mode": "nativeFloatingShell",
+    "statusBarPolicy": "nativeOnly",
+    "shellPolicy": "preserveNativeShell",
+    "contentRenderMode": "screenBodyOnly",
+    "safeArea": true,
+    "autoContentPadding": true,
+    "routeSync": true,
+    "tabStatePersistence": "perTabScrollAndFilter",
+    "tapDebounceMs": 220,
+    "haptics": "selectionClick",
+    "keyboardBehavior": "hideBottomBarWhenKeyboardVisible",
+    "activeTabRetapBehavior": "scrollToTopOrPopToRoot",
+    "centerActionRoute": "createTask",
+    "responsiveNav": true,
+    "contentTabs": [
+      "home",
+      "projects",
+      "tasks",
+      "board",
+      "notifications",
+      "profile"
+    ],
+    "authRoutes": [
+      "onboarding",
+      "login",
+      "signup"
+    ]
+  },
+  "topNav": {
+    "enabled": true,
+    "style": "nativeMinimalFloating",
+    "mode": "wireframeCompactTopBar",
+    "floating": true,
+    "position": "top",
+    "safeArea": true,
+    "avoidStatusBar": true,
+    "height": 54,
+    "marginHorizontal": 14,
+    "marginTop": 8,
+    "cornerRadius": 22,
+    "elevation": 4,
+    "shadow": true,
+    "background": "#FFFFFF",
+    "border": "#D7DDD4",
+    "routeAwareTitle": true,
+    "titleSource": "currentScreenTitle",
+    "actions": [
+      "backWhenNested",
+      "smartSearch",
+      "inbox"
+    ],
+    "primaryAction": "inbox",
+    "openInboxOnTap": true,
+    "badgeSource": "notifications",
+    "searchEnabled": true,
+    "showInbox": true,
+    "inboxBadge": true,
+    "showAvatar": false,
+    "showCompanyName": false,
+    "showUserRole": false,
+    "showOnlineStatus": false,
+    "showLogout": false,
+    "behavior": {
+      "hideOnScrollDown": false,
+      "showOnScrollUp": true,
+      "snapAfterScroll": true,
+      "backButtonOnlyOnNestedRoutes": true
+    }
+  },
+  "bottomTabs": [
+    "home",
+    "projects",
+    "board",
+    "profile"
+  ],
+  "bottomNav": {
+    "enabled": true,
+    "mode": "floatingNative",
+    "variant": "wireframeReferenceFloatingDock",
+    "style": "projectFloatingDock",
+    "position": "bottom",
+    "safeArea": true,
+    "overlayContent": false,
+    "contentInset": "auto",
+    "height": 58,
+    "marginHorizontal": 34,
+    "marginBottom": 12,
+    "cornerRadius": 28,
+    "background": "#FFFFFF",
+    "border": "#D7DDD4",
+    "shadow": true,
+    "elevation": 10,
+    "activeIndicator": false,
+    "selectedTabSource": "currentRoute",
+    "syncWithBottomTabs": true,
+    "labelMode": "hidden",
+    "centerAction": true,
+    "centerActionIcon": "plus",
+    "centerActionRoute": "createTask",
+    "responsive": true,
+    "maxWidth": 310,
+    "activeColor": "#FFFFFF",
+    "inactiveColor": "#111611",
+    "indicatorColor": "#2E6B3C",
+    "centerActionColor": "#2E6B3C",
+    "centerActionIconColor": "#FFFFFF",
+    "activeStyle": "floatingCircle",
+    "activeItemBackground": "#2E6B3C",
+    "iconMap": {
+      "home": "home",
+      "projects": "search",
+      "board": "dashboard",
+      "tasks": "task_alt",
+      "profile": "person",
+      "notifications": "notifications"
+    },
+    "tabs": [
+      "home",
+      "projects",
+      "board",
+      "profile"
+    ]
+  },
+  "floatingTopNav": {
+    "enabled": true,
+    "style": "nativeMinimalFloating",
+    "height": 54,
+    "contentInsetTop": 76,
+    "showBackOnNested": true,
+    "showSearchOnListPages": true,
+    "showInbox": true,
+    "showAvatar": false,
+    "routeTitleMap": {
+      "home": "Home Dashboard",
+      "projects": "Projects Feed",
+      "board": "Task Board",
+      "tasks": "Tasks",
+      "notifications": "Notifications",
+      "profile": "Profile",
+      "login": "Login",
+      "signup": "Sign Up",
+      "onboarding": "Onboarding"
+    }
+  },
+  "floatingBottomNav": {
+    "enabled": true,
+    "style": "projectFloatingDock",
+    "contentInsetBottom": 88,
+    "hideWhenKeyboard": true,
+    "showOnScrollUp": true,
+    "hideOnScrollDown": false,
+    "preserveTabState": true,
+    "contentPassUnder": false
+  },
+  "authConfig": {
+    "enabled": true,
+    "initialRoute": "login",
+    "showBottomNavOnAuth": true,
+    "loginRoute": "login",
+    "signupRoute": "signup",
+    "onboardingRoute": "onboarding",
+    "fields": [
+      "email",
+      "password",
+      "name",
+      "companyName"
+    ],
+    "socialProviders": [
+      "google",
+      "apple",
+      "email"
+    ]
+  },
+  "screenOverrides": {
+    "onboarding": {
+      "screen": "onboarding",
+      "type": "wireframeAuthScreen",
+      "title": "Streamline Your Team\u2019s Project Work",
+      "theme": {
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111611",
+        "textSecondary": "#5F675E",
+        "border": "#D7DDD4",
+        "accent": "#2E6B3C",
+        "cardRadius": 18,
+        "cardPadding": 14
+      },
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "sections": [
+        {
+          "type": "spacer",
+          "height": 10
+        },
+        {
+          "type": "authLogo",
+          "label": "PM",
+          "caption": "Project Management Dashboard"
+        },
+        {
+          "type": "title",
+          "text": "Streamline your team\u2019s project work",
+          "size": 22
+        },
+        {
+          "type": "subtitle",
+          "text": "Plan, collaborate, and deliver projects successfully."
+        },
+        {
+          "type": "card",
+          "title": "Plan together",
+          "subtitle": "Projects, tasks, files, timelines, and members stay connected."
+        },
+        {
+          "type": "button",
+          "label": "Login",
+          "action": "openLogin"
+        },
+        {
+          "type": "button",
+          "label": "Sign Up",
+          "action": "openSignup"
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "socialAuthButton",
+              "label": "Google",
+              "icon": "g"
+            },
+            {
+              "type": "socialAuthButton",
+              "label": "Apple",
+              "icon": "apple"
+            },
+            {
+              "type": "socialAuthButton",
+              "label": "Email",
+              "icon": "mail"
+            }
+          ]
+        }
+      ]
+    },
+    "login": {
+      "screen": "login",
+      "type": "wireframeAuthScreen",
+      "title": "Login",
+      "theme": {
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111611",
+        "textSecondary": "#5F675E",
+        "border": "#D7DDD4",
+        "accent": "#2E6B3C",
+        "cardRadius": 18,
+        "cardPadding": 14
+      },
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "sections": [
+        {
+          "type": "authLogo",
+          "label": "PM",
+          "caption": "Project Management Dashboard"
+        },
+        {
+          "type": "title",
+          "text": "Welcome back",
+          "size": 24
+        },
+        {
+          "type": "subtitle",
+          "text": "Login to continue managing your projects."
+        },
+        {
+          "type": "textField",
+          "label": "Email",
+          "placeholder": "name@company.com",
+          "icon": "mail"
+        },
+        {
+          "type": "passwordField",
+          "label": "Password",
+          "placeholder": "Enter password",
+          "icon": "lock"
+        },
+        {
+          "type": "button",
+          "label": "Login",
+          "action": "login"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "socialAuthButton",
+              "label": "Google",
+              "icon": "g"
+            },
+            {
+              "type": "socialAuthButton",
+              "label": "Apple",
+              "icon": "apple"
+            }
+          ]
+        },
+        {
+          "type": "authSwitch",
+          "text": "New here?",
+          "actionLabel": "Sign up",
+          "action": "openSignup"
+        }
+      ]
+    },
+    "signup": {
+      "screen": "signup",
+      "type": "wireframeAuthScreen",
+      "title": "Sign Up",
+      "theme": {
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "textPrimary": "#111611",
+        "textSecondary": "#5F675E",
+        "border": "#D7DDD4",
+        "accent": "#2E6B3C",
+        "cardRadius": 18,
+        "cardPadding": 14
+      },
+      "padding": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "sections": [
+        {
+          "type": "authLogo",
+          "label": "PM",
+          "caption": "Create workspace"
+        },
+        {
+          "type": "title",
+          "text": "Create your account",
+          "size": 24
+        },
+        {
+          "type": "subtitle",
+          "text": "Start with company, team, and project setup."
+        },
+        {
+          "type": "textField",
+          "label": "Full name",
+          "placeholder": "Alex Morgan",
+          "icon": "person"
+        },
+        {
+          "type": "textField",
+          "label": "Email",
+          "placeholder": "name@company.com",
+          "icon": "mail"
+        },
+        {
+          "type": "textField",
+          "label": "Company name",
+          "placeholder": "Company Pvt Ltd",
+          "icon": "business"
+        },
+        {
+          "type": "passwordField",
+          "label": "Password",
+          "placeholder": "Create password",
+          "icon": "lock"
+        },
+        {
+          "type": "button",
+          "label": "Sign Up",
+          "action": "signup"
+        },
+        {
+          "type": "authSwitch",
+          "text": "Already have an account?",
+          "actionLabel": "Login",
+          "action": "openLogin"
+        }
+      ]
+    }
+  },
+  "navigationGraph": {
+    "initialRoute": "home",
+    "authInitialRoute": "login",
+    "bottomNav": [
+      "home",
+      "projects",
+      "board",
+      "profile"
+    ],
+    "floatingCenterAction": "createTask",
+    "routes": {
+      "onboarding": {
+        "opens": [
+          "login",
+          "signup"
+        ]
+      },
+      "login": {
+        "opens": [
+          "signup",
+          "home"
+        ]
+      },
+      "signup": {
+        "opens": [
+          "login",
+          "home"
+        ]
+      },
+      "home": {
+        "opens": [
+          "projects",
+          "tasks",
+          "projectDetail",
+          "notifications"
+        ]
+      },
+      "projects": {
+        "opens": [
+          "projectDetail",
+          "teamMembers",
+          "timeline",
+          "taskMap",
+          "files"
+        ]
+      },
+      "board": {
+        "opens": [
+          "taskDetail",
+          "tasks",
+          "timeline"
+        ]
+      },
+      "profile": {
+        "opens": [
+          "notificationPreferences",
+          "logout"
+        ]
+      }
+    }
+  },
+  "note": "Fallback only: paste this directly into mobileEmployeeNext if preview merge mobileEmployeeNext + mobileEmployeeNextDesign is not active.",
+  "apkSplitDocMergeEnabled": true,
+  "apkSplitDocMergeOrder": [
+    "core",
+    "design",
+    "screens"
+  ],
+  "v99Note": "APK structure now reads and merges core + design + screens, same as admin preview."
+}

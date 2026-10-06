@@ -1,0 +1,17 @@
+{
+  "mobileUiPreview": {
+    "activeVersion": 90,
+    "previewConfigFile": "companies_uiConfigs_mobileEmployee_v90_clean_wireframe.json",
+    "devicePresets": [
+      "Pixel 7",
+      "Pixel 8 Pro",
+      "Compact Android",
+      "Tablet"
+    ],
+    "previewParityMode": "sharedSduiJson",
+    "showFloatingNavOverlay": true,
+    "contentPassUnderNav": true
+  },
+  "updatedAt": "2026-06-23T00:00:00.000Z",
+  "updatedBy": "chatgpt_clean_sdui_from_scratch_v90"
+}

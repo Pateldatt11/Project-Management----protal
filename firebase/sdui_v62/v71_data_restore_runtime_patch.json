@@ -1,0 +1,17 @@
+{
+  "version": 71,
+  "rendererCompatibility": {
+    "dataRecoveryMode": "companyIdResolvedAndLegacyRootFallback",
+    "preserveExistingFirestoreData": true,
+    "hardcodedBodyRenderer": false,
+    "apkPreviewParityMode": "sharedSduiJson"
+  },
+  "dataBindings": {
+    "companyResolver": "users/{uid}.defaultCompanyId -> users/{uid}/memberships -> fallbackCompanyId",
+    "projects": "companies/{companyId}/projects + legacy projects where companyId == {companyId}",
+    "tasks": "companies/{companyId}/tasks + legacy tasks where companyId == {companyId}",
+    "members": "companies/{companyId}/members + legacy members where companyId == {companyId}",
+    "teams": "companies/{companyId}/teams + legacy teams where companyId == {companyId}",
+    "notifications": "companies/{companyId}/notifications + members/{uid}/notifications + admin group notifications"
+  }
+}

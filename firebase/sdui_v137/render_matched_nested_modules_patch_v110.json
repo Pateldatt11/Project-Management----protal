@@ -1,0 +1,47 @@
+{
+  "version": 110,
+  "configId": "mobileEmployee_cleanWireframe_v110_render_matched_nested_modules",
+  "rendererVersion": "employee_sdui_v137_render_matched_nested_modules",
+  "rendererCompatibility": {
+    "minRendererVersion": "employee_sdui_v137_render_matched_nested_modules",
+    "requiresRenderMatchedNestedModules": true
+  },
+  "screenOverrides": {
+    "meetings": {
+      "renderStyle": "referenceFilledDataRender",
+      "variant": "wireframeFilledDataCardList"
+    },
+    "timeline": {
+      "renderStyle": "referenceFilledDataRender",
+      "variant": "wireframeFilledDataCardList"
+    },
+    "calendar": {
+      "renderStyle": "referenceFilledDataRender",
+      "variant": "wireframeFilledDataCardList"
+    },
+    "taskMap": {
+      "renderStyle": "referenceFilledDataRender",
+      "variant": "wireframeFilledDataCardList"
+    },
+    "teamMembers": {
+      "renderStyle": "referenceFilledDataRender",
+      "variant": "wireframeFilledDataCardList"
+    },
+    "files": {
+      "renderStyle": "referenceFilledDataRender",
+      "variant": "wireframeFilledDataCardList"
+    },
+    "meetingDetail": {
+      "renderStyle": "referenceFilledDataRender",
+      "variant": "wireframeFilledDataCardList"
+    }
+  },
+  "supportedWidgets": [
+    "renderMatchedMeetings",
+    "renderMatchedTimeline",
+    "renderMatchedCalendar",
+    "renderMatchedTaskMap",
+    "renderMatchedTeamMembers",
+    "renderMatchedFiles"
+  ]
+}

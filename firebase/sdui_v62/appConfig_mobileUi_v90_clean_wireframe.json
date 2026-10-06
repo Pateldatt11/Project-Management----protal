@@ -1,0 +1,14 @@
+{
+  "mobileUi": {
+    "activeVersion": 90,
+    "activeTemplate": "projectManagementCleanWireframeUi",
+    "configPath": "companies/{companyId}/uiConfigs/mobileEmployee",
+    "cachePolicy": "versionedFirestoreThenSQLite",
+    "requiresRendererVersion": 4,
+    "jsonOnlyFutureUiChanges": true,
+    "screenBodyOnly": true,
+    "contentPassUnderFloatingNav": true
+  },
+  "updatedAt": "2026-06-23T00:00:00.000Z",
+  "updatedBy": "chatgpt_clean_sdui_from_scratch_v90"
+}

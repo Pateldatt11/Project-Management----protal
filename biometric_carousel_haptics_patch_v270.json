@@ -1,0 +1,54 @@
+{
+  "version": 270,
+  "configId": "mobileEmployee_v270_biometric_haptics_patch",
+  "biometricAuthConfig": {
+    "enabled": true,
+    "type": "fingerprintBiometricAppLock",
+    "settingsPlacement": "profileSettingsAccordion",
+    "showInProfileSettings": true,
+    "defaultEnabled": false,
+    "requiresFirebaseLoginFirst": true,
+    "doesNotReplaceFirebaseAuth": true,
+    "storeBiometricData": false,
+    "localOnlyPreference": true,
+    "lockAfterSeconds": 15,
+    "unlockTitle": "Unlock workspace",
+    "unlockSubtitle": "Use fingerprint to continue to your project dashboard.",
+    "settingsTitle": "Fingerprint app lock",
+    "settingsSubtitle": "Require fingerprint when opening the app or returning after a short break.",
+    "supportedPlatforms": [
+      "android",
+      "ios"
+    ],
+    "webPreviewFallback": "disabledTile"
+  },
+  "hapticsConfig": {
+    "enabled": true,
+    "mode": "minimal",
+    "taskBoardCarouselHapticsEnabled": true,
+    "minimalCarouselHaptics": true,
+    "carouselHapticMode": "selectionClickOnPageSnap",
+    "tapHaptics": "selectionClick",
+    "dragHaptics": "none",
+    "avoidContinuousVibration": true
+  },
+  "screenOverrides": {
+    "board": {
+      "taskBoardCarouselHapticsEnabled": true,
+      "minimalCarouselHaptics": true,
+      "carouselHapticMode": "selectionClickOnPageSnap",
+      "carouselDragHaptics": "none",
+      "carouselSnapHaptics": "selectionClick"
+    },
+    "profile": {
+      "settingsAccordionAdds": [
+        "biometricAppLock"
+      ],
+      "biometricSettingsPlacement": "insideSettingsAccordion"
+    }
+  },
+  "featureFlags": {
+    "biometricAppLock": true,
+    "minimalCarouselHaptics": true
+  }
+}

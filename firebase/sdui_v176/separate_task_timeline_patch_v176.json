@@ -1,0 +1,314 @@
+{
+  "version": 176,
+  "configId": "mobileEmployee_cleanWireframe_v176_separate_task_timeline",
+  "rendererVersion": "employee_sdui_v176_separate_task_timeline",
+  "screenConfigs": {
+    "timeline": {
+      "index": 6,
+      "title": "Milestones",
+      "layout": "timelineMilestones",
+      "route": "timeline",
+      "topNav": true,
+      "bottomNav": true,
+      "nested": true,
+      "icon": "schedule",
+      "dataRender": "liveWorkspaceState"
+    },
+    "taskTimeline": {
+      "index": 15,
+      "title": "Task Timeline",
+      "layout": "taskProgressTimeline",
+      "route": "taskTimeline",
+      "topNav": true,
+      "bottomNav": true,
+      "nested": true,
+      "icon": "timeline",
+      "dataRender": "liveWorkspaceState"
+    }
+  },
+  "screenOverrides": {
+    "timeline": {
+      "type": "sectionList",
+      "title": "Milestones",
+      "subtitle": "Project-level milestones. Open task timeline for task progress and due-date bars.",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EEF2EA",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "textMuted": "#8B9288",
+        "border": "#D8DED4",
+        "accent": "#5F7F55",
+        "accentDark": "#405446",
+        "success": "#5F7F55",
+        "warning": "#8F9168",
+        "danger": "#C85F55",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "padding": {
+        "left": 16,
+        "top": 8,
+        "right": 16,
+        "bottom": 16
+      },
+      "contentBehavior": "pureFloatingOverlay",
+      "variant": "projectMilestonesOnly",
+      "layout": "timelineMilestones",
+      "timelineVisualConfig": {
+        "enabled": true,
+        "variant": "projectMilestonesOnly",
+        "milestonePageMode": "projectMilestonesOnly",
+        "separateTaskTimeline": true,
+        "showTaskProgressInsideMilestones": false,
+        "showTaskTimelineInsideMilestones": false,
+        "showTaskProgressCard": false,
+        "showTaskTimelineBars": false,
+        "showMilestones": true,
+        "showTaskTimelineButton": true,
+        "taskTimelineRoute": "taskTimeline",
+        "taskTimelineAction": "openTaskTimeline",
+        "taskTimelineButtonLabel": "View Task Timeline",
+        "taskTimelineButtonSubtitle": "Open task progress chart and task due-date bars.",
+        "jsonControlled": true
+      },
+      "sections": [
+        {
+          "id": "taskTimelineRedirect",
+          "type": "button",
+          "label": "View Task Timeline",
+          "subtitle": "Open task progress chart and due-date bars.",
+          "icon": "timeline",
+          "style": "primaryListTile",
+          "action": "openTaskTimeline",
+          "route": "taskTimeline",
+          "jsonControlled": true,
+          "tile": true
+        },
+        {
+          "id": "milestones",
+          "type": "progressTimeline",
+          "title": "Project milestones",
+          "subtitle": "Expandable project-level milestones only",
+          "dataSource": "visibleProjects.visibleTasks",
+          "variant": "legacyExpandableMilestones",
+          "milestonePageMode": "projectMilestonesOnly",
+          "separateTaskTimeline": true,
+          "showTaskProgressInsideMilestones": false,
+          "showTaskTimelineInsideMilestones": false,
+          "showTaskProgressCard": false,
+          "showTaskTimelineBars": false,
+          "showMilestones": true,
+          "showTaskTimelineButton": false
+        }
+      ],
+      "nested": true,
+      "edgeToEdgeBehavior": "androidFigureOneRight",
+      "contentDrawsBehindSystemBars": true,
+      "topProtectionMode": "scrollAwareInitialOnly",
+      "bottomProtectionMode": "gestureAwareOverlay",
+      "renderStyle": "projectMilestonesOnly",
+      "screen": "timeline",
+      "screenKey": "timeline"
+    },
+    "taskTimeline": {
+      "type": "sectionList",
+      "title": "Task Timeline",
+      "subtitle": "Task progress and due-date bars",
+      "theme": {
+        "mode": "light",
+        "background": "#F7F8F4",
+        "surface": "#FFFFFF",
+        "surfaceAlt": "#EEF2EA",
+        "textPrimary": "#0F140F",
+        "textSecondary": "#5F675E",
+        "textMuted": "#8B9288",
+        "border": "#D8DED4",
+        "accent": "#5F7F55",
+        "accentDark": "#405446",
+        "success": "#5F7F55",
+        "warning": "#8F9168",
+        "danger": "#C85F55",
+        "cardRadius": 24,
+        "cardPadding": 16,
+        "density": "comfortable"
+      },
+      "padding": {
+        "left": 16,
+        "top": 8,
+        "right": 16,
+        "bottom": 16
+      },
+      "contentBehavior": "pureFloatingOverlay",
+      "variant": "productiveTaskTimeline",
+      "layout": "taskProgressTimeline",
+      "timelineVisualConfig": {
+        "enabled": true,
+        "variant": "productiveTaskTimeline",
+        "showTaskProgressCard": true,
+        "showTaskTimelineBars": true,
+        "showMilestones": false,
+        "progressTitle": "Task Progress",
+        "progressNote": "You have a good progress",
+        "timelineBarsTitle": "Task Timeline",
+        "timelineBarsSubtitle": "Due dates and status progress",
+        "timelineTaskLimit": 6,
+        "jsonControlled": true
+      },
+      "sections": [
+        {
+          "id": "taskProgress",
+          "type": "taskProgressPanel",
+          "progressTitle": "Task Progress",
+          "progressNote": "You have a good progress",
+          "dataSource": "visibleTasks.statusAndDueDate",
+          "variant": "productiveTimelineCard",
+          "jsonControlled": true
+        },
+        {
+          "id": "taskTimelineBars",
+          "type": "taskTimelineBars",
+          "timelineBarsTitle": "Task Timeline",
+          "timelineBarsSubtitle": "Due dates and status progress",
+          "timelineTaskLimit": 6,
+          "dataSource": "visibleTasks.dueDateStatus",
+          "variant": "timelineBarsCard",
+          "jsonControlled": true
+        }
+      ],
+      "nested": true,
+      "edgeToEdgeBehavior": "androidFigureOneRight",
+      "contentDrawsBehindSystemBars": true,
+      "topProtectionMode": "scrollAwareInitialOnly",
+      "bottomProtectionMode": "gestureAwareOverlay",
+      "renderStyle": "productiveTaskTimeline",
+      "screen": "taskTimeline",
+      "screenKey": "taskTimeline"
+    }
+  },
+  "screenRegistry": {
+    "activeTabs": [
+      "home",
+      "projects",
+      "tasks",
+      "board",
+      "meetings",
+      "notifications",
+      "profile",
+      "taskMap",
+      "timeline",
+      "taskTimeline",
+      "files",
+      "calendar",
+      "teamMembers"
+    ],
+    "nestedScreens": [
+      "onboarding",
+      "taskMap",
+      "timeline",
+      "taskTimeline",
+      "taskDetail",
+      "teamMembers",
+      "files",
+      "calendar",
+      "meetingDetail",
+      "projectDetail"
+    ],
+    "screenOrder": [
+      "onboarding",
+      "home",
+      "projects",
+      "tasks",
+      "board",
+      "taskMap",
+      "timeline",
+      "taskTimeline",
+      "taskDetail",
+      "teamMembers",
+      "notifications",
+      "profile",
+      "files",
+      "calendar",
+      "meetings"
+    ]
+  },
+  "navigationGraph": {
+    "routes": {
+      "timeline": {
+        "opens": [
+          "taskTimeline",
+          "projectDetail",
+          "tasks"
+        ]
+      },
+      "taskTimeline": {
+        "opens": [
+          "tasks",
+          "taskDetail",
+          "files",
+          "calendar"
+        ]
+      }
+    }
+  },
+  "sideMenuConfig": {
+    "moreScreens": [
+      "board",
+      "meetings",
+      "notifications",
+      "taskMap",
+      "timeline",
+      "taskTimeline",
+      "files",
+      "calendar",
+      "teamMembers"
+    ],
+    "nestedScreens": [
+      "taskMap",
+      "timeline",
+      "taskTimeline",
+      "files",
+      "calendar",
+      "teamMembers",
+      "taskDetail",
+      "projectDetail",
+      "meetingDetail"
+    ],
+    "iconMap": {
+      "taskTimeline": "timeline"
+    }
+  },
+  "timelineVisualConfig": {
+    "enabled": true,
+    "variant": "separateTaskTimeline",
+    "theme": "projectManagementCleanWireframe",
+    "showTaskProgressCard": true,
+    "showTaskTimelineBars": true,
+    "showMilestones": true,
+    "progressTitle": "Task Progress",
+    "progressNote": "You have a good progress",
+    "timelineBarsTitle": "Task Timeline",
+    "timelineBarsSubtitle": "Due dates and status progress",
+    "timelineTaskLimit": 4,
+    "style": "referenceProductiveSoftCard",
+    "jsonControlled": true,
+    "milestonePageMode": "projectMilestonesOnly",
+    "separateTaskTimeline": true,
+    "showTaskProgressInsideMilestones": false,
+    "showTaskTimelineInsideMilestones": false,
+    "showTaskTimelineButton": true,
+    "taskTimelineRoute": "taskTimeline",
+    "taskTimelineAction": "openTaskTimeline",
+    "taskTimelineButtonLabel": "View Task Timeline",
+    "taskTimelineButtonSubtitle": "Open task progress chart and due-date bars."
+  },
+  "featureFlags": {
+    "separateTaskTimelineScreen": true,
+    "milestoneTaskTimelineRedirect": true,
+    "projectMilestonesOnlyMode": true,
+    "taskProgressTimelineSeparate": true
+  }
+}

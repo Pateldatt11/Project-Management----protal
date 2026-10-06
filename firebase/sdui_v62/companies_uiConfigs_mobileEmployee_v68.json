@@ -1,0 +1,740 @@
+{
+  "bottomTabs": [
+    "home",
+    "tasks",
+    "projects",
+    "notifications",
+    "profile"
+  ],
+  "compactMode": false,
+  "enabled": true,
+  "homeCards": [
+    "deadlineTimer",
+    "todayTasks",
+    "myOpenTasks",
+    "projectProgress"
+  ],
+  "inboxConfig": {
+    "allowMarkAllRead": true,
+    "allowMarkRead": true,
+    "enabled": true,
+    "openFromTopNav": true,
+    "showUnreadCount": true,
+    "source": "notifications",
+    "presentation": "nativeSheet",
+    "animation": "slideUpFade"
+  },
+  "notificationAlertConfig": {
+    "acceptButtonEnabled": true,
+    "allowUserSelection": true,
+    "assistantText": "You are assigned a new task. Please accept the notification.",
+    "assistantVoice": true,
+    "defaultSoundName": "emergency_alarm",
+    "enabled": true,
+    "lockScreenEnabled": true,
+    "loopUntilAccept": true,
+    "notificationCenterEnabled": true,
+    "showInProfile": true,
+    "showTestButton": true,
+    "style": "minimalAlertCard",
+    "placement": "topFloatingUnderNav",
+    "acceptBehavior": "updateTaskStatusAndStopLoop",
+    "dismissBehavior": "blockedUntilAcceptWhenCritical",
+    "meetingActionsEnabled": true,
+    "meetingLinkSupport": true,
+    "googleMeetEnabled": true,
+    "whatsappMeetingEnabled": true,
+    "acceptJoinLabel": "Accept & Join",
+    "rejectLabel": "Reject",
+    "joinBehavior": "openExternalMeetingAppAfterAccept",
+    "supportedMeetingUrlFields": [
+      "actionUrl",
+      "meetingUrl",
+      "meetingLink",
+      "meetLink",
+      "googleMeetUrl",
+      "whatsappUrl",
+      "whatsappMeetingUrl",
+      "joinUrl",
+      "conferenceUrl",
+      "url"
+    ],
+    "assistantTextMeeting": "You have a meeting invite. Please accept and join, or reject the notification.",
+    "adminMeetingAccess": true,
+    "includeAdminsOnMeetingInvite": true,
+    "adminRoles": [
+      "superAdmin",
+      "admin",
+      "itAdmin"
+    ],
+    "managerCanCreateMeetingLinks": true,
+    "teamLeadCanCreateMeetingLinks": true
+  },
+  "notificationSoundOptions": {
+    "emergency_alarm": "Emergency alarm",
+    "old_phone_ringtone": "Old phone ringtone",
+    "old_ring_tone": "Old ring tone",
+    "ringing_old_phone": "Ringing old phone",
+    "task_alert_airport_ding": "Airport ding",
+    "task_alert_church_bell": "Church bell"
+  },
+  "profileActions": {
+    "logoutPosition": "bottom",
+    "logoutStyle": "filledIcon",
+    "setOfflineBeforeLogout": true,
+    "showLogout": true,
+    "style": "editorialFooterAction"
+  },
+  "profileFields": [
+    "name",
+    "email",
+    "phone",
+    "companyName",
+    "role",
+    "department",
+    "onlineStatus",
+    "joinedAt"
+  ],
+  "projectCard": {
+    "actions": [
+      "openDetails"
+    ],
+    "showFields": [
+      "projectName",
+      "description",
+      "statusTag",
+      "priority",
+      "progress",
+      "teamCount",
+      "deadline",
+      "taskCount",
+      "completedTaskCount"
+    ],
+    "variant": "editorialProgressCard",
+    "surface": "paper",
+    "interaction": "openProjectDetail",
+    "progressPresentation": "thinTrackPlusCount",
+    "metadataDensity": "compact"
+  },
+  "projectCardFields": [
+    "projectName",
+    "description",
+    "statusTag",
+    "priority",
+    "progress",
+    "teamCount",
+    "deadline",
+    "taskCount",
+    "completedTaskCount"
+  ],
+  "projectCardVariant": "editorialProgressCard",
+  "supportedWidgets": [
+    "topNav",
+    "homeCards",
+    "deadlineHero",
+    "metricTile",
+    "activeProjectsGrid",
+    "taskCard",
+    "projectCard",
+    "taskPage",
+    "taskList",
+    "projectPage",
+    "projectList",
+    "profileCard",
+    "inbox",
+    "notificationAlert",
+    "notificationSoundSelector",
+    "floatingBottomNav",
+    "floatingTopNav",
+    "quickActionDock",
+    "filterChips",
+    "searchHeader",
+    "progressTimeline",
+    "statusPill",
+    "emptyState",
+    "skeletonLoader",
+    "nativeSheet",
+    "meetingNotificationActions",
+    "notificationList",
+    "meetingLinkAction",
+    "sduiTemplate",
+    "templateScreen",
+    "templateSection",
+    "meetingInviteCard",
+    "adminMeetingAccess",
+    "meetingLinkInput",
+    "meetingActionButtons",
+    "meetingPage",
+    "meetingCreateForm",
+    "superAdminMeetingCreator",
+    "meetingList"
+  ],
+  "taskCard": {
+    "actions": [
+      "openDetails",
+      "comment",
+      "uploadFile"
+    ],
+    "showFields": [
+      "taskTitle",
+      "projectName",
+      "priority",
+      "status",
+      "deadlineTimer",
+      "progress"
+    ],
+    "variant": "nativeListRow",
+    "statusColorMode": "softTint",
+    "interaction": "openTaskDetail",
+    "swipeActions": [
+      "comment",
+      "uploadFile"
+    ],
+    "metadataDensity": "compact"
+  },
+  "taskCardFields": [
+    "taskTitle",
+    "projectName",
+    "priority",
+    "status",
+    "deadlineTimer",
+    "progress"
+  ],
+  "taskCardVariant": "nativeListRow",
+  "taskListConfig": {
+    "completedSort": "completedAtDesc",
+    "defaultTab": "newArrival",
+    "newArrivalFirst": true,
+    "showCompletedTab": true,
+    "showFloatingTabs": true,
+    "tabStyle": "softPillSegmented",
+    "searchPlacement": "topInline",
+    "groupBy": "statusThenDeadline",
+    "stickyHeader": true
+  },
+  "topNav": {
+    "density": "comfortable",
+    "enabled": true,
+    "inboxBadge": true,
+    "showAvatar": true,
+    "showCompanyName": false,
+    "showInbox": true,
+    "showLogout": false,
+    "showOnlineStatus": true,
+    "showPresenceGlow": true,
+    "showUserRole": false,
+    "style": "nativeMinimalFloating",
+    "mode": "floatingCompactTopBar",
+    "floating": true,
+    "position": "top",
+    "safeArea": true,
+    "avoidStatusBar": true,
+    "contentInset": "auto",
+    "height": 58,
+    "marginHorizontal": 18,
+    "marginTop": 8,
+    "cornerRadius": 24,
+    "elevation": 8,
+    "shadow": true,
+    "blurBackground": false,
+    "background": "#FFFFFF",
+    "border": "#ECE7DA",
+    "routeAwareTitle": true,
+    "titleSource": "currentScreenTitle",
+    "subtitleSource": "none",
+    "actions": [
+      "backWhenNested",
+      "smartSearch",
+      "inbox",
+      "avatar"
+    ],
+    "primaryAction": "inbox",
+    "openInboxOnTap": true,
+    "badgeSource": "notifications",
+    "searchEnabled": true,
+    "presenceGlow": true,
+    "animation": "nativeSlideFade",
+    "behavior": {
+      "hideOnScrollDown": false,
+      "showOnScrollUp": true,
+      "snapAfterScroll": true,
+      "collapseTitleOnScroll": true,
+      "keepVisibleOnHome": true,
+      "keepVisibleOnForms": true,
+      "blockBehindClicks": false,
+      "backButtonOnlyOnNestedRoutes": true,
+      "tapTitleScrollToTop": true
+    },
+    "responsive": true,
+    "minHeight": 52,
+    "maxHeight": 60,
+    "maxWidth": 620
+  },
+  "updatedAt": "2026-06-22T05:55:00.000",
+  "updatedBy": "mmJxy8KvvvYtL3CexLGyh3rxkbq1",
+  "version": 68,
+  "navigationConfig": {
+    "mode": "nativeFloatingShell",
+    "statusBarPolicy": "nativeOnly",
+    "shellPolicy": "preserveNativeShell",
+    "contentRenderMode": "screenBodyOnly",
+    "safeArea": true,
+    "autoContentPadding": true,
+    "routeSync": true,
+    "tabStatePersistence": "perTabScrollAndFilter",
+    "tapDebounceMs": 220,
+    "haptics": "selectionClick",
+    "keyboardBehavior": "hideBottomBarWhenKeyboardVisible",
+    "activeTabRetapBehavior": "scrollToTopOrPopToRoot",
+    "centerActionRoute": "createTask",
+    "responsiveNav": true
+  },
+  "bottomNav": {
+    "enabled": true,
+    "mode": "floatingNative",
+    "variant": "minimalRaisedDock",
+    "position": "bottom",
+    "safeArea": true,
+    "overlayContent": true,
+    "contentInset": "auto",
+    "height": 70,
+    "marginHorizontal": 22,
+    "marginBottom": 12,
+    "cornerRadius": 26,
+    "background": "#FFFFFF",
+    "border": "#ECE7DA",
+    "shadow": true,
+    "elevation": 10,
+    "activeIndicator": true,
+    "activeIndicatorPosition": "bottom",
+    "selectedTabSource": "currentRoute",
+    "syncWithBottomTabs": true,
+    "labelMode": "selectedOnly",
+    "centerAction": true,
+    "centerActionIcon": "plus",
+    "centerActionRoute": "createTask",
+    "responsive": true,
+    "minHeight": 62,
+    "maxHeight": 72,
+    "maxWidth": 620,
+    "adaptiveCenterAction": true
+  },
+  "floatingTopNav": {
+    "enabled": true,
+    "style": "nativeMinimalFloating",
+    "height": 58,
+    "contentInsetTop": 78,
+    "routeTitleMap": {
+      "home": "Dash board",
+      "tasks": "Website Redesign",
+      "projects": "Projects & Tasks",
+      "profile": "Profile",
+      "meetings": "Meetings"
+    },
+    "showBackOnNested": true,
+    "showSearchOnListPages": true,
+    "showInbox": true,
+    "showAvatar": true
+  },
+  "floatingBottomNav": {
+    "enabled": true,
+    "style": "minimalRaisedDock",
+    "contentInsetBottom": 94,
+    "hideWhenKeyboard": true,
+    "showOnScrollUp": true,
+    "hideOnScrollDown": false,
+    "preserveTabState": true
+  },
+  "quickActionDock": {
+    "enabled": true,
+    "trigger": "bottomNavCenterAction",
+    "presentation": "nativeBottomSheet",
+    "sheetStyle": "editorialActionSheet",
+    "actions": [
+      "createTask",
+      "createProject",
+      "uploadFile",
+      "openInbox"
+    ]
+  },
+  "designSystem": {
+    "id": "managementEditorialNative2026",
+    "name": "Editorial Native Dashboard",
+    "mode": "minimalPaperNative",
+    "statusBarPolicy": "nativeOnly",
+    "shellPolicy": "preserveNativeShell",
+    "surface": "#F8F5EF",
+    "card": "#FFFFFF",
+    "textPrimary": "#151515",
+    "textSecondary": "#76736D",
+    "border": "#ECE7DA",
+    "accent": "#111111",
+    "success": "#6FAF8D",
+    "warning": "#E8B866",
+    "danger": "#D87465",
+    "radiusLarge": 24,
+    "radiusMedium": 18,
+    "shadowStyle": "softEditorial",
+    "templateName": "editorialNativeUi",
+    "rendererMode": "sduiJsonRenderer"
+  },
+  "animationConfig": {
+    "enabled": true,
+    "level": "nativeSubtle",
+    "respectReduceMotion": true,
+    "defaultCurve": "easeOutCubic",
+    "screenTransition": "slideFade",
+    "cardEntrance": "fadeUp",
+    "listItemStaggerMs": 45,
+    "tapScale": 0.97,
+    "floatingNavAnimation": "slideFade",
+    "progressAnimation": true,
+    "skeletonLoading": true
+  },
+  "layoutConfig": {
+    "screenBodyOnly": true,
+    "nativeStatusBar": true,
+    "safeAreaTop": true,
+    "safeAreaBottom": true,
+    "contentPaddingTop": 86,
+    "contentPaddingBottom": 106,
+    "horizontalPadding": 18,
+    "maxContentWidth": 720,
+    "responsiveMode": "phoneFirstAdaptive",
+    "background": "#F8F5EF",
+    "avoidKeyboard": true,
+    "responsiveNav": true
+  },
+  "homeLayout": {
+    "variant": "editorialDashboard",
+    "sections": [
+      "deadlineHero",
+      "activeProjectsGrid",
+      "todayTasks",
+      "myOpenTasks",
+      "projectProgress"
+    ],
+    "headerStyle": "minimal",
+    "showSectionTitles": true,
+    "cardSpacing": 14
+  },
+  "homeCardConfig": {
+    "deadlineTimer": {
+      "variant": "darkEditorialHero",
+      "showCountdown": true,
+      "showProjectName": true,
+      "showPriority": true
+    },
+    "todayTasks": {
+      "variant": "smallMetricTile",
+      "iconStyle": "line",
+      "showTrend": false
+    },
+    "myOpenTasks": {
+      "variant": "smallMetricTile",
+      "iconStyle": "line",
+      "showTrend": false
+    },
+    "projectProgress": {
+      "variant": "softProgressCard",
+      "showProgressBar": true,
+      "showCompletedCount": true
+    }
+  },
+  "projectListConfig": {
+    "layout": "searchableEditorialList",
+    "searchPlacement": "topInline",
+    "filterStyle": "softChips",
+    "showPopularFilters": true,
+    "defaultFilters": [
+      "All",
+      "In Progress",
+      "Completed"
+    ],
+    "sort": "deadlineAsc",
+    "cardVariant": "editorialProjectRow"
+  },
+  "screenConfigs": {
+    "home": {
+      "title": "Dash board",
+      "layout": "editorialDashboard",
+      "topNav": true,
+      "bottomNav": true
+    },
+    "tasks": {
+      "title": "Website Redesign",
+      "layout": "statusTimelineList",
+      "topNav": true,
+      "bottomNav": true,
+      "search": true,
+      "filters": true
+    },
+    "projects": {
+      "title": "Projects & Tasks",
+      "layout": "searchableProjectList",
+      "topNav": true,
+      "bottomNav": true,
+      "search": true,
+      "filters": true
+    },
+    "profile": {
+      "title": "Profile",
+      "layout": "editorialProfile",
+      "topNav": true,
+      "bottomNav": true
+    },
+    "notifications": {
+      "title": "Meetings & Alerts",
+      "layout": "meetingNotificationList",
+      "topNav": true,
+      "bottomNav": true,
+      "meetingActions": true,
+      "adminMeetingAccess": true
+    },
+    "meetings": {
+      "title": "Meetings",
+      "layout": "meetingInviteCenter",
+      "topNav": true,
+      "bottomNav": true,
+      "search": true,
+      "filters": true,
+      "widgets": [
+        "meetingCreateForm",
+        "adminMeetingAccess",
+        "meetingList"
+      ]
+    }
+  },
+  "profileCardConfig": {
+    "variant": "editorialProfileCard",
+    "showAvatar": true,
+    "showOnlineStatus": true,
+    "showCompanyName": true,
+    "showRole": true,
+    "showDepartment": true,
+    "fieldStyle": "cleanRows",
+    "logoutPlacement": "bottom",
+    "logoutStyle": "editorialFooterAction"
+  },
+  "dataBindings": {
+    "profile": "users/{uid}",
+    "tasks": "tasks",
+    "projects": "projects",
+    "notifications": "notifications",
+    "company": "companies/{companyId}",
+    "presence": "presence/{uid}",
+    "fcmTokens": "users/{uid}/fcmTokens",
+    "meetingNotifications": "notifications[type=meetingInvite]",
+    "meetings": "companies/{companyId}/notifications[type=meetingInvite]"
+  },
+  "rendererCompatibility": {
+    "minRendererVersion": 3,
+    "fallbackRendererVersion": 1,
+    "fallbackMode": "legacyConfigKeys",
+    "preserveOldKeys": true,
+    "requiresFloatingNavSupport": true,
+    "requiresAnimationSupport": true,
+    "requiresScreenBodyOnly": true,
+    "hardcodedBodyRenderer": false,
+    "apkPreviewParityMode": "sharedSduiJson",
+    "requiresTemplateRenderer": true
+  },
+  "responsiveNav": {
+    "enabled": true,
+    "mode": "autoBreakpoint",
+    "breakpoints": {
+      "tinyPhoneMaxWidth": 340,
+      "compactPhoneMaxWidth": 390,
+      "tabletMinWidth": 600
+    },
+    "contentMaxWidth": {
+      "phone": 560,
+      "tablet": 720,
+      "nav": 620
+    },
+    "topNav": {
+      "tiny": {
+        "height": 52,
+        "marginHorizontal": 10,
+        "marginTop": 5,
+        "iconButtonSize": 34,
+        "titleFontSize": 15,
+        "hideSearch": true,
+        "hideAvatar": true
+      },
+      "compact": {
+        "height": 54,
+        "marginHorizontal": 12,
+        "marginTop": 6,
+        "iconButtonSize": 36,
+        "titleFontSize": 16,
+        "hideSearch": false,
+        "hideAvatar": true
+      },
+      "regular": {
+        "height": 58,
+        "marginHorizontal": 18,
+        "marginTop": 8,
+        "iconButtonSize": 38,
+        "titleFontSize": 18,
+        "hideSearch": false,
+        "hideAvatar": false
+      },
+      "tablet": {
+        "height": 60,
+        "marginHorizontal": 18,
+        "marginTop": 10,
+        "iconButtonSize": 38,
+        "titleFontSize": 18,
+        "maxWidth": 620
+      }
+    },
+    "bottomNav": {
+      "tiny": {
+        "height": 62,
+        "marginHorizontal": 10,
+        "marginBottom": 8,
+        "centerButtonSize": 50,
+        "iconSize": 21
+      },
+      "compact": {
+        "height": 66,
+        "marginHorizontal": 14,
+        "marginBottom": 10,
+        "centerButtonSize": 54,
+        "iconSize": 22
+      },
+      "regular": {
+        "height": 70,
+        "marginHorizontal": 22,
+        "marginBottom": 12,
+        "centerButtonSize": 58,
+        "iconSize": 23
+      },
+      "tablet": {
+        "height": 72,
+        "marginHorizontal": 18,
+        "marginBottom": 14,
+        "centerButtonSize": 58,
+        "iconSize": 23,
+        "maxWidth": 620
+      }
+    },
+    "overlapProtection": {
+      "autoContentPadding": true,
+      "includeSystemSafeArea": true,
+      "keyboardHideBottomNav": true,
+      "minimumTopGap": 14,
+      "minimumBottomGap": 12
+    }
+  },
+  "templateName": "editorialNativeUi",
+  "uiTemplates": {
+    "active": "editorialNativeUi",
+    "available": [
+      "cleanWorkApp",
+      "compactEmployeeApp",
+      "modernCardUi",
+      "progressFocusUi",
+      "minimalFieldUi",
+      "editorialNativeUi"
+    ],
+    "labels": {
+      "cleanWorkApp": "Clean Work App",
+      "compactEmployeeApp": "Compact Employee App",
+      "modernCardUi": "Modern Card UI",
+      "progressFocusUi": "Progress Focus UI",
+      "minimalFieldUi": "Minimal Field UI",
+      "editorialNativeUi": "Editorial Native UI"
+    },
+    "rendererMode": "sduiJsonRenderer",
+    "note": "Editorial Native UI is a normal SDUI template, not a hardcoded APK body."
+  },
+  "meetingAccessConfig": {
+    "enabled": true,
+    "creatorRoles": [
+      "superAdmin",
+      "admin",
+      "projectManager",
+      "teamLead"
+    ],
+    "adminAccessEnabled": true,
+    "adminRoles": [
+      "superAdmin",
+      "admin",
+      "itAdmin"
+    ],
+    "includeAdminsByDefault": true,
+    "allowToggleAdminAccess": true,
+    "supportedProviders": [
+      "googleMeet",
+      "whatsapp",
+      "whatsappBusiness",
+      "browserFallback"
+    ],
+    "meetingUrlFields": [
+      "actionUrl",
+      "meetingUrl",
+      "meetingLink",
+      "meetLink",
+      "googleMeetUrl",
+      "whatsappUrl",
+      "whatsappMeetingUrl",
+      "joinUrl",
+      "conferenceUrl",
+      "url"
+    ],
+    "actions": [
+      "acceptAndJoin",
+      "reject"
+    ],
+    "acceptAndJoinBehavior": "markAcceptedStopLoopAndOpenExternalApp",
+    "rejectBehavior": "markRejectedStopLoop",
+    "nativeNotificationChannel": "urgent_work_alerts_v84_glass_remoteviews",
+    "dedicatedMeetingsPage": true,
+    "superAdminCanCreateMeetingLinks": true,
+    "adminsCanCreateMeetingLinks": true,
+    "managerCanCreateMeetingLinks": true,
+    "teamLeadCanCreateMeetingLinks": true,
+    "adminMeetingAccessDefault": true,
+    "rolesWithCreateAccess": [
+      "superAdmin",
+      "admin",
+      "itAdmin",
+      "projectManager",
+      "teamLead"
+    ],
+    "supportedMeetingProviders": [
+      "googleMeet",
+      "whatsapp",
+      "whatsappBusiness",
+      "browserFallback"
+    ],
+    "notificationActions": [
+      "acceptAndJoinMeeting",
+      "rejectMeeting"
+    ],
+    "nativeAndroidActions": true
+  },
+  "adminPages": {
+    "meetings": {
+      "enabled": true,
+      "label": "Meetings",
+      "icon": "video_call",
+      "route": "meetings",
+      "roles": [
+        "superAdmin",
+        "admin",
+        "itAdmin",
+        "projectManager",
+        "teamLead"
+      ],
+      "dedicatedPage": true,
+      "allowCreateMeetingLinks": true,
+      "allowGoogleMeetLinks": true,
+      "allowWhatsappLinks": true,
+      "showAdminAccessToggle": true,
+      "defaultAdminAccess": true
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "version": 167,
+  "rendererVersion": "employee_sdui_v167_top_nav_explicit_padding_renderer_fix",
+  "layoutConfig": {
+    "initialContentPaddingTop": 82,
+    "initialContentProtectionExtra": 0,
+    "topPaddingBehavior": "scrollAwareInitialOnly",
+    "adaptiveTopPadding": true
+  },
+  "topNav": {
+    "initialContentProtectionPadding": 82,
+    "initialContentProtectionExtra": 0
+  },
+  "floatingTopNav": {
+    "initialContentProtectionPadding": 82,
+    "initialContentProtectionExtra": 0
+  },
+  "scrollAwareTopPadding": {
+    "enabled": true,
+    "fallbackInitialPaddingTop": 82,
+    "initialTopPadding": 82,
+    "initialContentProtectionExtra": 0
+  },
+  "edgeToEdgeConfig": {
+    "topProtection": {
+      "enabled": true,
+      "initialTopPadding": 82,
+      "initialContentProtectionExtra": 0
+    }
+  },
+  "responsiveNav": {
+    "overlapProtection": {
+      "scrollAwareTopPadding": true,
+      "initialTopPadding": 82,
+      "initialContentProtectionExtra": 0
+    }
+  },
+  "rendererCompatibility": {
+    "minVersion": "employee_sdui_v167_top_nav_explicit_padding_renderer_fix",
+    "recommendedVersion": "employee_sdui_v167_top_nav_explicit_padding_renderer_fix",
+    "explicitTopPaddingWinsOverRuntimeSafePadding": true
+  }
+}
