@@ -48,3 +48,11 @@ app.*.map.json
 **/firebase-admin*.json
 **/service-account*.json
 **/secrets/
+
+# Local API and deployment secrets must never be committed.
+.env
+.env.*
+!.env.example
+.vercel/
+**/*credentials*.json
+**/*private-key*.json
