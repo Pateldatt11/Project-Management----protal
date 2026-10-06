@@ -228,4 +228,6 @@ Write in a professional, direct tone. Use short headings or bullets when they im
       source: 'network-exception',
     );
   }
+
+  static Object? buildRequestBody({required String message, required List<BrewHavenChatMessage> history}) {}
 }

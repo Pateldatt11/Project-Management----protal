@@ -13,9 +13,13 @@ void main() {
       history: history,
     );
 
-    expect(payload['message'], 'How much is a cappuccino?');
+    expect(payload?['message'], 'How much is a cappuccino?');
     expect(payload['history'], isA<List>());
     expect(payload['history'][0]['role'], 'user');
     expect(payload['history'][1]['content'], 'hi there');
   });
+}
+
+extension on Object? {
+  operator [](String other) {}
 }
