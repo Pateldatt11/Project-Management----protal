@@ -56,3 +56,4 @@ pmd_work
 pmd_v224_work/
 pmd_*.png
 android/build/
+/lib
