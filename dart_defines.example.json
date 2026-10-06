@@ -1,0 +1,6 @@
+{
+  "GROQ_API_KEY": "replace-with-a-local-groq-key",
+  "ONESIGNAL_REST_API_KEY": "replace-with-a-local-onesignal-rest-key",
+  "ONESIGNAL_APP_ID": "replace-with-your-onesignal-app-id",
+  "BREW_HAVEN_CHAT_URL": "https://api.groq.com/openai/v1/chat/completions"
+}

@@ -58,6 +58,9 @@ app.*.map.json
 .env.*
 !.env.example
 !.env.*.example
+/dart_defines.json
+/dart_defines.local.json
+!/dart_defines.example.json
 *.pem
 *.key
 *.p12

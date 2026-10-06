@@ -78,6 +78,20 @@ flutter build ios --release --dart-define=GROQ_API_KEY=your_valid_key
 flutter build windows --release --dart-define=GROQ_API_KEY=your_valid_key
 ```
 
+For local development, copy `dart_defines.example.json` to
+`dart_defines.json`, fill in the values locally, and use Flutter's defines
+file. The local file is ignored by Git:
+
+```powershell
+Copy-Item dart_defines.example.json dart_defines.json
+flutter run -d chrome --dart-define-from-file=dart_defines.json
+```
+
+The OneSignal REST key and Groq key are read by the service classes through
+`String.fromEnvironment` at build time. Do not put real values in the example
+file. For production web or client builds, prefer a backend proxy because
+build-time values can be extracted from the application binary.
+
 `PROJECT_AI_API_KEY` is also supported and is preferred for new builds:
 
 ```powershell
