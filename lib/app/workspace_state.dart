@@ -705,11 +705,13 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
     required String uid,
     required String email,
     String? displayName,
+    String? companyIdOverride,
   }) async {
     if (!AppConfig.useFirebase || _repository == null) return;
-    if (_firebaseUid == uid && _firebaseCompanyId != null) return;
+    final override = companyIdOverride?.trim();
+    if (override == null && _firebaseUid == uid && _firebaseCompanyId != null) return;
 
-    var companyId = AppConfig.fallbackCompanyId;
+    var companyId = override?.isNotEmpty == true ? override! : AppConfig.fallbackCompanyId;
     final safeName = (displayName?.trim().isNotEmpty ?? false) ? displayName!.trim() : email.split('@').first;
     final db = FirebaseFirestore.instance;
 
@@ -721,7 +723,9 @@ class WorkspaceController extends StateNotifier<WorkspaceState> {
       final userRef = db.doc(FirebasePaths.user(uid));
       final userSnapshot = await userRef.get();
       final userData = userSnapshot.data();
-      companyId = await _resolveCompanyIdForLogin(db: db, uid: uid, userData: userData);
+      if (override?.isEmpty ?? true) {
+        companyId = await _resolveCompanyIdForLogin(db: db, uid: uid, userData: userData);
+      }
       _repository!.activeCompanyId = companyId;
       final isManualPlatformSuperAdmin = userSnapshot.exists &&
           userData != null &&

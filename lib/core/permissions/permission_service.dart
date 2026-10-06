@@ -28,6 +28,11 @@ class PermissionService {
         UserRole.admin,
       ].contains(member.role);
 
+  static bool canManageCampaigns(Member member) => [
+        UserRole.superAdmin,
+        UserRole.admin,
+      ].contains(member.role);
+
   static bool canManageInfrastructure(Member member) => [
         UserRole.superAdmin,
         UserRole.admin,
